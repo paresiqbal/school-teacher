@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,7 +25,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -100,28 +98,46 @@ export default function Login() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel htmlFor="username">Username</FormLabel>
-                <FormControl>
-                  <Input
-                    id="username"
-                    placeholder="e.g., username"
-                    {...form.register("username")}
-                  />
-                </FormControl>
-              </FormItem>
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="e.g., password"
-                    {...form.register("password")}
-                  />
-                </FormControl>
-              </FormItem>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="username" aria-label="username">
+                      Username
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="username"
+                        placeholder="e.g username"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="password" aria-label="password">
+                      Password
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="e.g ******"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <Button type="submit" className="w-full">
                 Sign In
               </Button>
