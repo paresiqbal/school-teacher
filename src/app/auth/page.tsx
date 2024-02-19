@@ -61,7 +61,15 @@ export default function Login() {
       // save token to local storage
       localStorage.setItem("token", response.data.token);
       console.log("Login success");
-      router.push("/dashboard");
+
+      // redirect to different page based on role
+      if (response.data.role === "teacher") {
+        router.push("/teacher");
+      } else if (response.data.role === "admin") {
+        router.push("/admin");
+      } else {
+        console.error("Unknown role:", response.data.role);
+      }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorType = error.response.data.type as UserErrors;
