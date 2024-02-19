@@ -11,7 +11,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="flex flex-col items-center justify-center my-10 p-10 gap-20">
+    <main className="flex flex-col items-center justify-center my-10 gap-20">
       <h1 className="text-2xl lg:text-5xl font-bold text-center">
         SMK NEGERI 1 REJANG LEBONG
       </h1>
