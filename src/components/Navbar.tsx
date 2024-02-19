@@ -12,21 +12,24 @@ export default function Navbar() {
             className="focus:outline-none focus-visible:ring-4 rounded-sm ring-offset-4 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9 z-50"
           >
             <Image
-              src="/placeholder.png"
+              src="/logo.png"
               width={100}
               height={100}
               alt="logo"
-              className="w-5 md:w-64 lg:w-72 rounded-full"
+              className="w-12 md:w-64 lg:w-72"
             />
           </Link>
-          <button id="menu">
+          <button
+            id="menu"
+            className="lg:hidden focus:outline-none focus-visible:ring-4 rounded-sm ring-offset-4 "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-8 h-8"
             >
               <path
                 strokeLinecap="round"
@@ -35,6 +38,11 @@ export default function Navbar() {
               />
             </svg>
           </button>
+          <div>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Home</Link>
+          </div>
         </div>
       </nav>
     </div>
