@@ -38,10 +38,16 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <div>
-            <Link href={"/"}>Home</Link>
-            <Link href={"/"}>Home</Link>
-            <Link href={"/"}>Home</Link>
+          <div className="flex flex-col gap-4 absolute right-0 left-0 top-16 bg-slate-800 text-center p-6">
+            <Link href={"/teacher"} className="py-1 px-6">
+              Home
+            </Link>
+            <Link href={"/teacher"} className="py-1 px-6">
+              Students
+            </Link>
+            <Link href={"/teacher"} className="py-1 px-6">
+              Setting
+            </Link>
           </div>
         </div>
       </nav>
