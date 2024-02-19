@@ -52,38 +52,51 @@ export default function Login() {
   const onSubmit = (data: z.infer<typeof loginSchema>) => {};
 
   return (
-    <div>
+    <div className="max-w-md mx-auto my-8 lg:max-w-lg">
       <Card>
         <CardHeader>
-          <CardTitle>Sign In</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl lg:text-3xl font-bold">
+            Sign In
+          </CardTitle>
+          <CardDescription className="text-sm">
             Enter your email and password below to sign in.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">Submit</Button>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel htmlFor="username">Username</FormLabel>
+                <FormControl>
+                  <Input
+                    id="username"
+                    placeholder="e.g., username"
+                    {...form.register("username")}
+                  />
+                </FormControl>
+              </FormItem>
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormControl>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="e.g., password"
+                    {...form.register("password")}
+                  />
+                </FormControl>
+              </FormItem>
+              <Button type="submit" className="w-full">
+                Sign In
+              </Button>
             </form>
           </Form>
         </CardContent>
       </Card>
+      <div className="text-center py-5">
+        <p>Contact admin if forgot password and username</p>
+        <p>@admin</p>
+      </div>
     </div>
   );
 }
