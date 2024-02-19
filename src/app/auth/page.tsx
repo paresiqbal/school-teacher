@@ -3,6 +3,9 @@
 // next
 import { useRouter } from "next/navigation";
 
+// libaries
+import axios from "axios";
+
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,6 +31,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { UserErrors } from "@/enumError";
 
 const loginSchema = z.object({
   username: z.string().min(2, {
@@ -49,7 +53,39 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof loginSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/user/login",
+        values
+      );
+
+      // save token to local storage
+      localStorage.setItem("token", response.data.token);
+      console.log("Login success");
+      router.push("/dashboard");
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorType = error.response.data.type as UserErrors;
+
+        // checking error type
+        switch (errorType) {
+          case UserErrors.USER_NOT_FOUND:
+          case UserErrors.WRONG_CREDENTIAL:
+            alert("Invalid username or password.");
+            break;
+          case UserErrors.SERVER_ERROR:
+            alert("Server error. Please try again later.");
+            break;
+          default:
+            alert("An unexpected error occurred.");
+        }
+        console.error("Login error:", error.response.data.error);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto my-8 lg:max-w-lg">
