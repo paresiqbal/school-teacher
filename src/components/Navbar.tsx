@@ -15,7 +15,7 @@ export default function Navbar() {
     <div className="max-w-[2000px] mx-auto p-4">
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem className="mx-auto flex items-center justify-between">
+          <div className="mx-auto flex items-center justify-between">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +44,8 @@ export default function Navbar() {
                 className="w-20 md:w-64 lg:w-72"
               />
             </Link>
-          </NavigationMenuItem>
-          <div className="flex flex-col gap-4 absolute left-0 right-0 top-4 p-6 bg-zinc-900 text-lg">
+          </div>
+          <div className="flex flex-col gap-4 absolute top-10 py-6 px-36 bg-zinc-900 text-lg">
             <NavigationMenuItem>
               <Link href="/teacher">Home</Link>
             </NavigationMenuItem>
