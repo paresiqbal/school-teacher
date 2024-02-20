@@ -12,10 +12,16 @@ export default function Navbar() {
 
   return (
     <div className="max-w-[2000px] mx-auto">
-      <nav className="border-b border-stone-300 p-4 flex items-center justify-between">
+      <nav className="border-b border-stone-300 py-4 px-10 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link href="/teacher" className="text-gray-900 dark:text-white">
             SMKN 1 RL
+          </Link>
+          <Link
+            href="/students"
+            className="text-gray-900 dark:text-white hidden lg:block"
+          >
+            Dashboard
           </Link>
           <Link
             href="/students"
