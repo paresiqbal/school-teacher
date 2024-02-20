@@ -35,7 +35,7 @@ export default function Navbar() {
             <Link
               href="/teacher"
               aria-label="go to homepage"
-              className="z-50 md:w-32 lg:w-40"
+              className="md:w-32 lg:w-40  lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9"
             >
               <img
                 src="/logo.png"
@@ -45,7 +45,7 @@ export default function Navbar() {
               />
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuList className="flex flex-col gap-4 absolute right-0 left-0 top-2">
+          <div className="flex flex-col gap-4 absolute left-0 right-0 top-4 p-6 bg-zinc-900 text-lg">
             <NavigationMenuItem>
               <Link href="/teacher">Home</Link>
             </NavigationMenuItem>
@@ -55,13 +55,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link href="/teacher/grade">Grade</Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/teacher/schedule">Schedule</Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/teacher/announcement">Announcement</Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
+          </div>
         </NavigationMenuList>
       </NavigationMenu>
     </div>
