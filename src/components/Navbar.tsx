@@ -12,10 +12,14 @@ export default function Navbar() {
 
   return (
     <div className="max-w-[2000px] mx-auto">
-      <nav className="mx-auto p-4 bg-zinc-900">
-        <div className="mx-auto flex items-center gap-4">
+      <nav className="mx-auto p-4 bg-zinc-900 flex justify-between items-center">
+        {" "}
+        {/* Ensure flex container spans full width */}
+        <div className="flex items-center gap-4">
+          {" "}
+          {/* Left-aligned items */}
           <button
-            className="lg:hidden focus:outline-none focus-visible:ring-4 ring-neutral-900 rounded-sm ring-offset-4 ring-offset-zinc-900 text-neutral-900 hover:text-neutral-600 transition-colors"
+            className="lg:hidden"
             onClick={toggleNavbar} // Attach the toggle function
           >
             <svg
@@ -37,11 +41,10 @@ export default function Navbar() {
             <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
           </Link>
           <div
-            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[70%] lg:w-auto bg-zinc-900 fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
+            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto bg-zinc-900 fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
               isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             }`}
           >
-            {/* Close Button for Mobile View */}
             <button
               onClick={toggleNavbar} // Use the toggle function to close
               className="p-4 lg:hidden"
@@ -52,7 +55,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-8 h-8"
               >
                 <path
                   strokeLinecap="round"
@@ -63,13 +66,21 @@ export default function Navbar() {
             </button>
             <div className="p-6 lg:p-0 lg:flex lg:items-center lg:gap-4">
               <Link
-                href="/"
-                className="block py-1 px-6 focus:outline-none focus-visible:ring-4 ring-neutral-900 rounded-sm ring-offset-4 ring-offset-zinc-900 transition-colors"
+                href="/logout"
+                className="text-white hover:text-gray-400 transition-colors"
               >
                 Home
               </Link>
             </div>
           </div>
+        </div>
+        <div>
+          <Link
+            href="/logout"
+            className="text-white hover:text-gray-400 transition-colors"
+          >
+            Logout
+          </Link>
         </div>
       </nav>
     </div>
