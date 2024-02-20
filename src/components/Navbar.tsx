@@ -34,7 +34,7 @@ export default function Navbar() {
             </svg>
           </button>
           <Link href="/teacher">
-            <img src="/logo.png" alt="logo" className="w-20 md:w-64 lg:w-72" />
+            <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
           </Link>
           <div
             className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[70%] lg:w-auto bg-zinc-900 fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
@@ -68,7 +68,6 @@ export default function Navbar() {
               >
                 Home
               </Link>
-              {/* Adjust the Link components as needed, removing <a> for cleaner JSX in desktop mode */}
             </div>
           </div>
         </div>
