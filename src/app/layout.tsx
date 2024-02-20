@@ -21,7 +21,7 @@ export default function RootLayout({
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body className="lg:p-20">
+        <body>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
