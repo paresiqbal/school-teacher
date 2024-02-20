@@ -94,68 +94,76 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 lg:max-w-lg">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl lg:text-3xl font-bold">
-            Sign In
-          </CardTitle>
-          <CardDescription className="text-sm">
-            Enter your email and password below to sign in.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="username" aria-label="username">
-                      Username
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        id="username"
-                        placeholder="e.g username"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="password" aria-label="password">
-                      Password
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        id="password"
-                        type="password"
-                        placeholder="e.g ******"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full">
-                Sign In
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-      <div className="text-center py-5">
-        <p>Contact admin if forgot password and username</p>
-        <p>@admin</p>
+    <div className="flex flex-col items-center justify-center my-10 p-10 gap-20">
+      <h1 className="text-2xl lg:text-5xl font-bold text-center">
+        SMK NEGERI 1 REJANG LEBONG
+      </h1>
+      <div className="max-w-md mx-auto my-8 lg:max-w-lg">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl lg:text-3xl font-bold">
+              Sign In
+            </CardTitle>
+            <CardDescription className="text-sm">
+              Enter your email and password below to sign in.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="username" aria-label="username">
+                        Username
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          id="username"
+                          placeholder="e.g username"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="password" aria-label="password">
+                        Password
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          id="password"
+                          type="password"
+                          placeholder="e.g ******"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full">
+                  Sign In
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+        <div className="text-center py-5">
+          <p>Contact admin if forgot password and username</p>
+          <p>@admin</p>
+        </div>
       </div>
     </div>
   );
