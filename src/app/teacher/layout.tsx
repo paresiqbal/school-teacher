@@ -8,7 +8,7 @@ export default function TeacherLayout({
   return (
     <>
       <Navbar />
-      <div className="p-10">{children}</div>
+      <div className="p-4 lg:p-10">{children}</div>
     </>
   );
 }
