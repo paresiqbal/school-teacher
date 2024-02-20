@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 
 import {
@@ -11,12 +12,17 @@ import {
 } from "@/components/ui/navigation-menu";
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Toggle menu visibility
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
-    <div className="max-w-[2000px] mx-auto p-4">
+    <div className="max-w-[2000px] mx-auto p-4 relative">
       <NavigationMenu>
         <NavigationMenuList>
           <div className="mx-auto flex items-center justify-between">
-            <button>
+            <button onClick={toggleMenu}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -35,7 +41,7 @@ export default function Navbar() {
             <Link
               href="/teacher"
               aria-label="go to homepage"
-              className="md:w-32 lg:w-40  lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9"
+              className="md:w-32 lg:w-40 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9"
             >
               <img
                 src="/logo.png"
@@ -45,7 +51,12 @@ export default function Navbar() {
               />
             </Link>
           </div>
-          <div className="flex flex-col gap-4 absolute top-10 py-6 px-36 bg-zinc-900 text-lg">
+          {/* Conditionally render this div based on isMenuOpen state */}
+          <div
+            className={`flex flex-col gap-4 absolute top-10 py-6 px-48 bg-zinc-900 text-lg transform ${
+              isMenuOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 ease-in-out`}
+          >
             <NavigationMenuItem>
               <Link href="/teacher">Home</Link>
             </NavigationMenuItem>
