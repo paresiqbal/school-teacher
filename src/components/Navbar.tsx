@@ -88,6 +88,12 @@ export default function Navbar() {
                 href="/logout"
                 className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
+                Staff
+              </Link>
+              <Link
+                href="/logout"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
                 Report
               </Link>
             </div>
