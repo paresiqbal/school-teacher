@@ -130,10 +130,10 @@ export default function Admin() {
               </svg>
             </CardHeader>
             <CardContent>
-              <h2 className="text-2xl font-bold">2 Admin's</h2>
+              <h2 className="text-2xl font-bold">2 Staff</h2>
             </CardContent>
             <CardFooter>
-              <Button variant="secondary">Add New Admin's +</Button>
+              <Button variant="secondary">Add New Staff +</Button>
             </CardFooter>
           </Card>
         </div>
