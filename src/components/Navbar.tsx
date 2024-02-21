@@ -3,7 +3,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 // shadcn
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Profile from "./Profile";
 
 export default function Navbar() {
