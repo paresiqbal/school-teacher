@@ -1,3 +1,9 @@
 export default function Admin() {
-  return <div>Admin</div>;
+  return (
+    <div>
+      <div>
+        <h1>Admin Dashboard</h1>
+      </div>
+    </div>
+  );
 }
