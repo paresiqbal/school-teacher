@@ -13,15 +13,8 @@ export default function Navbar() {
   return (
     <div className="max-w-[2000px] mx-auto">
       <nav className="mx-auto p-4 bg-zinc-900 flex justify-between items-center">
-        {" "}
-        {/* Ensure flex container spans full width */}
         <div className="flex items-center gap-4">
-          {" "}
-          {/* Left-aligned items */}
-          <button
-            className="lg:hidden"
-            onClick={toggleNavbar} // Attach the toggle function
-          >
+          <button className="lg:hidden" onClick={toggleNavbar}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8"
@@ -40,15 +33,13 @@ export default function Navbar() {
           <Link href="/teacher">
             <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
           </Link>
+
           <div
             className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto bg-zinc-900 fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
               isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             }`}
           >
-            <button
-              onClick={toggleNavbar} // Use the toggle function to close
-              className="p-4 lg:hidden"
-            >
+            <button onClick={toggleNavbar} className="p-4 lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -64,16 +55,23 @@ export default function Navbar() {
                 />
               </svg>
             </button>
-            <div className="p-6 lg:p-0 lg:flex lg:items-center lg:gap-4">
+            <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-4">
               <Link
                 href="/logout"
                 className="text-white hover:text-gray-400 transition-colors"
               >
-                Home
+                Dashboard
+              </Link>
+              <Link
+                href="/logout"
+                className="text-white hover:text-gray-400 transition-colors"
+              >
+                Overview
               </Link>
             </div>
           </div>
         </div>
+
         <div>
           <Link
             href="/logout"
