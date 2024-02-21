@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <div className="max-w-[2000px] mx-auto">
-      <nav className="mx-auto p-4 bg-zinc-900 flex justify-between items-center">
+      <nav className="mx-auto py-2 px-4 bg-zinc-900 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <button className="lg:hidden" onClick={toggleNavbar}>
             <svg
@@ -59,18 +59,36 @@ export default function Navbar() {
                 />
               </svg>
             </button>
-            <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-4">
+            <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-6">
               <Link
                 href="/logout"
-                className="text-white hover:text-gray-400 transition-colors"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
-                Dashboard
+                Attandance
               </Link>
               <Link
                 href="/logout"
-                className="text-white hover:text-gray-400 transition-colors"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
-                Overview
+                Student Data
+              </Link>
+              <Link
+                href="/logout"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
+                Teacher Data
+              </Link>
+              <Link
+                href="/logout"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
+                Class
+              </Link>
+              <Link
+                href="/logout"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
+                Report
               </Link>
             </div>
           </div>
