@@ -66,7 +66,7 @@ export default function Navbar() {
                 Attandance
               </Link>
               <Link
-                href="/logout"
+                href="/admin/student"
                 className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
                 Student Data

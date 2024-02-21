@@ -1,6 +1,6 @@
 "use client";
 // next
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // shadcn
 import {
@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function Admin() {
+  const router = useRouter();
+
   return (
     <div className="mx-auto">
       <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -43,7 +45,12 @@ export default function Admin() {
               <h2 className="text-2xl font-bold">1,000 Students</h2>
             </CardContent>
             <CardFooter>
-              <Button variant="secondary">Add New Student's +</Button>
+              <Button
+                variant="secondary"
+                onClick={() => router.push("/admin/student")}
+              >
+                Add New Student's +
+              </Button>
             </CardFooter>
           </Card>
         </div>
