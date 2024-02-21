@@ -1,3 +1,6 @@
+// next
+import { useRouter } from "next/navigation";
+
 // shadcn
 import {
   DropdownMenu,
@@ -10,6 +13,14 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Profile() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    router.push("/auth");
+  };
+
   return (
     <div className="px-5">
       <DropdownMenu>
@@ -23,7 +34,7 @@ export default function Profile() {
           <DropdownMenuLabel>Super Admin</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
