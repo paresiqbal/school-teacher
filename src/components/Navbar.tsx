@@ -2,6 +2,10 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// shadcn
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Profile from "./Profile";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false); // State to manage the navbar visibility
 
@@ -73,12 +77,7 @@ export default function Navbar() {
         </div>
 
         <div>
-          <Link
-            href="/logout"
-            className="text-white hover:text-gray-400 transition-colors"
-          >
-            Logout
-          </Link>
+          <Profile />
         </div>
       </nav>
     </div>
