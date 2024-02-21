@@ -1,11 +1,9 @@
+"use client";
+// next
+import Link from "next/link";
+
 // shadcn
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Admin() {
   return (
