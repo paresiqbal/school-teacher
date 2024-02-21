@@ -3,12 +3,20 @@
 import Link from "next/link";
 
 // shadcn
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function Admin() {
   return (
     <div className="mx-auto">
       <h1 className="text-2xl font-bold">Dashboard</h1>
+
       <div className="mx-auto py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div role="students">
           <Card role="students">
@@ -34,6 +42,9 @@ export default function Admin() {
             <CardContent>
               <h2 className="text-2xl font-bold">1,000 Students</h2>
             </CardContent>
+            <CardFooter>
+              <Button variant="secondary">Add New Student's +</Button>
+            </CardFooter>
           </Card>
         </div>
 
@@ -61,6 +72,9 @@ export default function Admin() {
             <CardContent>
               <h2 className="text-2xl font-bold">80 Teacher's</h2>
             </CardContent>
+            <CardFooter>
+              <Button variant="secondary">Add New Teacher's +</Button>
+            </CardFooter>
           </Card>
         </div>
 
@@ -88,6 +102,9 @@ export default function Admin() {
             <CardContent>
               <h2 className="text-2xl font-bold">12 Classes</h2>
             </CardContent>
+            <CardFooter>
+              <Button variant="secondary">Add New Classes +</Button>
+            </CardFooter>
           </Card>
         </div>
 
@@ -115,6 +132,9 @@ export default function Admin() {
             <CardContent>
               <h2 className="text-2xl font-bold">2 Admin's</h2>
             </CardContent>
+            <CardFooter>
+              <Button variant="secondary">Add New Admin's +</Button>
+            </CardFooter>
           </Card>
         </div>
       </div>
