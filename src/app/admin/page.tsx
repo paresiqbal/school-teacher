@@ -9,7 +9,7 @@ export default function Admin() {
   return (
     <div className="mx-auto">
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      <div className="mx-auto py-10 flex flex-col gap-4">
+      <div className="mx-auto py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div role="students">
           <Card role="students">
             <CardHeader className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
