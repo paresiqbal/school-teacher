@@ -22,8 +22,6 @@ export default function RootLayout({
 }>) {
   return (
     <AuthContextProvider>
-      {" "}
-      {/* Use AuthContextProvider here */}
       <html lang="en" suppressHydrationWarning>
         <head />
         <body className={inter.className}>
