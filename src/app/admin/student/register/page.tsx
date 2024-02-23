@@ -3,6 +3,8 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // library
 import axios from "axios";
@@ -15,7 +17,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -28,7 +29,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { UserErrors } from "@/enumError";
-import { useRouter } from "next/navigation";
 
 // schema
 const formSchema = z.object({
@@ -62,7 +62,7 @@ export default function RegisterStudent() {
   const router = useRouter();
 
   const goBack = () => {
-    router.back(); // Navigate back to the previous page
+    router.back();
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -82,8 +82,6 @@ export default function RegisterStudent() {
         "http://localhost:3001/student/register",
         values
       );
-      console.log(response.data);
-      alert("Student account created successfully");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.error;
