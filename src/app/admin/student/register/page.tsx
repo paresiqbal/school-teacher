@@ -37,6 +37,24 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
+  fullName: z.string().min(1, {
+    message: "Full name is required.",
+  }),
+  nis: z
+    .string()
+    .transform((val) => parseInt(val, 10))
+    .refine((val) => !isNaN(val) && val > 0, {
+      message: "NIS must be a positive number.",
+    }),
+  yearEntry: z
+    .string()
+    .transform((val) => parseInt(val, 10))
+    .refine(
+      (val) => !isNaN(val) && val >= 1900 && val <= new Date().getFullYear(),
+      {
+        message: "Year of entry must be between 1900 and the current year.",
+      }
+    ),
 });
 
 export default function RegisterStudent() {
@@ -45,13 +63,16 @@ export default function RegisterStudent() {
     defaultValues: {
       username: "",
       password: "",
+      fullName: "",
+      nis: 0,
+      yearEntry: new Date().getFullYear(),
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/register",
+        "http://localhost:3001/student/register",
         values
       );
       console.log(response.data);
@@ -88,11 +109,11 @@ export default function RegisterStudent() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="username" aria-label="username">
+                    <FormLabel htmlFor="username" aria-label="Username">
                       Username
                     </FormLabel>
                     <FormControl>
-                      <Input id="username" placeholder="pares" {...field} />
+                      <Input id="username" placeholder="Username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -103,11 +124,71 @@ export default function RegisterStudent() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password" aria-label="password">
+                    <FormLabel htmlFor="password" aria-label="Password">
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input id="password" type="password" {...field} />
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="fullName" aria-label="Full Name">
+                      Full Name
+                    </FormLabel>
+                    <FormControl>
+                      <Input id="fullName" placeholder="Full Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="nis"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="nis" aria-label="NIS">
+                      NIS
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="nis"
+                        type="number"
+                        placeholder="NIS Number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="yearEntry"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="yearEntry" aria-label="Year of Entry">
+                      Year of Entry
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="yearEntry"
+                        type="number"
+                        placeholder="Year of Entry"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
