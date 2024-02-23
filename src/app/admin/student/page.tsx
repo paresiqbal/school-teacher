@@ -1,16 +1,18 @@
 "use client";
 // next
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // shadcn
 import { Button } from "@/components/ui/button";
 
 export default function Student() {
-  const [showForm, setShowForm] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="space-y-4">
-      <Button onClick={() => setShowForm(!showForm)}>Add new student +</Button>
+      <Button onClick={() => router.push("/admin/student/register")}>
+        Add new student +
+      </Button>
     </div>
   );
 }

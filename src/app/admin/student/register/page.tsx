@@ -96,9 +96,9 @@ export default function RegisterStudent() {
     <div className="flex flex-col gap-4 items-center justify-center my-20">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Create an account</CardTitle>
+          <CardTitle>Create an student account</CardTitle>
           <CardDescription>
-            Enter your email below to create your account.
+            Enter student full name and class below to create student account.
           </CardDescription>
         </CardHeader>
         <CardContent>
