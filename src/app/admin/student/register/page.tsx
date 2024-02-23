@@ -28,6 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { UserErrors } from "@/enumError";
+import { useRouter } from "next/navigation";
 
 // schema
 const formSchema = z.object({
@@ -58,6 +59,12 @@ const formSchema = z.object({
 });
 
 export default function RegisterStudent() {
+  const router = useRouter();
+
+  const goBack = () => {
+    router.back(); // Navigate back to the previous page
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,7 +83,7 @@ export default function RegisterStudent() {
         values
       );
       console.log(response.data);
-      // Redirect or show success message
+      alert("Student account created successfully");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.error;
@@ -201,6 +208,9 @@ export default function RegisterStudent() {
           </Form>
         </CardContent>
       </Card>
+      <div>
+        <Button onClick={goBack}>Go back</Button>
+      </div>
     </div>
   );
 }
