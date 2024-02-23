@@ -201,12 +201,6 @@ export default function RegisterStudent() {
           </Form>
         </CardContent>
       </Card>
-      <div className="flex gap-2">
-        <p className="text-gray-600">Already have an account ?</p>
-        <a href="/" className="hover:text-primary">
-          Sign In
-        </a>
-      </div>
     </div>
   );
 }
