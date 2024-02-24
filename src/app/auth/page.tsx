@@ -3,6 +3,9 @@
 // next
 import { useRouter } from "next/navigation";
 
+// auth
+import { useAuth } from "@/context/AuthContext";
+
 // libaries
 import axios from "axios";
 
@@ -32,18 +35,18 @@ import { Input } from "@/components/ui/input";
 import { UserErrors } from "@/enumError";
 
 const loginSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
+  username: z
+    .string()
+    .min(2, { message: "Username must be at least 2 characters." }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters." }),
 });
 
 export default function Login() {
   const router = useRouter();
-
-  const form = useForm<z.infer<typeof loginSchema>>({
+  const { login } = useAuth(); // Destructure the login function from useAuth
+  const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       username: "",
@@ -58,11 +61,11 @@ export default function Login() {
         values
       );
 
-      // save token to local storage
-      localStorage.setItem("token", response.data.token);
+      // Call the login function from the context with the token and role
+      login(response.data.token, response.data.role);
       console.log("Login success");
 
-      // redirect to different page based on role
+      // Redirect to different page based on role
       if (response.data.role === "teacher") {
         router.push("/teacher");
       } else if (response.data.role === "admin") {
@@ -72,15 +75,16 @@ export default function Login() {
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        const errorType = error.response.data.type as UserErrors;
+        // Extract the errorType from the response
+        const errorType = error.response.data.type;
 
-        // checking error type
+        // Handle different types of errors
         switch (errorType) {
-          case UserErrors.USER_NOT_FOUND:
-          case UserErrors.WRONG_CREDENTIAL:
+          case "USER_NOT_FOUND":
+          case "WRONG_CREDENTIAL":
             alert("Invalid username or password.");
             break;
-          case UserErrors.SERVER_ERROR:
+          case "SERVER_ERROR":
             alert("Server error. Please try again later.");
             break;
           default:

@@ -2,11 +2,18 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// auth
+import { useAuth } from "@/context/AuthContext";
+
 // shadcn
 import Profile from "./Profile";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); // State to manage the navbar visibility
+  const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, role } = useAuth();
+
+  const logoRedirectPath =
+    role === "teacher" ? "/teacher" : role === "admin" ? "/admin" : "/";
 
   // Toggle function to open/close the navbar
   const toggleNavbar = () => {
@@ -33,7 +40,7 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <Link href="/">
+          <Link href={logoRedirectPath}>
             <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
           </Link>
 
@@ -98,7 +105,6 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-
         <div>
           <Profile />
         </div>
