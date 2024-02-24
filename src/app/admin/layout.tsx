@@ -1,4 +1,8 @@
+// components
 import Navbar from "@/components/Navbar";
+
+// context api
+import { AuthContextProvider } from "@/context/AuthContext";
 
 export default function AdminLayout({
   children,
@@ -7,8 +11,10 @@ export default function AdminLayout({
 }) {
   return (
     <>
-      <Navbar />
-      <div className="p-4 lg:p-10">{children}</div>
+      <AuthContextProvider>
+        <Navbar />
+        <div className="p-4 lg:p-10">{children}</div>
+      </AuthContextProvider>
     </>
   );
 }
