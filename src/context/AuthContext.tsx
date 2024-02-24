@@ -34,6 +34,15 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     role: null,
   });
 
+  // login function
+  const login = (token: string, role: "teacher" | "admin") => {
+    setAuthState({
+      isAuthenticated: true,
+      token: token,
+      role: role,
+    });
+  };
+
   return (
     <AuthContext.Provider value={defaultValues}>
       {children}
