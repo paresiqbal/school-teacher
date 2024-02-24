@@ -1,5 +1,5 @@
 "use client";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -27,7 +27,12 @@ interface AuthProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
-  const contextValue: IAuthContext = {};
+  // set default state
+  const [authState, setAuthState] = useState<AuthState>({
+    isAuthenticated: false,
+    token: null,
+    role: null,
+  });
 
   return (
     <AuthContext.Provider value={defaultValues}>
