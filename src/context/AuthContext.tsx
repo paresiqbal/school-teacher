@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -41,11 +41,35 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       token: token,
       role: role,
     });
+
+    // save token to local storage
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+  };
+
+  // logout function
+  const logout = () => {
+    setAuthState({
+      isAuthenticated: false,
+      token: null,
+      role: null,
+    });
+
+    // remove token from local storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  };
+
+  // pass context
+  const contextValue = {
+    ...authState,
+    login,
+    logout,
   };
 
   return (
-    <AuthContext.Provider value={defaultValues}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
