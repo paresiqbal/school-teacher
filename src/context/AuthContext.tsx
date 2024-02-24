@@ -7,7 +7,10 @@ interface AuthState {
   role: "teacher" | "admin" | null;
 }
 
-interface IAuthContext {}
+interface IAuthContext extends AuthState {
+  login: (token: string, role: "teacher" | "admin") => void;
+  logout: () => void;
+}
 
 const defaultValues: IAuthContext = {};
 
