@@ -12,7 +12,13 @@ interface IAuthContext extends AuthState {
   logout: () => void;
 }
 
-const defaultValues: IAuthContext = {};
+const defaultValues: IAuthContext = {
+  isAuthenticated: false,
+  token: null,
+  role: null,
+  login: () => {},
+  logout: () => {},
+};
 
 export const AuthContext = createContext<IAuthContext>(defaultValues);
 
