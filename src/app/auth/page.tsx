@@ -32,7 +32,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { UserErrors } from "@/enumError";
 
 const loginSchema = z.object({
   username: z
@@ -45,7 +44,8 @@ const loginSchema = z.object({
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useAuth(); // Destructure the login function from useAuth
+  const { login } = useAuth();
+
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -75,7 +75,6 @@ export default function Login() {
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        // Extract the errorType from the response
         const errorType = error.response.data.type;
 
         // Handle different types of errors
