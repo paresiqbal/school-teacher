@@ -10,9 +10,8 @@ export const options: NextAuthOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         try {
-          // Ensure credentials are included in the request
           const response = await axios.post(
             "http://localhost:3001/user/login",
             {
@@ -27,7 +26,6 @@ export const options: NextAuthOptions = {
             return null;
           }
         } catch (error) {
-          // Handle errors, e.g., log them or return a custom error message
           console.error("Authentication error:", error);
           return null;
         }

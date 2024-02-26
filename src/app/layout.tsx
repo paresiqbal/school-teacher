@@ -4,9 +4,7 @@ import "./globals.css";
 
 // components
 import { ThemeProvider } from "@/components/theme-provider";
-
-// context
-import { AuthContextProvider } from "@/context/AuthContext";
+import AuthProvider from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthContextProvider>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={inter.className}>
+        <AuthProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -33,8 +31,8 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </AuthContextProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }
