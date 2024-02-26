@@ -1,5 +1,5 @@
-"use client";
 import { createContext, useContext, useState } from "react";
+import { useCookies } from "react-cookie"; // Import useCookies
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -27,11 +27,11 @@ interface AuthProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
-  // set default state
+  const [cookies, setCookie, removeCookie] = useCookies(["token", "role"]); // Use cookies
   const [authState, setAuthState] = useState<AuthState>({
-    isAuthenticated: false,
-    token: null,
-    role: null,
+    isAuthenticated: !!cookies.token, // Determine authentication based on token cookie existence
+    token: cookies.token || null,
+    role: cookies.role as "teacher" | "admin" | null,
   });
 
   // login function
@@ -42,9 +42,9 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       role: role,
     });
 
-    // save token to local storage
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
+    // Save token and role to cookies instead of local storage
+    setCookie("token", token, { path: "/" }); // Add options as needed
+    setCookie("role", role, { path: "/" }); // Add options as needed
   };
 
   // logout function
@@ -55,9 +55,9 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       role: null,
     });
 
-    // remove token from local storage
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    // Remove token and role from cookies
+    removeCookie("token", { path: "/" }); // Add options as needed
+    removeCookie("role", { path: "/" }); // Add options as needed
   };
 
   // pass context
