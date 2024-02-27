@@ -96,6 +96,9 @@ export default function Navbawr() {
             </div>
           </div>
         </div>
+        <div>
+          <button className="text-white">Login</button>
+        </div>
       </nav>
     </div>
   );
