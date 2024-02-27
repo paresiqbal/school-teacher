@@ -27,7 +27,7 @@ export default function Home() {
           </h2>
           <Button className="w-full lg:w-auto">Sign In</Button>
           <p className="text-sm lg:text-base text-center lg:text-left">
-            Contact admin @admin
+            Contact admin @superadmin
           </p>
         </div>
       </div>
