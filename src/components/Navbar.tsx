@@ -1,8 +1,9 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbawr() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Toggle function to open/close the navbar
