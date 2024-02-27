@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbawr() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   // Toggle function to open/close the navbar
   const toggleNavbar = () => {
@@ -97,7 +99,9 @@ export default function Navbawr() {
           </div>
         </div>
         <div>
-          <button className="text-white">Login</button>
+          <button onClick={() => router.push("/login")} className="text-white">
+            Login
+          </button>
         </div>
       </nav>
     </div>
