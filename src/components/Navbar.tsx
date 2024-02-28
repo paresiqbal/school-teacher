@@ -1,13 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
-export default function Navbawr() {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
+
+  const { status }: { status: any } = useSession();
 
   // Toggle function to open/close the navbar
   const toggleNavbar = () => {
@@ -70,9 +70,15 @@ export default function Navbawr() {
           </div>
         </div>
         <div>
-          <button onClick={() => signIn()} className="text-white">
-            Login
-          </button>
+          {status === "authenticated" ? (
+            <button onClick={() => signOut()} className="text-white">
+              Logout
+            </button>
+          ) : (
+            <button onClick={() => signIn()} className="text-white">
+              Login
+            </button>
+          )}
         </div>
       </nav>
     </div>
