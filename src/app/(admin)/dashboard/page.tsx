@@ -1,7 +1,7 @@
 export default function Dashboard() {
   return (
-    <div>
-      <h1>Welcome to Admin Dashboard</h1>
+    <div className="text-center p-10">
+      <h1 className="text-2xl">Welcome to Admin Dashboard</h1>
     </div>
   );
 }
