@@ -1,20 +1,41 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const handleLogin = (e: any) => {
+  const { push } = useRouter();
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
-    // catch form data
-    fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: e.currentTarget.email.value,
-        password: e.currentTarget.password.value,
-      }),
-    });
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        username: e.target.username.value,
+        password: e.target.password.value,
+        callbackUrl: "/dashboard",
+      });
+
+      if (!res?.error) {
+        push("/dashboard");
+      } else {
+        console.log("error", res.error);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+
+    // // catch form data
+    // fetch("/api/auth/login", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     email: e.currentTarget.email.value,
+    //     password: e.currentTarget.password.value,
+    //   }),
+    // });
   };
+
   return (
     <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
       <form className="space-y-6" action="#" onSubmit={(e) => handleLogin(e)}>
@@ -23,15 +44,15 @@ export default function LoginPage() {
         </h3>
         <div>
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
           >
             Your email
           </label>
           <input
-            type="email"
-            name="email"
-            id="email"
+            type="username"
+            name="username"
+            id="username"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             placeholder="name@company.com"
           />
