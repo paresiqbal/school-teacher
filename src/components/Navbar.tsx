@@ -33,7 +33,7 @@ export default function Navbawr() {
               />
             </svg>
           </button>
-          <Link href={"/"}>
+          <Link href={"/dashboard"}>
             <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
           </Link>
 
