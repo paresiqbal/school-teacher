@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Navbawr() {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,7 +70,7 @@ export default function Navbawr() {
           </div>
         </div>
         <div>
-          <button onClick={() => router.push("/login")} className="text-white">
+          <button onClick={() => signIn()} className="text-white">
             Login
           </button>
         </div>

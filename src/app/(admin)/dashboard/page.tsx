@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { data: session, status } = useSession();
+  const { data: session, status }: { data: any; status: any } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
+    if (status === "unauthenticated" && session?.user.role != "admin") {
       router.push("/login");
     }
-  }, [router, status]);
+  }, [router, session?.user.role, status]);
 
   return (
     <div className="text-center p-10">
