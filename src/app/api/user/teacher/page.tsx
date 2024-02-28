@@ -8,7 +8,12 @@ interface TeacherType {
 }
 
 async function getTeachersData() {
-  const res = await fetch("http://localhost:3001/user/teachers");
+  const res = await fetch("http://localhost:3001/user/teachers", {
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+    },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch");
   }
