@@ -60,40 +60,10 @@ export default function Navbawr() {
             </button>
             <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-6">
               <Link
-                href="/logout"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Attandance
-              </Link>
-              <Link
-                href="/admin/student"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Student Data
-              </Link>
-              <Link
-                href="/logout"
+                href="/teacher"
                 className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
                 Teacher Data
-              </Link>
-              <Link
-                href="/logout"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Class
-              </Link>
-              <Link
-                href="/logout"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Staff
-              </Link>
-              <Link
-                href="/logout"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Report
               </Link>
             </div>
           </div>
