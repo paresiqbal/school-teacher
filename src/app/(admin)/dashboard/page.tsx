@@ -1,10 +1,14 @@
-import User from "@/app/api/user/User";
+import Teacher from "@/app/api/user/teacher/page";
 
 export default function Dashboard() {
+  const params = {
+    slug: [],
+  };
+
   return (
     <div>
       <h1>Welcome to Admin Dashboard</h1>
-      <User />
+      <Teacher params={params} />
     </div>
   );
 }
