@@ -2,17 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function RegsiterPage() {
-  const { push } = useRouter();
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setError("");
-    setIsLoading(true);
 
     const res = await fetch("/api/auth/register", {
       method: "POST",
@@ -23,20 +16,10 @@ export default function RegsiterPage() {
         role: e.target.role.value,
       }),
     });
-
-    if (res.status === 200) {
-      e.target.reset();
-      push("/login");
-      setIsLoading(false);
-    } else {
-      setError("Username Already Exists");
-      setIsLoading(false);
-    }
   };
 
   return (
     <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 flex-col">
-      {error !== "" && <div className="text-red-600">test</div>}
       <form className="space-y-6" action="#" onSubmit={(e) => handleSubmit(e)}>
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
           Register
