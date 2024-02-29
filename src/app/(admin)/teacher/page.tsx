@@ -1,4 +1,15 @@
+// fetch teacher
 import Teacher from "@/app/api/user/teacher/page";
+
+// shadcn
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function page() {
   const params = {
@@ -6,11 +17,11 @@ export default function page() {
   };
 
   return (
-    <div className="text-center p-10">
-      <h1 className="text-2xl">Teacher Data</h1>
-      <div className="flex items-center justify-center my-10">
+    <div className="p-10">
+      <h1 className="text-3xl font-bold tracking-tight">Teacher management</h1>
+      <Card className="rounded-xl border p-5 mx-auto my-10 bg-card text-card-foreground shadow col-span-3">
         <Teacher params={params} />
-      </div>
+      </Card>
     </div>
   );
 }

@@ -1,8 +1,11 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 type TeacherProps = { params: { slug: string[] } };
 
 interface TeacherType {
   _id: string;
   username: string;
+  fullname: string;
   role: string;
   // Add more fields as per your product structure
 }
@@ -11,7 +14,7 @@ async function getTeachersData() {
   const res = await fetch("http://localhost:3001/user/teachers", {
     cache: "force-cache",
     next: {
-      revalidate: 3600,
+      revalidate: 10,
     },
   });
   if (!res.ok) {
@@ -28,17 +31,30 @@ export default async function getTeachers(props: TeacherProps) {
   console.log(teachers);
 
   return (
-    <>
-      <div>
-        <h1>{params.slug ? "Detail Teacers" : "Teachers Page"}</h1>
-        {teachers.length > 0 &&
-          teachers.map((teacher: TeacherType) => (
-            <div key={teacher._id}>
-              <h2>{teacher.username}</h2>
-              <p>{teacher.role}</p>
-            </div>
-          ))}
+    <div>
+      <div className="mb-8">
+        <h3 className="font-semibold leading-none tracking-tight">
+          {params.slug ? "Recent Teachers" : "Teachers Page"}
+        </h3>
+        <p className="text-sm text-muted-foreground">Teacher table</p>
       </div>
-    </>
+      {teachers.length > 0 &&
+        teachers.map((teacher: TeacherType) => (
+          <div key={teacher._id} className="flex items-center">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="ml-4 space-y-1">
+              <h2 className="text-sm font-medium leading-none">
+                {teacher.fullname}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {teacher.username}
+              </p>
+            </div>
+          </div>
+        ))}
+    </div>
   );
 }
