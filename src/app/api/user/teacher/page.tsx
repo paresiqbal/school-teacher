@@ -31,8 +31,8 @@ export default async function getTeachers(props: TeacherProps) {
   console.log(teachers);
 
   return (
-    <div>
-      <div className="mb-8">
+    <div className="flex flex-col gap-4">
+      <div className="mb-2">
         <h3 className="font-semibold leading-none tracking-tight">
           {params.slug ? "Recent Teachers" : "Teachers Page"}
         </h3>
