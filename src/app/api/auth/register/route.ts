@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
   try {
-    const { username, password, role, fullName } = await request.json();
+    const { username, password, fullName, role } = await request.json();
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           username,
           password: hashedPassword,
-          role,
           fullName,
+          role,
         }),
       }
     );
