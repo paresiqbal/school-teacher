@@ -25,15 +25,6 @@ export default function LoginPage() {
     } catch (error) {
       console.log("error", error);
     }
-
-    // // catch form data
-    // fetch("/api/auth/login", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: e.currentTarget.email.value,
-    //     password: e.currentTarget.password.value,
-    //   }),
-    // });
   };
 
   return (
