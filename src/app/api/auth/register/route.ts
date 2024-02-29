@@ -5,6 +5,34 @@ export async function POST(request: NextRequest) {
   try {
     const { username, password, role, fullName } = await request.json();
 
+    // Check if username already exists
+    const checkUsernameResponse = await fetch(
+      "http://localhost:3001/user/check-username",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      }
+    );
+
+    const checkUsernameData = await checkUsernameResponse.json();
+
+    if (checkUsernameResponse.ok) {
+      if (checkUsernameData.exists) {
+        return NextResponse.json({
+          status: "error",
+          message: "Username already exists",
+        });
+      }
+    } else {
+      return NextResponse.json({
+        status: "error",
+        message: "Error checking username existence",
+      });
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
