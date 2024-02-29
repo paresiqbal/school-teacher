@@ -1,8 +1,19 @@
+"use client";
+
 import Link from "next/link";
 
 export default function RegsiterPage() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        username: e.target.username.value,
+        password: e.target.password.value,
+        role: e.target.role.value,
+      }),
+    });
   };
 
   return (
@@ -13,17 +24,16 @@ export default function RegsiterPage() {
         </h3>
         <div>
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
           >
-            Your email
+            Your username
           </label>
           <input
-            type="email"
-            name="email"
-            id="email"
+            type="text"
+            name="username"
+            id="username"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="name@company.com"
           />
         </div>
         <div>
@@ -40,6 +50,10 @@ export default function RegsiterPage() {
             placeholder="••••••••"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           />
+        </div>
+        <div>
+          <label htmlFor="role">Role :</label>
+          <input type="text" name="role" id="role" />
         </div>
         <div className="flex items-start">
           <div className="flex items-start">
