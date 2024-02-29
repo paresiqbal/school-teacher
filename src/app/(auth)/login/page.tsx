@@ -1,19 +1,56 @@
 "use client";
 
+// next
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+// zod
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+// shadcn
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const formSchema = z.object({
+  username: z.string().min(4, {
+    message: "Username must be at least 4 characters.",
+  }),
+  password: z.string().min(4, {
+    message: "Password must be at least 6 characters.",
+  }),
+});
 
 export default function LoginPage() {
   const { push } = useRouter();
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  const handleLogin = async () => {
+    const values = form.getValues();
 
     try {
       const res = await signIn("credentials", {
         redirect: false,
-        username: e.target.username.value,
-        password: e.target.password.value,
+        username: values.username,
+        password: values.password,
         callbackUrl: "/dashboard",
       });
 
@@ -28,75 +65,66 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <form className="space-y-6" action="#" onSubmit={(e) => handleLogin(e)}>
-        <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-          Sign in to our platform
-        </h3>
-        <div>
-          <label
-            htmlFor="username"
-            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
-          >
-            Your email
-          </label>
-          <input
-            type="username"
-            name="username"
-            id="username"
-            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="name@company.com"
-          />
+    <div className="flex flex-col p-4 justify-center items-center min-h-screen">
+      <div className="mx-auto flex p-5 lg:mx-auto w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Login to an account
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Enter your username and password below
+          </p>
         </div>
-        <div>
-          <label
-            htmlFor="password"
-            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
-          >
-            Your password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="••••••••"
-            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="username"
+                      type="text"
+                      id="username"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="password"
+                      type="password"
+                      id="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </Form>
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">Don't have account ?</p>
+          <p className="text-sm text-muted-foreground underline underline-offset-4">
+            Contact admin @superadmin
+          </p>
         </div>
-        <div className="flex items-start">
-          <div className="flex items-start">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                aria-describedby="remember"
-                type="checkbox"
-                className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-              />
-            </div>
-          </div>
-          <Link
-            href="#"
-            className="text-sm text-blue-700 hover:underline ml-auto dark:text-blue-500"
-          >
-            Lost Password?
-          </Link>
-        </div>
-        <button
-          type="submit"
-          className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login to your account
-        </button>
-        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-          Not registered?
-          <Link
-            href="/register"
-            className="text-blue-700 hover:underline dark:text-blue-500"
-          >
-            Create account
-          </Link>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }
