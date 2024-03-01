@@ -47,8 +47,6 @@ export default function TeacherRegister() {
 
   const handleRegistration = async (values: z.infer<typeof formSchema>) => {
     console.log("Registration values:", values);
-
-    push("/login");
   };
 
   return (
