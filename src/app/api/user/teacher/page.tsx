@@ -50,13 +50,12 @@ export default async function getTeachers(props: TeacherProps) {
               <h2 className="text-sm font-medium leading-none">
                 {teacher.fullname}
               </h2>
-              <p>{teacher._id}</p>
               <p className="text-sm text-muted-foreground">
                 {teacher.username}
               </p>
             </div>
             <Button>
-              <Link href={`/teacher/teacherDetail/${teacher._id}`}>Edit</Link>
+              <Link href={`/teacher/${teacher._id}`}>Edit</Link>
             </Button>
           </div>
         ))}
