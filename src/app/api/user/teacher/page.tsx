@@ -14,7 +14,7 @@ async function getTeachersData() {
   const res = await fetch("http://localhost:3001/user/teachers", {
     cache: "force-cache",
     next: {
-      revalidate: 10,
+      revalidate: 3,
     },
   });
   if (!res.ok) {
