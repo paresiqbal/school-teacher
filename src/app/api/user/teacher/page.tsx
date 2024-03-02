@@ -15,7 +15,7 @@ async function getTeachersData() {
   const res = await fetch("http://localhost:3001/user/teachers", {
     cache: "force-cache",
     next: {
-      revalidate: 3,
+      revalidate: 0,
     },
   });
   if (!res.ok) {
@@ -50,10 +50,14 @@ export default async function getTeachers(props: TeacherProps) {
               <h2 className="text-sm font-medium leading-none">
                 {teacher.fullname}
               </h2>
+              <p>{teacher._id}</p>
               <p className="text-sm text-muted-foreground">
                 {teacher.username}
               </p>
             </div>
+            <Button>
+              <Link href={`/teacher/teacherDetail/${teacher._id}`}>Edit</Link>
+            </Button>
           </div>
         ))}
     </div>

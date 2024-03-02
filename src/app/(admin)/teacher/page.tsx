@@ -1,6 +1,6 @@
 // component
 import Teacher from "@/app/api/user/teacher/page";
-import TeacherRegister from "./TeacherRegister/page";
+import TeacherRegister from "./TeacherRegister";
 
 // shadcn
 import { Card } from "@/components/ui/card";
