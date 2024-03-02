@@ -1,4 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type TeacherProps = { params: { slug: string[] } };
 
@@ -7,7 +9,6 @@ interface TeacherType {
   username: string;
   fullname: string;
   role: string;
-  // Add more fields as per your product structure
 }
 
 async function getTeachersData() {
