@@ -1,9 +1,5 @@
 "use client";
 
-// next
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,8 +30,6 @@ const formSchema = z.object({
 });
 
 export default function TeacherRegister() {
-  const { push } = useRouter();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,7 +40,32 @@ export default function TeacherRegister() {
   });
 
   const handleRegistration = async (values: z.infer<typeof formSchema>) => {
-    console.log("Registration values:", values);
+    // Adding the role "teacher" to the registration values
+    const registrationValues = { ...values, role: "teacher" };
+
+    try {
+      // Assuming you have an API endpoint to handle registration at "/api/register"
+      const response = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationValues),
+      });
+
+      if (!response.ok) {
+        // Handle response errors
+        throw new Error("Failed to register");
+      }
+
+      // Assuming the API returns the registered user data
+      const data = await response.json();
+      console.log("Registration successful:", data);
+
+      // Redirect or perform additional actions upon successful registration
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
 
   return (
