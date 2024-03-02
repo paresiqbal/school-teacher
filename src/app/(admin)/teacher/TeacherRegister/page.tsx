@@ -69,14 +69,14 @@ export default function TeacherRegister() {
   };
 
   return (
-    <div className="flex flex-col p-4 justify-center items-center min-h-screen">
-      <div className="mx-auto flex p-5 lg:mx-auto w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="text-center">
+    <div className="flex flex-col p-4 justify-center items-center">
+      <div className="w-full flex-col justify-center">
+        <div className="text-center pb-4">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Register an account
+            Register an teacher account
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your details below
+            Enter your username, password and full name to register an teacher
           </p>
         </div>
         <Form {...form}>
