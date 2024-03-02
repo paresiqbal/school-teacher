@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -44,7 +45,6 @@ export default function TeacherRegister() {
     const registrationValues = { ...values, role: "teacher" };
 
     try {
-      // Assuming you have an API endpoint to handle registration at "/api/register"
       const response = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: {
@@ -54,17 +54,21 @@ export default function TeacherRegister() {
       });
 
       if (!response.ok) {
-        // Handle response errors
         throw new Error("Failed to register");
       }
 
-      // Assuming the API returns the registered user data
-      const data = await response.json();
-      console.log("Registration successful:", data);
+      console.log("Registration values:", values);
 
-      // Redirect or perform additional actions upon successful registration
+      setTimeout(() => {
+        toast("Registration successful", {
+          description: "You can now log in with your new account.",
+        });
+      }, 1000); // Remove setTimeout when implementing your actual API call
     } catch (error) {
       console.error("Registration failed:", error);
+      toast("Registration failed", {
+        description: "Please check your details and try again.",
+      });
     }
   };
 
