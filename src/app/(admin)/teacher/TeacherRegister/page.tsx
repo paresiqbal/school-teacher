@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -30,6 +31,8 @@ const formSchema = z.object({
 });
 
 export default function TeacherRegister() {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,17 +59,19 @@ export default function TeacherRegister() {
         throw new Error("Failed to register");
       }
 
-      // Assuming the response includes data you'd like to log
       const data = await response.json();
       console.log("Registration successful:", data);
-
-      // Display an alert for successful registration
-      alert(
-        "Registration successful. You can now log in with your new account."
-      );
+      toast({
+        title: "Registration successful.",
+        description: "You can now log in with your new account.",
+      });
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please check your details and try again.");
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
     }
   };
 
