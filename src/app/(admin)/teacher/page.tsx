@@ -1,9 +1,9 @@
-// fetch teacher
+// component
 import Teacher from "@/app/api/user/teacher/page";
+import TeacherRegister from "./TeacherRegister/page";
 
 // shadcn
 import { Card } from "@/components/ui/card";
-import TeacherRegister from "./TeacherRegister/page";
 
 export default function page() {
   const params = {
