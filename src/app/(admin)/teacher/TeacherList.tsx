@@ -5,7 +5,7 @@ import Link from "next/link";
 type TeacherProps = { params: { slug: string[] } };
 
 interface TeacherType {
-  _id: string;
+  id: string;
   username: string;
   fullname: string;
   role: string;
@@ -41,7 +41,7 @@ export default async function TeacherList(props: TeacherProps) {
       </div>
       {teachers.length > 0 &&
         teachers.map((teacher: TeacherType) => (
-          <div key={teacher._id} className="flex items-center">
+          <div key={teacher.id} className="flex items-center">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
@@ -55,7 +55,7 @@ export default async function TeacherList(props: TeacherProps) {
               </p>
             </div>
             <Button>
-              <Link href={`/teacher/${teacher._id}`}>Edit</Link>
+              <Link href={`/teacher/${teacher.id}`}>Edit</Link>
             </Button>
           </div>
         ))}
