@@ -1,5 +1,5 @@
 // component
-import Teacher from "@/app/api/user/teacher/page";
+import TeacherList from "./TeacherList";
 import TeacherRegister from "./TeacherRegister";
 
 // shadcn
@@ -18,7 +18,7 @@ export default function page() {
         <TeacherRegister />
       </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
-        <Teacher params={params} />
+        <TeacherList params={params} />
       </Card>
     </div>
   );
