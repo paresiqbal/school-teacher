@@ -5,7 +5,7 @@ import TeacherRegister from "./TeacherRegister";
 // shadcn
 import { Card } from "@/components/ui/card";
 
-export default function page() {
+export default function TeacherPage() {
   const params = {
     slug: [],
   };
