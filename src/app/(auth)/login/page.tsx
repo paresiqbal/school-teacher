@@ -3,7 +3,6 @@
 // next
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -119,7 +118,7 @@ export default function LoginPage() {
           </form>
         </Form>
         <div className="text-center">
-          <p className="text-sm text-muted-foreground">Don't have account ?</p>
+          <p className="text-sm text-muted-foreground">Dont have account ?</p>
           <p className="text-sm text-muted-foreground underline underline-offset-4">
             Contact admin @superadmin
           </p>
