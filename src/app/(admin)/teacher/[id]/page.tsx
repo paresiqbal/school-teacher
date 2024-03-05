@@ -1,29 +1,3 @@
-// type ParamsType = {
-//   id: string;
-// };
-
-// async function getTeacherDetails(id: string) {
-//   const res = await fetch("http://localhost:3001/user/teacher/" + id, {
-//     next: {
-//       revalidate: 0,
-//     },
-//   });
-
-//   return res.json();
-// }
-
-// export default async function TeacherDetails({
-//   params,
-// }: {
-//   params: ParamsType;
-// }) {
-//   const teacher = await getTeacherDetails(params.id);
-//   return (
-//     <div>
-//       <h1>{teacher.fullname}</h1>
-//     </div>
-//   );
-// }
 "use client";
 
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
@@ -52,7 +26,6 @@ async function updateTeacherDetails(id: string, data: Teacher) {
 
 export default function TeacherDetails({ params }: { params: ParamsType }) {
   const [teacher, setTeacher] = useState<Teacher | null>(null);
-  const [editMode, setEditMode] = useState<boolean>(false);
   const [formData, setFormData] = useState<Teacher>({
     fullname: "",
     username: "",
@@ -86,8 +59,6 @@ export default function TeacherDetails({ params }: { params: ParamsType }) {
     try {
       if (teacher) {
         await updateTeacherDetails(params.id, formData);
-        setTeacher(formData);
-        setEditMode(false);
         alert("Teacher details updated successfully");
       }
     } catch (error) {
@@ -100,54 +71,50 @@ export default function TeacherDetails({ params }: { params: ParamsType }) {
     <div>
       {teacher ? (
         <div>
-          <h1>{teacher.fullname}</h1>
-          {editMode ? (
-            <form onSubmit={handleSubmit}>
-              <label>
-                Full Name:
-                <input
-                  type="text"
-                  name="fullname"
-                  value={formData.fullname}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label>
-                Username:
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label>
-                Password:
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label>
-                NIP:
-                <input
-                  type="text"
-                  name="nip"
-                  value={formData.nip}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <button type="submit">Update</button>
-            </form>
-          ) : (
-            <button onClick={() => setEditMode(true)}>Edit</button>
-          )}
+          <h1>Edit Teacher Details</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Full Name:
+              <input
+                type="text"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleInputChange}
+              />
+            </label>
+            <br />
+            <label>
+              Username:
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+            </label>
+            <br />
+            <label>
+              Password:
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </label>
+            <br />
+            <label>
+              NIP:
+              <input
+                type="text"
+                name="nip"
+                value={formData.nip}
+                onChange={handleInputChange}
+              />
+            </label>
+            <br />
+            <button type="submit">Update</button>
+          </form>
         </div>
       ) : (
         <p>Loading teacher details...</p>
