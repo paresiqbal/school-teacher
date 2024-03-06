@@ -38,7 +38,7 @@ export default async function TeacherPage() {
       </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         {teachers.map((teacher) => (
-          <div key={teacher._id} className="flex justify-between">
+          <div key={teacher._id} className="flex justify-between py-2">
             <div className="flex gap-2 items-center">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
