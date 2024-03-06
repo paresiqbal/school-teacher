@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# School-teacher
 
-First, run the development server:
+This web application allows users to track student attendance and manage grades. It features functionalities for teachers and students:
+
+
+## Features
+
+- Teachers: Check attendance for their assigned classes, View teacher information for the classes they teach, make a report of attendance
+- Admins: Manage all the data such create, edit, and delete teacher and students account
+- Students: View their grades and class attendance history.
+
+This project acts as the Backend for two separate frontend applications: "Teacher & Admin" and "Students."
+## Tech Stack
+
+**Client:** Next, TailwindCSS, Schadcn, Zod
+
+**Server:** Typescript, Node, Express, MongoDB, bcrypt
+you can find it here:
+https://github.com/paresiqbal/school-app.git
+
+
+## Installation and Setup:
+
+Clone the project:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/paresiqbal/school-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install dependencies:
+```bash
+  cd school-app
+  npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Usage:
+```bash
+  npm run dev
+```
+This starts the development server, allowing you to test your application locally.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Build for production:
+```bash
+  npm run build
+```
+This creates an optimized build of your application, ready for deployment to a hosting platform.
+## API Reference
 
-## Learn More
+#### Get all teacher
 
-To learn more about Next.js, take a look at the following resources:
+```http
+  GET /user/teachers
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Get all student
+```http
+  GET /student/teachers
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
 
-## Deploy on Vercel
+#### Get one teacher
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+  GET /user/teacher/${id}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Get one teacher
+
+```http
+  GET /student/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`NEXTAUTH_SECRET`
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+
+## License
+Created by my self
+You can comot and use it ;D
+
+
+## Screenshots
+
+Landing page
+![image](https://github.com/paresiqbal/school-teacher/assets/73816062/c1507efe-0922-4196-99c5-d2d2908d9fc3)
+
+Teacher Page
+![image](https://github.com/paresiqbal/school-teacher/assets/73816062/bdd7b08e-172d-43e4-b05f-890cc1a5ce65)
+
