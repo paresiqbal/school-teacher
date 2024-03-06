@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -31,8 +30,6 @@ const formSchema = z.object({
 });
 
 export default function TeacherRegister() {
-  const { toast } = useToast();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,17 +58,14 @@ export default function TeacherRegister() {
 
       const data = await response.json();
       console.log("Registration successful:", data);
-      toast({
-        title: "Registration successful.",
-        description: "You can now log in with your new account.",
-      });
+      alert(
+        "Registration successful. You can now log in with your new account."
+      );
     } catch (error) {
       console.error("Registration failed:", error);
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-      });
+      alert(
+        "Uh oh! Something went wrong. There was a problem with your request."
+      );
     }
   };
 
