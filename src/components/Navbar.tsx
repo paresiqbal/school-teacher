@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +36,13 @@ export default function Navbar() {
             </svg>
           </button>
           <Link href={"/dashboard"}>
-            <img src="/logo.png" alt="logo" className="w-20 md:w-28 lg:w-36" />
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={500}
+              height={500}
+              className="w-20 md:w-28 lg:w-36"
+            />
           </Link>
 
           <div
@@ -64,7 +71,13 @@ export default function Navbar() {
                 href="/teacher"
                 className="text-white lg:text-sm hover:text-gray-400 transition-colors"
               >
-                Teacher Data
+                Teacher
+              </Link>
+              <Link
+                href="/student"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
+                Student
               </Link>
             </div>
           </div>
