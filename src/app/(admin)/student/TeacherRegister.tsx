@@ -29,7 +29,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function TeacherRegister() {
+export default function StudentRegister() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,11 +40,10 @@ export default function TeacherRegister() {
   });
 
   const handleRegistration = async (values: z.infer<typeof formSchema>) => {
-    // Adding the role "teacher" to the registration values
-    const registrationValues = { ...values, role: "teacher" };
+    const registrationValues = { ...values, role: "student" };
 
     try {
-      const response = await fetch("http://localhost:3001/user/register", {
+      const response = await fetch("http://localhost:3001/student/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +58,7 @@ export default function TeacherRegister() {
       const data = await response.json();
       console.log("Registration successful:", data);
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error("Failed to register:", error);
       alert(
         "Uh oh! Something went wrong. There was a problem with your request."
       );
@@ -71,10 +70,11 @@ export default function TeacherRegister() {
       <div className="w-full flex-col justify-center">
         <div className="text-center pb-4">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Register an teacher account
+            Register an student account
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your username, password and full name to register an teacher
+            Enter your username, password,full name and year of entry to
+            register an teacher
           </p>
         </div>
         <Form {...form}>
