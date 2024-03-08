@@ -1,9 +1,10 @@
 "use client";
 
-// zod
+// library
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+// import QRCode from "qrcode";
 
 // shadcn
 import { Button } from "@/components/ui/button";
@@ -60,10 +61,12 @@ export default function StudentRegister() {
         body: JSON.stringify(registrationValues),
       });
 
+      // const studentId = registrationValues.nis;
+      // const qrCode = await QRCode.toDataURL(studentId.toString());
+
       if (!response.ok) {
         throw new Error("Uh oh! Failed to register student.");
       }
-
       const data = await response.json();
       console.log("Registration successful:", data);
     } catch (error) {
