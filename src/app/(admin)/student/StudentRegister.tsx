@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,14 +19,20 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
+  fullname: z.string().min(3, {
+    message: "Full name is required.",
+  }),
   username: z.string().min(4, {
     message: "Username must be at least 4 characters.",
   }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  fullname: z.string().min(1, {
-    message: "Full name is required.",
+  nis: z.coerce.number().int().min(4, {
+    message: "NIS must be at least 4 digits.",
+  }),
+  yearEntry: z.coerce.number().int().min(4, {
+    message: "Year of entry must be at least 4 digits.",
   }),
 });
 
@@ -33,9 +40,11 @@ export default function StudentRegister() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      fullname: "",
       username: "",
       password: "",
-      fullname: "",
+      nis: 0,
+      yearEntry: 0,
     },
   });
 
@@ -52,16 +61,13 @@ export default function StudentRegister() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to register");
+        throw new Error("Uh oh! Failed to register student.");
       }
 
       const data = await response.json();
       console.log("Registration successful:", data);
     } catch (error) {
-      console.error("Failed to register:", error);
-      alert(
-        "Uh oh! Something went wrong. There was a problem with your request."
-      );
+      console.error("Uh oh! Something went wrong.", error);
     }
   };
 
@@ -73,8 +79,7 @@ export default function StudentRegister() {
             Register an student account
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your username, password,full name and year of entry to
-            register an teacher
+            Enter student details to register an account.
           </p>
         </div>
         <Form {...form}>
@@ -114,6 +119,9 @@ export default function StudentRegister() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs">
+                    Username must be lowercase and unique.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -129,6 +137,42 @@ export default function StudentRegister() {
                       placeholder="password"
                       type="password"
                       id="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="nis"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>NIS</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="NIS"
+                      type="number"
+                      id="nis"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="yearEntry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Year of Entry</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Year of Entry"
+                      type="number"
+                      id="yearEntry"
                       {...field}
                     />
                   </FormControl>

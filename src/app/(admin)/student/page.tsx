@@ -1,8 +1,7 @@
 // next
 import Link from "next/link";
 
-// components
-import StudentRegister from "./TeacherRegister";
+import StudentRegister from "./StudentRegister";
 
 // shadcn
 import { Card } from "@/components/ui/card";
@@ -32,8 +31,8 @@ export default async function StudentPage() {
   return (
     <div className="p-10">
       <div>
-        <h1 className="text-3xl font-bold">Teacher management</h1>
-        <p>create and manage teacher data</p>
+        <h1 className="text-3xl font-bold">Student management</h1>
+        <p>create and manage student data</p>
       </div>
       <Card className="my-5 bg-card">
         <StudentRegister />
