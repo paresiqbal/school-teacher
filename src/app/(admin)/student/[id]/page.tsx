@@ -1,26 +1,43 @@
-type ParamsType = {
+"use client";
+
+// zod
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+interface IStudent {
+  username: string;
+  password: string;
+  fullname: string;
+  nis: string;
+}
+
+interface Iid {
   id: string;
-};
+}
 
-async function getStudentsDetails(id: string) {
-  const res = await fetch("http://localhost:4000/students/" + id, {
-    next: {
-      revalidate: 0,
+const studentSchema = z.object({
+  username: z.string().min(4),
+  password: z.string().min(6),
+  fullname: z.string().min(1),
+  nis: z.string().min(1),
+});
+
+async function updateStudentDetail(id: string, data: IStudent) {
+  const res = await fetch(`http://localhost:3001/user/student/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
   });
-
   return res.json();
 }
 
-export default async function StudentDetails({
-  params,
-}: {
-  params: ParamsType;
-}) {
-  const student = await getStudentsDetails(params.id);
+export default function StudentDetails() {
   return (
     <div>
-      <h1>{student.fullname}</h1>
+      <h1></h1>
     </div>
   );
 }
