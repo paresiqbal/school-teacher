@@ -42,7 +42,7 @@ export default async function TeacherPage() {
             <div className="flex gap-2 items-center">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>TC</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
                 <p className="text-sm font-medium leading-none">

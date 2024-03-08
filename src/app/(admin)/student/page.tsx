@@ -1,8 +1,14 @@
 // next
 import Link from "next/link";
 
+// shadcn
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 interface Student {
-  id: number;
+  _id: number;
+  username: string;
   fullname: string;
   class: string;
 }
@@ -21,14 +27,39 @@ export default async function StudentPage() {
   const students = await getStudentsData();
 
   return (
-    <div>
-      {students.map((student) => (
-        <div key={student.id}>
-          <h2>{student.fullname}</h2>
-          <p>{student.class}</p>
-          <Link href={`/student/${student.id}`}>Edit</Link>
-        </div>
-      ))}
+    <div className="p-10">
+      <div>
+        <h1 className="text-3xl font-bold">Teacher management</h1>
+        <p>create and manage teacher data</p>
+      </div>
+      <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
+        {students.map((student) => (
+          <div key={student._id} className="flex justify-between py-2">
+            <div className="flex gap-2 items-center">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>ST</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="text-sm font-medium leading-none">
+                  {student.username}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {student.fullname}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button>
+                <Link href={`/student/${student._id}`}>Edit</Link>
+              </Button>
+              <Button variant="destructive">
+                <Link href={"#"}>Delete</Link>
+              </Button>
+            </div>
+          </div>
+        ))}
+      </Card>
     </div>
   );
 }
