@@ -1,6 +1,9 @@
 // next
 import Link from "next/link";
 
+// components
+import StudentRegister from "./TeacherRegister";
+
 // shadcn
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,6 +35,9 @@ export default async function StudentPage() {
         <h1 className="text-3xl font-bold">Teacher management</h1>
         <p>create and manage teacher data</p>
       </div>
+      <Card className="my-5 bg-card">
+        <StudentRegister />
+      </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         {students.map((student) => (
           <div key={student._id} className="flex justify-between py-2">
