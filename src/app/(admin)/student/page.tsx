@@ -1,3 +1,4 @@
+// next
 import Link from "next/link";
 
 interface Student {
@@ -6,8 +7,8 @@ interface Student {
   class: string;
 }
 
-async function getStudents(): Promise<Student[]> {
-  const res = await fetch("http://localhost:4000/students", {
+async function getStudentsData(): Promise<Student[]> {
+  const res = await fetch("http://localhost:3001/student/students", {
     next: {
       revalidate: 0,
     },
@@ -17,7 +18,7 @@ async function getStudents(): Promise<Student[]> {
 }
 
 export default async function StudentPage() {
-  const students = await getStudents();
+  const students = await getStudentsData();
 
   return (
     <div>
