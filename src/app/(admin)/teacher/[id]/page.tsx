@@ -44,15 +44,6 @@ async function updateTeacherDetails(id: string, data: Teacher) {
 }
 
 export default function TeacherDetails({ params }: { params: ParamsType }) {
-  const form = useForm<z.infer<typeof teacherSchema>>({
-    resolver: zodResolver(teacherSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-      fullname: "",
-    },
-  });
-
   const [teacher, setTeacher] = useState<Teacher | null>(null);
   const [formData, setFormData] = useState<Teacher>({
     fullname: "",
