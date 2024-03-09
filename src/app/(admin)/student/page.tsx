@@ -1,5 +1,8 @@
+"use client";
+
 // next
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 import StudentRegister from "./StudentRegister";
 
@@ -25,8 +28,32 @@ async function getStudentsData(): Promise<Student[]> {
   return res.json();
 }
 
-export default async function StudentPage() {
-  const students = await getStudentsData();
+async function deleteStudent(id: number): Promise<void> {
+  try {
+    const res = await fetch(`http://localhost:3001/student/delete/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+    throw error;
+  }
+}
+
+export default function StudentPage() {
+  const [students, setStudents] = useState<Student[]>([]);
+
+  useEffect(() => {
+    getStudentsData().then(setStudents);
+  }, []);
+
+  const handleDelete = async (id: number) => {
+    await deleteStudent(id);
+    setStudents(students.filter((student) => student._id !== id));
+  };
 
   return (
     <div className="p-10">
@@ -58,8 +85,11 @@ export default async function StudentPage() {
               <Button>
                 <Link href={`/student/${student._id}`}>Edit</Link>
               </Button>
-              <Button variant="destructive">
-                <Link href={"#"}>Delete</Link>
+              <Button
+                variant="destructive"
+                onClick={() => handleDelete(student._id)}
+              >
+                Delete
               </Button>
             </div>
           </div>

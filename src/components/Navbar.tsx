@@ -39,8 +39,8 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="logo"
-              width={500}
-              height={500}
+              width={300}
+              height={300}
               className="w-20 md:w-28 lg:w-36"
             />
           </Link>
