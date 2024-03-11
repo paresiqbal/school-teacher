@@ -18,6 +18,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface IMajor {
   _id: string;
@@ -77,4 +86,39 @@ export default function CreateClasses() {
       console.error("Uh oh! Something went wrong.", error);
     }
   };
+
+  return (
+    <div className="flex flex-col">
+      <div className="text-center pb-4">
+        <h2 className="underline">Create an Class</h2>
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(createClass)}>
+          <FormField
+            control={form.control}
+            name="level"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Level</FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select a level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="X">X</SelectItem>
+                        <SelectItem value="XI">XI</SelectItem>
+                        <SelectItem value="XII">XII</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </div>
+  );
 }
