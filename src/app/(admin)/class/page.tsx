@@ -8,6 +8,12 @@ interface IMajor {
   major: string;
 }
 
+interface IClass {
+  _id: string;
+  level: string;
+  major: string;
+}
+
 // get all majors
 async function getMajors(): Promise<IMajor[]> {
   const response = await fetch("http://localhost:3001/class/majors", {
@@ -19,10 +25,24 @@ async function getMajors(): Promise<IMajor[]> {
   return response.json();
 }
 
+// get all classes
+async function getClass(): Promise<IClass[]> {
+  const response = await fetch("http://localhost:3001/class/classes", {
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  return response.json();
+}
+
 export default function ClassPage() {
   const [majors, setMajors] = useState<IMajor[]>([]);
+  const [classes, setClasses] = useState<IClass[]>([]);
+
   useEffect(() => {
     getMajors().then((data) => setMajors(data));
+    getClass().then((data) => setClasses(data));
   }, []);
 
   return (
@@ -34,6 +54,11 @@ export default function ClassPage() {
       <div className="flex">
         <div className="w-5/10">
           <CreateClass />
+          {classes.map((kelas, index) => (
+            <p key={kelas._id}>
+              {kelas.level} - {kelas.major}
+            </p>
+          ))}
         </div>
         <div className="w-5/10">
           <CreateMajor />
