@@ -11,7 +11,8 @@ interface IMajor {
 interface IClass {
   _id: string;
   level: string;
-  major: string;
+  majorId: string;
+  majorName: string;
 }
 
 // get all majors
@@ -56,7 +57,7 @@ export default function ClassPage() {
           <CreateClass />
           {classes.map((kelas, index) => (
             <p key={kelas._id}>
-              {kelas.level} - {kelas.major}
+              {kelas.level} - {kelas.majorName}
             </p>
           ))}
         </div>
