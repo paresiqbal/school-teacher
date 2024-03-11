@@ -55,4 +55,26 @@ export default function CreateClasses() {
 
     getMajors();
   }, []);
+
+  const createClass = async (values: z.infer<typeof formSchema>) => {
+    const classValues = { ...values };
+
+    try {
+      const response = await fetch("http://localhost:3001/class/addclass", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(classValues),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to create major. Please try again.");
+      }
+
+      const classData = await response.json();
+      console.log("Class created:", classData);
+    } catch (error) {
+      console.error("Uh oh! Something went wrong.", error);
+    }
+  };
 }
