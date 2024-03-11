@@ -32,7 +32,7 @@ export default function CreateMajor() {
     },
   });
 
-  const registerMajor = async (values: z.infer<typeof formSchema>) => {
+  const createMajor = async (values: z.infer<typeof formSchema>) => {
     const majorValues = { ...values };
 
     try {
@@ -59,7 +59,7 @@ export default function CreateMajor() {
         <h2>Create an Major</h2>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(registerMajor)} className="space-y-2">
+        <form onSubmit={form.handleSubmit(createMajor)} className="space-y-2">
           <FormField
             control={form.control}
             name="major"
