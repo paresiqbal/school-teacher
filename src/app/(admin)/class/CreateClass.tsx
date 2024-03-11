@@ -1,60 +1,20 @@
-"use client";
-
-// library
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-// shadcn
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface IMajor {
   _id: string;
   majorName: string;
 }
 
-const formSchema = z.object({
-  level: z.enum(["X", "XI", "XII"]),
-  majorId: z.string(),
-});
-
 export default function CreateClasses() {
   const [majors, setMajors] = useState<IMajor[]>([]);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      level: undefined,
-      majorId: "",
-    },
-  });
+  const [level, setLevel] = useState("");
+  const [majorId, setMajorId] = useState("");
 
   // fetch all majors
   useEffect(() => {
     const getMajors = async () => {
       try {
         const response = await fetch("http://localhost:3001/class/majors");
-
         const majorData = await response.json();
         setMajors(majorData);
       } catch (error) {
@@ -65,8 +25,10 @@ export default function CreateClasses() {
     getMajors();
   }, []);
 
-  const createClass = async (values: z.infer<typeof formSchema>) => {
-    const classValues = { ...values };
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const classValues = { level, majorId };
 
     try {
       const response = await fetch("http://localhost:3001/class/addclass", {
@@ -76,12 +38,15 @@ export default function CreateClasses() {
         },
         body: JSON.stringify(classValues),
       });
+
       if (!response.ok) {
-        throw new Error("Failed to create major. Please try again.");
+        throw new Error("Failed to create class. Please try again.");
       }
 
       const classData = await response.json();
       console.log("Class created:", classData);
+
+      // Reset form or handle success
     } catch (error) {
       console.error("Uh oh! Something went wrong.", error);
     }
@@ -90,63 +55,41 @@ export default function CreateClasses() {
   return (
     <div className="flex flex-col">
       <div className="text-center pb-4">
-        <h2 className="underline">Create an Class</h2>
+        <h2 className="underline">Create a Class</h2>
       </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
-          <FormField
-            control={form.control}
-            name="level"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Level</FormLabel>
-                <FormControl>
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value="X">X</SelectItem>
-                        <SelectItem value="XI">XI</SelectItem>
-                        <SelectItem value="XII">XII</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="majorId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Major</FormLabel>
-                <FormControl>
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a Major" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {majors.map((major) => (
-                          <SelectItem key={major._id} value={major._id}>
-                            {major.majorName}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Create Class
-          </Button>
-        </form>
-      </Form>
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <select
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+          className="w-[180px]"
+        >
+          <option value="" disabled>
+            Select a Level
+          </option>
+          <option value="X">X</option>
+          <option value="XI">XI</option>
+          <option value="XII">XII</option>
+        </select>
+
+        <select
+          value={majorId}
+          onChange={(e) => setMajorId(e.target.value)}
+          className="w-[180px]"
+        >
+          <option value="" disabled>
+            Select a Major
+          </option>
+          {majors.map((major) => (
+            <option key={major._id} value={major._id}>
+              {major.majorName}
+            </option>
+          ))}
+        </select>
+
+        <button type="submit" className="w-full">
+          Create Class
+        </button>
+      </form>
     </div>
   );
 }
