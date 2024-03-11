@@ -56,7 +56,7 @@ export default function CreateMajor() {
   return (
     <div className="flex flex-col p-4 w-full justify-center items-center">
       <div className="text-center pb-4">
-        <h2>Create an Major</h2>
+        <h2 className="underline">Create an Major</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createMajor)} className="space-y-2">
@@ -67,11 +67,11 @@ export default function CreateMajor() {
               <FormItem>
                 <FormLabel>Major</FormLabel>
                 <FormDescription>
-                  Major name should be abbreviated e.g TKJ 1, TBSM 1.
+                  Major name should be abbreviated.
                 </FormDescription>
                 <FormControl>
                   <Input
-                    placeholder="TKJ 1"
+                    placeholder="TKJ 1, TBSM 2, etc."
                     type="text"
                     id="major"
                     {...field}
@@ -82,7 +82,7 @@ export default function CreateMajor() {
             )}
           />
           <Button type="submit" className="w-full">
-            Create
+            Create major
           </Button>
         </form>
       </Form>

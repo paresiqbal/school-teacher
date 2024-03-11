@@ -10,25 +10,15 @@ import { z } from "zod";
 
 // shadcn
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 
 export interface IMajor {
   _id?: string;
@@ -98,25 +88,36 @@ export default function CreateClass() {
   return (
     <div className="flex flex-col p-4 w-full justify-center items-center">
       <div className="text-center pb-4">
-        <h2>Create an Classes</h2>
+        <h2 className="underline">Create an Classes</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
           <Select>
-            <SelectTrigger className="w-[180px]">
+            <label
+              htmlFor="select class"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Class
+            </label>
+            <SelectTrigger className="w-[600px]">
               <SelectValue placeholder="Select a class" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Class</SelectLabel>
-                <SelectItem value="X">X</SelectItem>
-                <SelectItem value="XI">XI</SelectItem>
-                <SelectItem value="XII">XII</SelectItem>
+                <SelectItem value="X">X (Sepuluh)</SelectItem>
+                <SelectItem value="XI">XI (Sebelas)</SelectItem>
+                <SelectItem value="XII">XII (Dua belas)</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
           <Select {...form.register("major")}>
-            <SelectTrigger className="w-[180px]">
+            <label
+              htmlFor="select class"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Major
+            </label>
+            <SelectTrigger className="w-[600px]">
               <SelectValue placeholder="Select a major" />
             </SelectTrigger>
             <SelectContent>
@@ -130,7 +131,7 @@ export default function CreateClass() {
             </SelectContent>
           </Select>
           <Button type="submit" className="w-full">
-            Create
+            Create class
           </Button>
         </form>
       </Form>
