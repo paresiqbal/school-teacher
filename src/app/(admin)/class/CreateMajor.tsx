@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  major: z.string().min(3, {
+  majorName: z.string().min(3, {
     message: "Major name should be abbreviated.",
   }),
 });
@@ -28,7 +28,7 @@ export default function CreateMajor() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      major: "",
+      majorName: "",
     },
   });
 
@@ -62,7 +62,7 @@ export default function CreateMajor() {
         <form onSubmit={form.handleSubmit(createMajor)} className="space-y-2">
           <FormField
             control={form.control}
-            name="major"
+            name="majorName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Major</FormLabel>
@@ -73,7 +73,7 @@ export default function CreateMajor() {
                   <Input
                     placeholder="TKJ 1, TBSM 2, etc."
                     type="text"
-                    id="major"
+                    id="majorName"
                     {...field}
                   />
                 </FormControl>
