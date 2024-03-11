@@ -76,7 +76,7 @@ export default function StudentRegister() {
 
   return (
     <div className="flex flex-col p-4 justify-center items-center">
-      <div className="w-full flex-col justify-center">
+      <div className="w-full flex flex-col p-4 justify-center items-center">
         <div className="text-center pb-4">
           <h1 className="text-2xl font-semibold tracking-tight">
             Register an student account
