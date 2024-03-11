@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 
 // shadcn
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 interface IMajor {
   _id: string;
@@ -40,11 +41,18 @@ export default function ClassPage() {
         <p>create major and class.</p>
       </div>
       <div className="flex py-10">
-        <Card className="p-6 w-6/12">
+        <Card className="p-6 w-2/5">
           <CreateMajor />
           <Separator className="my-4" />
-          {majors.map((major, index) => (
-            <p key={major._id}>{major.majorName}</p>
+          <p>Major list</p>
+          {majors.map((major) => (
+            <div
+              key={major._id}
+              className="py-2 flex justify-between items-center"
+            >
+              <p>{major.majorName}</p>
+              <Button variant="destructive">Delete</Button>
+            </div>
           ))}
         </Card>
       </div>
