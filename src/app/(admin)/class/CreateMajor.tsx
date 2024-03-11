@@ -59,16 +59,19 @@ export default function CreateMajor() {
         <h2>Create an Major</h2>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(registerMajor)}>
+        <form onSubmit={form.handleSubmit(registerMajor)} className="space-y-2">
           <FormField
             control={form.control}
             name="major"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Major</FormLabel>
+                <FormDescription>
+                  Major name should be abbreviated e.g TKJ 1, TBSM 1.
+                </FormDescription>
                 <FormControl>
                   <Input
-                    placeholder="Major"
+                    placeholder="TKJ 1"
                     type="text"
                     id="major"
                     {...field}
@@ -79,7 +82,7 @@ export default function CreateMajor() {
             )}
           />
           <Button type="submit" className="w-full">
-            Register
+            Create
           </Button>
         </form>
       </Form>

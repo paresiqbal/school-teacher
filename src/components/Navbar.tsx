@@ -79,6 +79,12 @@ export default function Navbar() {
               >
                 Student
               </Link>
+              <Link
+                href="/class"
+                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+              >
+                Classes
+              </Link>
             </div>
           </div>
         </div>
