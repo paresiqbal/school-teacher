@@ -93,7 +93,7 @@ export default function CreateClasses() {
         <h2 className="underline">Create an Class</h2>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(createClass)}>
+        <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
           <FormField
             control={form.control}
             name="level"
@@ -102,7 +102,7 @@ export default function CreateClasses() {
                 <FormLabel>Level</FormLabel>
                 <FormControl>
                   <Select>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a level" />
                     </SelectTrigger>
                     <SelectContent>
@@ -117,6 +117,34 @@ export default function CreateClasses() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="majorId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Major</FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a Major" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {majors.map((major) => (
+                          <SelectItem key={major._id} value={major._id}>
+                            {major.majorName}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full">
+            Create Class
+          </Button>
         </form>
       </Form>
     </div>
