@@ -1,17 +1,13 @@
 "use client";
+
+// next
 import { useEffect, useState } from "react";
-import CreateClass from "./CreateClass";
+
+// componesnts
 import CreateMajor from "./CreateMajor";
 
 interface IMajor {
   _id: string;
-  major: string;
-}
-
-interface IClass {
-  _id: string;
-  level: string;
-  majorId: string;
   majorName: string;
 }
 
@@ -26,24 +22,11 @@ async function getMajors(): Promise<IMajor[]> {
   return response.json();
 }
 
-// get all classes
-async function getClass(): Promise<IClass[]> {
-  const response = await fetch("http://localhost:3001/class/classes", {
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  return response.json();
-}
-
 export default function ClassPage() {
   const [majors, setMajors] = useState<IMajor[]>([]);
-  const [classes, setClasses] = useState<IClass[]>([]);
 
   useEffect(() => {
     getMajors().then((data) => setMajors(data));
-    getClass().then((data) => setClasses(data));
   }, []);
 
   return (
@@ -53,18 +36,10 @@ export default function ClassPage() {
         <p>create major and class.</p>
       </div>
       <div className="flex">
-        <div className="w-5/10">
-          <CreateClass />
-          {classes.map((kelas, index) => (
-            <p key={kelas._id}>
-              {kelas.level} - {kelas.majorName}
-            </p>
-          ))}
-        </div>
-        <div className="w-5/10">
+        <div>
           <CreateMajor />
           {majors.map((major, index) => (
-            <p key={major._id}>{major.major}</p>
+            <p key={major._id}>{major.majorName}</p>
           ))}
         </div>
       </div>
