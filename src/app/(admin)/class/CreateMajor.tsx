@@ -47,8 +47,8 @@ export default function CreateMajor() {
         throw new Error("Failed to create major. Please try again.");
       }
 
-      const data = await response.json();
-      console.log("Major created:", data);
+      const major = await response.json();
+      console.log("Major created:", major);
     } catch (error) {
       console.error("Uh oh! Something went wrong.", error);
     }
