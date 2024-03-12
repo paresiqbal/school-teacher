@@ -24,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   level: z.enum(["X", "XI", "XII"]),
@@ -101,18 +102,34 @@ export default function CreateClass() {
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
-          <div>
-            <label htmlFor="level">Class Level:</label>
-            <select {...form.register("level")} className="border-2">
+          <div className="flex flex-col">
+            <label
+              htmlFor="level"
+              className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Class Level:
+            </label>
+            <select
+              {...form.register("level")}
+              className="border border-white border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-white focus:border-white"
+            >
               <option value="">Select Level</option>
               <option value="X">X</option>
               <option value="XI">XI</option>
               <option value="XII">XII</option>
             </select>
           </div>
-          <div>
-            <label htmlFor="majorId">Major:</label>
-            <select {...form.register("majorId")} className="border-2">
+          <div className="flex flex-col">
+            <label
+              htmlFor="majorId"
+              className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Major:
+            </label>
+            <select
+              {...form.register("majorId")}
+              className="border border-white border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-white focus:border-white"
+            >
               <option value="">Select Major</option>
               {majors.map((major) => (
                 <option key={major._id} value={major._id}>
@@ -121,9 +138,9 @@ export default function CreateClass() {
               ))}
             </select>
           </div>
-          <button type="submit" className="border-2 px-4 py-2">
+          <Button type="submit" className="w-full">
             Create Class
-          </button>
+          </Button>
         </form>
       </Form>
     </div>
