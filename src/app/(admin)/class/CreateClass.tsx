@@ -1,117 +1,107 @@
-// import { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { z } from "zod";
 
-// import { Form } from "@/components/ui/form";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectLabel,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
+const formSchema = z.object({
+  level: z.enum(["X", "XI", "XII"]),
+  majorId: z.string(),
+});
 
-// interface IMajor {
-//   _id: string;
-//   majorName: string;
-// }
+interface Major {
+  _id: string;
+  majorName: string;
+}
 
-// import { z } from "zod";
-// import { Button } from "@/components/ui/button";
+export default function CreateClass() {
+  const [majors, setMajors] = useState<Major[]>([]);
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      level: "",
+      majorId: "",
+    },
+  });
 
-// const ClassFormSchema = z.object({
-//   level: z.enum(["X", "XI", "XII"]),
-//   majorId: z.string(),
-// });
+  useEffect(() => {
+    fetchMajors();
+  }, []);
 
-// export default function CreateClasses() {
-//   const [majors, setMajors] = useState<IMajor[]>([]);
+  const fetchMajors = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/class/majors");
+      if (!response.ok) throw new Error("Failed to fetch majors.");
+      const data: Major[] = await response.json();
+      setMajors(data);
+    } catch (error) {
+      console.error("Failed to fetch majors:", error);
+    }
+  };
 
-//   const form = useForm<z.infer<typeof ClassFormSchema>>({
-//     defaultValues: {
-//       level: undefined,
-//       majorId: "",
-//     },
-//   });
+  const createClass = async (values: { level: string; majorId: string }) => {
+    try {
+      const response = await fetch("http://localhost:3001/class/addClass", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.error && data.error.includes("already exists")) {
+          alert("A class with the same level and major already exists.");
+        } else {
+          throw new Error(
+            data.error || "Failed to create class. Please try again."
+          );
+        }
+      } else {
+        console.log("Class created:", data);
+        // Reset the form here
+        form.reset({
+          level: "", // Assuming you want to reset to an empty or default state
+          majorId: "", // Assuming you want to reset to an empty or default state
+        });
+        // You might also want to provide a success message to the user
+        alert("Class created successfully!");
+      }
+    } catch (error) {
+      console.error("Uh oh! Something went wrong.", error);
+      // General error handling, possibly inform the user
+    }
+  };
 
-//   // fetch all majors
-//   useEffect(() => {
-//     const getMajors = async () => {
-//       try {
-//         const response = await fetch("http://localhost:3001/class/majors");
-//         const majorData = await response.json();
-//         setMajors(majorData);
-//       } catch (error) {
-//         console.error("Failed to fetch majors:", error);
-//       }
-//     };
-
-//     getMajors();
-//   }, []);
-
-//   const createClass = async (values: z.infer<typeof ClassFormSchema>) => {
-//     const classValue = { ...values };
-
-//     try {
-//       const response = await fetch("http://localhost:3001/class/addClass", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(classValue),
-//       });
-//       if (!response.ok) {
-//         throw new Error("Failed to create major. Please try again.");
-//       }
-
-//       const classes = await response.json();
-//       console.log("Class created:", classes);
-//     } catch (error) {
-//       console.error("Uh oh! Something went wrong.", error);
-//     }
-//   };
-
-//   return (
-//     <div className="flex flex-col">
-//       <div className="text-center pb-4">
-//         <h2 className="underline">Create an Class</h2>
-//       </div>
-//       <Form {...form}>
-//         <form onSubmit={form.handleSubmit(createClass)}>
-//           <Select>
-//             <SelectTrigger className="w-[180px]">
-//               <SelectValue placeholder="Select a class" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               <SelectGroup>
-//                 <SelectLabel>Class</SelectLabel>
-//                 <SelectItem value="X">X</SelectItem>
-//                 <SelectItem value="XI">XI</SelectItem>
-//                 <SelectItem value="XII">XII</SelectItem>
-//               </SelectGroup>
-//             </SelectContent>
-//           </Select>
-//           <Select>
-//             <SelectTrigger className="w-[180px]">
-//               <SelectValue placeholder="Select a major" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               <SelectGroup>
-//                 <SelectLabel>Major</SelectLabel>
-//                 {majors.map((major) => (
-//                   <SelectItem key={major._id} value={major._id}>
-//                     {major.majorName}
-//                   </SelectItem>
-//                 ))}
-//               </SelectGroup>
-//             </SelectContent>
-//           </Select>
-//           <Button type="submit" className="w-full">
-//             Create Classs
-//           </Button>
-//         </form>
-//       </Form>
-//     </div>
-//   );
-// }
+  return (
+    <div className="flex flex-col">
+      <div className="text-center pb-4">
+        <h2 className="underline">Create a Class</h2>
+      </div>
+      <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
+        <div>
+          <label htmlFor="level">Class Level:</label>
+          <select {...form.register("level")} className="border-2">
+            <option value="">Select Level</option>
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII">XII</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="majorId">Major:</label>
+          <select {...form.register("majorId")} className="border-2">
+            <option value="">Select Major</option>
+            {majors.map((major) => (
+              <option key={major._id} value={major._id}>
+                {major.majorName}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" className="border-2 px-4 py-2">
+          Create Class
+        </button>
+      </form>
+    </div>
+  );
+}

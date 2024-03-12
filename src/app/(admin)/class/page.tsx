@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/card";
 // shadcn
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import CreateClasses from "./CreateClass";
+import CreateClass from "./CreateClass";
 
 interface IMajor {
   _id: string;
@@ -57,7 +57,7 @@ export default function ClassPage() {
           ))}
         </Card>
         <Card className="p-6 w-2/3">
-          <CreateClasses />
+          <CreateClass />
         </Card>
       </div>
     </div>
