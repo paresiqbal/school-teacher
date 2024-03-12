@@ -1,7 +1,29 @@
+import { useEffect, useState } from "react";
+
+// library
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { z } from "zod";
+
+// shadcn
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   level: z.enum(["X", "XI", "XII"]),
@@ -47,6 +69,7 @@ export default function CreateClass() {
         },
         body: JSON.stringify(values),
       });
+
       const data = await response.json();
       if (!response.ok) {
         if (data.error && data.error.includes("already exists")) {
@@ -58,17 +81,16 @@ export default function CreateClass() {
         }
       } else {
         console.log("Class created:", data);
-        // Reset the form here
+
         form.reset({
-          level: "", // Assuming you want to reset to an empty or default state
-          majorId: "", // Assuming you want to reset to an empty or default state
+          level: "",
+          majorId: "",
         });
-        // You might also want to provide a success message to the user
+
         alert("Class created successfully!");
       }
     } catch (error) {
       console.error("Uh oh! Something went wrong.", error);
-      // General error handling, possibly inform the user
     }
   };
 
@@ -77,31 +99,33 @@ export default function CreateClass() {
       <div className="text-center pb-4">
         <h2 className="underline">Create a Class</h2>
       </div>
-      <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
-        <div>
-          <label htmlFor="level">Class Level:</label>
-          <select {...form.register("level")} className="border-2">
-            <option value="">Select Level</option>
-            <option value="X">X</option>
-            <option value="XI">XI</option>
-            <option value="XII">XII</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="majorId">Major:</label>
-          <select {...form.register("majorId")} className="border-2">
-            <option value="">Select Major</option>
-            {majors.map((major) => (
-              <option key={major._id} value={major._id}>
-                {major.majorName}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit" className="border-2 px-4 py-2">
-          Create Class
-        </button>
-      </form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
+          <div>
+            <label htmlFor="level">Class Level:</label>
+            <select {...form.register("level")} className="border-2">
+              <option value="">Select Level</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+              <option value="XII">XII</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="majorId">Major:</label>
+            <select {...form.register("majorId")} className="border-2">
+              <option value="">Select Major</option>
+              {majors.map((major) => (
+                <option key={major._id} value={major._id}>
+                  {major.majorName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit" className="border-2 px-4 py-2">
+            Create Class
+          </button>
+        </form>
+      </Form>
     </div>
   );
 }
