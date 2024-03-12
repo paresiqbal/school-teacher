@@ -17,6 +17,12 @@ interface IMajor {
   majorName: string;
 }
 
+interface IClass {
+  _id: string;
+  level: string;
+  majorName: string;
+}
+
 // get all majors
 async function getMajors(): Promise<IMajor[]> {
   const response = await fetch("http://localhost:3001/class/majors", {
@@ -28,11 +34,24 @@ async function getMajors(): Promise<IMajor[]> {
   return response.json();
 }
 
+async function getClasses() {
+  const response = await fetch("http://localhost:3001/class/classes", {
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  return response.json();
+}
+
 export default function ClassPage() {
   const [majors, setMajors] = useState<IMajor[]>([]);
 
+  const [classes, setClasses] = useState<IClass[]>([]);
+
   useEffect(() => {
     getMajors().then((data) => setMajors(data));
+    getClasses().then((data) => setClasses(data));
   }, []);
 
   return (
@@ -58,6 +77,18 @@ export default function ClassPage() {
         </Card>
         <Card className="p-6 w-2/3">
           <CreateClass />
+          <Separator className="my-4" />
+          {classes.map((classItem) => (
+            <div
+              key={classItem._id}
+              className="py-2 flex justify-between items-center"
+            >
+              <p>
+                {classItem.level} - {classItem.majorName}
+              </p>
+              <Button variant="destructive">Delete</Button>
+            </div>
+          ))}
         </Card>
       </div>
     </div>
