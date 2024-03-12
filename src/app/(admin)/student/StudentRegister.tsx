@@ -18,6 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+
+interface IClass {
+  _id: string;
+  level: string;
+  majorName: string;
+}
 
 const formSchema = z.object({
   fullname: z.string().min(3, {
@@ -35,9 +42,11 @@ const formSchema = z.object({
   yearEntry: z.coerce.number().int().min(4, {
     message: "Year of entry must be at least 4 digits.",
   }),
+  studentClass: z.string(),
 });
 
 export default function StudentRegister() {
+  const [classes, setClasses] = useState<IClass[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,7 +58,20 @@ export default function StudentRegister() {
     },
   });
 
-  const handleRegistration = async (values: z.infer<typeof formSchema>) => {
+  useEffect(() => {
+    async function fetchClasses() {
+      const response = await fetch("http://localhost:3001/class/classes");
+      if (!response.ok) throw new Error("Failed to fetch classes");
+      const data = await response.json();
+      setClasses(data);
+    }
+
+    fetchClasses().catch((error) =>
+      console.error("Fetch classes error:", error)
+    );
+  }, []);
+
+  const studentRegister = async (values: z.infer<typeof formSchema>) => {
     const registrationValues = { ...values, role: "student" };
 
     try {
@@ -60,9 +82,6 @@ export default function StudentRegister() {
         },
         body: JSON.stringify(registrationValues),
       });
-
-      // const studentId = registrationValues.nis;
-      // const qrCode = await QRCode.toDataURL(studentId.toString());
 
       if (!response.ok) {
         throw new Error("Uh oh! Failed to register student.");
@@ -87,7 +106,7 @@ export default function StudentRegister() {
         </div>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleRegistration)}
+            onSubmit={form.handleSubmit(studentRegister)}
             className="space-y-2"
           >
             <FormField
@@ -178,6 +197,30 @@ export default function StudentRegister() {
                       id="yearEntry"
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="studentClass" // Changed from classId
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Class</FormLabel>
+                  <FormControl>
+                    <select
+                      {...field}
+                      id="studentClass"
+                      className="select-class-dropdown"
+                    >
+                      <option value="">Select a class</option>
+                      {classes.map((cls) => (
+                        <option key={cls._id} value={cls._id}>
+                          {cls.level} {cls.majorName}
+                        </option>
+                      ))}
+                    </select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
