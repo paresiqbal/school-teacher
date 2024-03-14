@@ -42,7 +42,7 @@ const formSchema = z.object({
   yearEntry: z.coerce.number().int().min(4, {
     message: "Year of entry must be at least 4 digits.",
   }),
-  studentClass: z.string(),
+  classId: z.string(),
 });
 
 export default function StudentRegister() {
@@ -54,6 +54,7 @@ export default function StudentRegister() {
       username: "",
       password: "",
       nis: 0,
+      classId: "",
       yearEntry: 0,
     },
   });
@@ -95,7 +96,7 @@ export default function StudentRegister() {
 
   return (
     <div className="flex flex-col p-4 justify-center items-center">
-      <div className="w-full flex flex-col p-4 justify-center items-center">
+      <div className="w-full flex flex-col p-4">
         <div className="text-center pb-4">
           <h1 className="text-2xl font-semibold tracking-tight">
             Register an student account
@@ -204,20 +205,22 @@ export default function StudentRegister() {
             />
             <FormField
               control={form.control}
-              name="studentClass" // Changed from classId
+              name="classId"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Class</FormLabel>
+                <FormItem className="flex flex-col">
+                  <FormLabel className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Class
+                  </FormLabel>
                   <FormControl>
                     <select
                       {...field}
-                      id="studentClass"
-                      className="select-class-dropdown"
+                      id="classId"
+                      className=" border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
                     >
                       <option value="">Select a class</option>
-                      {classes.map((cls) => (
-                        <option key={cls._id} value={cls._id}>
-                          {cls.level} {cls.majorName}
+                      {classes.map((kelas) => (
+                        <option key={kelas._id} value={kelas._id}>
+                          {kelas.level} {kelas.majorName}
                         </option>
                       ))}
                     </select>
@@ -227,7 +230,7 @@ export default function StudentRegister() {
               )}
             />
             <Button type="submit" className="w-full">
-              Register
+              Register Student
             </Button>
           </form>
         </Form>
