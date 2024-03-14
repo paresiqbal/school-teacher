@@ -87,7 +87,7 @@ export default function StudentPage() {
                     {student.fullname}
                   </p>
                 </div>
-                <p className="text-sm text-muted-foreground">{`${student.class.level} - ${student.class.majorName}`}</p>
+                <p className="text-lg">{`${student.class.level} - ${student.class.majorName}`}</p>
               </div>
             </div>
             <div className="flex gap-2">

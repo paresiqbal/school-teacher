@@ -32,6 +32,7 @@ const studentSchema = z.object({
   yearEntry: z.number().min(4),
 });
 
+// get students profile
 async function updateStudentDetail(id: string, data: IStudent) {
   const res = await fetch(`http://localhost:3001/user/student/${id}`, {
     method: "PATCH",
@@ -43,6 +44,7 @@ async function updateStudentDetail(id: string, data: IStudent) {
   return res.json();
 }
 
+// generate qr base on id
 async function generateQRCode(id: string) {
   try {
     const qrCodeDataURL = await QRCode.toDataURL(id);
@@ -81,19 +83,20 @@ export default function StudentDetails({ params }: { params: Iid }) {
     e.preventDefault();
 
     try {
+      // Validate formData using Zod schema
       const validatedData = studentSchema.parse(formData);
+
+      // Assuming the backend handles password hashing
       if (student) {
-        await updateStudentDetail(params.id, validatedData);
-        alert("Data updated");
+        await updateStudentDetail(params.id, {
+          ...validatedData,
+          password: formData.password, // Ensure this is the new password the user wants to set
+        });
+        alert("Data updated successfully.");
       }
     } catch (error) {
-      if (error) {
-        console.error("Validation error:");
-        alert("Validation error. Please check your input.");
-      } else {
-        console.error("Error updating teacher details:");
-        alert("Failed to update teacher details. Please try again later.");
-      }
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
