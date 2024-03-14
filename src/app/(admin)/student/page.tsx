@@ -11,11 +11,17 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+interface ClassInfo {
+  _id: string;
+  level: string;
+  majorName: string;
+}
+
 interface Student {
-  _id: number;
+  _id: number; // Updated from number to string to match your data
   username: string;
   fullname: string;
-  class: string;
+  class: ClassInfo; // Updated to use the ClassInfo type
 }
 
 async function getStudentsData(): Promise<Student[]> {
@@ -81,7 +87,7 @@ export default function StudentPage() {
                     {student.fullname}
                   </p>
                 </div>
-                <p className="text-sm text-muted-foreground">{student.class}</p>
+                <p className="text-sm text-muted-foreground">{`${student.class.level} - ${student.class.majorName}`}</p>
               </div>
             </div>
             <div className="flex gap-2">
