@@ -72,13 +72,16 @@ export default function StudentPage() {
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>ST</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col">
-                <p className="text-sm font-medium leading-none">
-                  {student.username}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {student.fullname}
-                </p>
+              <div className="flex gap-6 items-center">
+                <div>
+                  <h3 className="text-md font-medium leading-none">
+                    {student.username}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {student.fullname}
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground">{student.class}</p>
               </div>
             </div>
             <div className="flex gap-2">
