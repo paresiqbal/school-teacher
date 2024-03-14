@@ -26,7 +26,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col gap-4 items-center lg:items-start lg:w-1/2">
           <h2 className="text-xl lg:text-3xl text-center lg:text-left">
-            Manage Students Attendance and Grade's
+            Manage Students Attendance and Grades
           </h2>
           <Button className="w-full lg:w-auto" onClick={() => signIn()}>
             Sign In
