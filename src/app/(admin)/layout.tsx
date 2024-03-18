@@ -9,10 +9,18 @@ export default function AdminLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <main className="flex">
-          <Sidebar />
-          <div className="w-full">{children}</div>
-        </main>
+        <div className="flex h-screen">
+          {/* Fixed Sidebar */}
+          <div className="fixed inset-y-0 left-0 overflow-y-auto">
+            <Sidebar />
+          </div>
+
+          {/* Main Content */}
+          {/* Adjust the margin-left based on the width of your sidebar */}
+          <div className="w-full h-full overflow-y-scroll ml-16">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
