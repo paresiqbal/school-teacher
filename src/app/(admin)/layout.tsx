@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 export default function AdminLayout({
   children,
@@ -9,8 +9,10 @@ export default function AdminLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <Navbar />
-        {children}
+        <main className="flex">
+          <Sidebar />
+          <div className="w-full">{children}</div>
+        </main>
       </body>
     </html>
   );
