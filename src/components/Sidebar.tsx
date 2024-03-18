@@ -24,7 +24,9 @@ export default function Sidebar({ active }: any) {
             alt="logo"
             width={200}
             height={200}
-            className="w-20 md:w-24 lg:w-32"
+            className={`overflow-hidden transition-all ${
+              expanded ? "w-20 md:w-24 lg:w-32" : "w-0"
+            }`}
           />
           <Button
             onClick={() => setExpanded((current) => !current)}
@@ -47,7 +49,13 @@ export default function Sidebar({ active }: any) {
               className="text-white flex items-center justify-center gap-2"
             >
               <MdDashboardCustomize />
-              <span className="w-52 ml-">Dashboard</span>
+              <span
+                className={`overflow-hidden transition-all ${
+                  expanded ? "w-20 md:w-24 lg:w-32" : "w-0"
+                }`}
+              >
+                Dashboard
+              </span>
             </Link>
           </li>
         </ul>
@@ -57,7 +65,11 @@ export default function Sidebar({ active }: any) {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
-          <div className={`flex justify-between items-center w-52 ml-3`}>
+          <div
+            className={`flex justify-between items-center w-52 ml-3  overflow-hidden transition-all ${
+              expanded ? "w-20 md:w-24 lg:w-32" : "w-0"
+            }`}
+          >
             <div className="leading-4 text-white">
               <h4 className="font-semibold">John Doe</h4>
               <span className="text-xs">johndoe@gmail.com</span>
