@@ -10,7 +10,9 @@ export default function AdminLayout({
       <head />
       <body>
         <div className="flex">
-          <Sidebar />
+          <div className="sticky top-0 h-screen">
+            <Sidebar />
+          </div>
           <div className="w-full">{children}</div>
         </div>
       </body>
