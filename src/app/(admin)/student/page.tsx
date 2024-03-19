@@ -104,7 +104,6 @@ export default function StudentPage() {
         onChange={(e) => setSelectedLevel(e.target.value)}
       >
         <option value="">All Levels</option>
-        {/* Populate these options based on your data or requirements */}
         <option value="X">X</option>
         <option value="XI">XI</option>
         <option value="XII">XII</option>
@@ -117,7 +116,6 @@ export default function StudentPage() {
         onChange={(e) => setSelectedMajor(e.target.value)}
       >
         <option value="">All Majors</option>
-        {/* Populate these options based on your data or requirements */}
         <option value="TKJ">TKJ</option>
         <option value="IPA">IPA</option>
         <option value="IPS">IPS</option>
