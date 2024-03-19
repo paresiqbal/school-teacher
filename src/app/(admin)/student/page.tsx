@@ -19,7 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import PopClass from "@/components/PopClass";
 
 interface IClassInfo {
   _id: string;
@@ -97,9 +96,15 @@ export default function StudentPage() {
       <Card className="my-5 bg-card">
         <StudentRegister />
       </Card>
-      <label htmlFor="level-select">Level:</label>
+      <label
+        htmlFor="level-select"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+      >
+        Level:
+      </label>
       <select
         id="level-select"
+        className="bg-zinc-50 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-2.5"
         value={selectedLevel}
         onChange={(e) => setSelectedLevel(e.target.value)}
       >
@@ -120,7 +125,6 @@ export default function StudentPage() {
         <option value="IPA">IPA</option>
         <option value="IPS">IPS</option>
       </select>
-      <PopClass />
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <Table>
           <TableCaption>A list of students.</TableCaption>
