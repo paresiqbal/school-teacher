@@ -16,12 +16,6 @@ export default function StudentPage() {
       <Card className="my-5 bg-card">
         <StudentRegister />
       </Card>
-      <label
-        htmlFor="level-select"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-      >
-        Level:
-      </label>
 
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <StudentList />

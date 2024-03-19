@@ -57,10 +57,6 @@ async function deleteStudent(id: number): Promise<void> {
 
 export default function StudentList() {
   const [students, setStudents] = useState<IStudent[]>([]);
-  const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
-
-  const [selectedLevel, setSelectedLevel] = useState<string>("");
-  const [selectedMajor, setSelectedMajor] = useState<string>("");
 
   const handleDelete = async (id: number) => {
     await deleteStudent(id);
@@ -85,7 +81,7 @@ export default function StudentList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredStudents.map((student) => (
+          {students.map((student) => (
             <TableRow key={student._id}>
               <TableCell className="font-medium">
                 <Avatar>
