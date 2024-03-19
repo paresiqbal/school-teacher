@@ -11,20 +11,31 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-interface ClassInfo {
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+interface IClassInfo {
   _id: string;
   level: string;
   majorName: string;
 }
 
-interface Student {
-  _id: number; // Updated from number to string to match your data
+interface IStudent {
+  _id: number;
   username: string;
   fullname: string;
-  class: ClassInfo; // Updated to use the ClassInfo type
+  class: IClassInfo;
 }
 
-async function getStudentsData(): Promise<Student[]> {
+async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
     next: {
       revalidate: 0,
@@ -50,7 +61,7 @@ async function deleteStudent(id: number): Promise<void> {
 }
 
 export default function StudentPage() {
-  const [students, setStudents] = useState<Student[]>([]);
+  const [students, setStudents] = useState<IStudent[]>([]);
 
   useEffect(() => {
     getStudentsData().then(setStudents);
@@ -104,6 +115,25 @@ export default function StudentPage() {
           </div>
         ))}
       </Card>
+      <Table>
+        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Invoice</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Method</TableHead>
+            <TableHead className="text-right">Amount</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell className="font-medium">INV001</TableCell>
+            <TableCell>Paid</TableCell>
+            <TableCell>Credit Card</TableCell>
+            <TableCell className="text-right">$250.00</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 }
