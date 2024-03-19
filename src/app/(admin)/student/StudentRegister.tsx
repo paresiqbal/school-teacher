@@ -215,7 +215,7 @@ export default function StudentRegister() {
                     <select
                       {...field}
                       id="classId"
-                      className=" border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                      className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
                     >
                       <option value="">Select a class</option>
                       {classes.map((kelas) => (

@@ -94,7 +94,7 @@ export default function CreateClass() {
             </label>
             <select
               {...form.register("level")}
-              className="border border-white border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-white focus:border-white"
+              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
             >
               <option value="">Select Level</option>
               <option value="X">X</option>
@@ -111,7 +111,7 @@ export default function CreateClass() {
             </label>
             <select
               {...form.register("majorId")}
-              className="border border-white border-opacity-50 text-white rounded-md p-2 focus:ring-2 focus:ring-white focus:border-white"
+              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
             >
               <option value="">Select Major</option>
               {majors.map((major) => (
