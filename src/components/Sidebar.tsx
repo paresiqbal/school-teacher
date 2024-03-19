@@ -46,7 +46,7 @@ export default function Sidebar() {
               href={"/dashboard"}
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/dashboard"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-yellow-400 text-zinc-900"
                   : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
@@ -63,7 +63,7 @@ export default function Sidebar() {
               href="/student"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/student"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-yellow-400 text-zinc-900"
                   : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
@@ -80,7 +80,7 @@ export default function Sidebar() {
               href="/teacher"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/teacher"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-yellow-400 text-zinc-900"
                   : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
@@ -97,7 +97,7 @@ export default function Sidebar() {
               href="/class"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/class"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-yellow-400 text-zinc-900"
                   : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >

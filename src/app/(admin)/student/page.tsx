@@ -10,13 +10,11 @@ import StudentRegister from "./StudentRegister";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -62,14 +60,32 @@ async function deleteStudent(id: number): Promise<void> {
 
 export default function StudentPage() {
   const [students, setStudents] = useState<IStudent[]>([]);
+  const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
+  const [selectedLevel, setSelectedLevel] = useState<string>("");
+  const [selectedMajor, setSelectedMajor] = useState<string>("");
 
   useEffect(() => {
     getStudentsData().then(setStudents);
   }, []);
 
+  useEffect(() => {
+    filterStudents();
+  }, [students, selectedLevel, selectedMajor]);
+
   const handleDelete = async (id: number) => {
     await deleteStudent(id);
     setStudents(students.filter((student) => student._id !== id));
+  };
+
+  const filterStudents = () => {
+    const tempStudents = students.filter((student) => {
+      return (
+        (selectedLevel ? student.class.level === selectedLevel : true) &&
+        (selectedMajor ? student.class.majorName === selectedMajor : true)
+      );
+    });
+
+    setFilteredStudents(tempStudents);
   };
 
   return (
@@ -81,6 +97,31 @@ export default function StudentPage() {
       <Card className="my-5 bg-card">
         <StudentRegister />
       </Card>
+      <label htmlFor="level-select">Level:</label>
+      <select
+        id="level-select"
+        value={selectedLevel}
+        onChange={(e) => setSelectedLevel(e.target.value)}
+      >
+        <option value="">All Levels</option>
+        {/* Populate these options based on your data or requirements */}
+        <option value="X">X</option>
+        <option value="XI">XI</option>
+        <option value="XII">XII</option>
+      </select>
+
+      <label htmlFor="major-select">Major:</label>
+      <select
+        id="major-select"
+        value={selectedMajor}
+        onChange={(e) => setSelectedMajor(e.target.value)}
+      >
+        <option value="">All Majors</option>
+        {/* Populate these options based on your data or requirements */}
+        <option value="TKJ">TKJ</option>
+        <option value="IPA">IPA</option>
+        <option value="IPS">IPS</option>
+      </select>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <Table>
           <TableCaption>A list of students.</TableCaption>
@@ -93,7 +134,7 @@ export default function StudentPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {students.map((student) => (
+            {filteredStudents.map((student) => (
               <TableRow key={student._id}>
                 <TableCell className="font-medium">
                   <Avatar>
