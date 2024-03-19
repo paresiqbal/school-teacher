@@ -64,9 +64,6 @@ export default function TeacherRegister() {
       console.log("Registration successful:", data);
     } catch (error) {
       console.error("Registration failed:", error);
-      alert(
-        "Uh oh! Something went wrong. There was a problem with your request."
-      );
     }
   };
 

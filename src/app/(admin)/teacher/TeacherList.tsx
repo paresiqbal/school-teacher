@@ -27,7 +27,7 @@ interface ITeacher {
 
 async function getTeachersData(): Promise<ITeacher[]> {
   const res = await fetch("http://localhost:3001/user/teachers", {
-    cache: "force-cache",
+    cache: "no-store",
     next: {
       revalidate: 0,
     },
@@ -70,7 +70,7 @@ export default function TeacherList() {
   return (
     <div>
       <Table>
-        <TableCaption>A list of teachers.</TableCaption>{" "}
+        <TableCaption>A list of teachers.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Photo</TableHead>
