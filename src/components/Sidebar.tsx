@@ -33,10 +33,7 @@ export default function Sidebar() {
               expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
             }`}
           />
-          <Button
-            onClick={() => setExpanded((current) => !current)}
-            variant="secondary"
-          >
+          <Button onClick={() => setExpanded((current) => !current)}>
             {expanded ? <FaChevronRight /> : <FaChevronLeft />}
           </Button>
         </div>
@@ -49,8 +46,8 @@ export default function Sidebar() {
               href={"/dashboard"}
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/dashboard"
-                  ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-orange-500"
+                  ? "bg-yellow-400 text-black"
+                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
               <MdDashboardCustomize />
@@ -66,8 +63,8 @@ export default function Sidebar() {
               href="/student"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/student"
-                  ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-orange-500"
+                  ? "bg-yellow-400 text-black"
+                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
               <PiStudent />
@@ -83,8 +80,8 @@ export default function Sidebar() {
               href="/teacher"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/teacher"
-                  ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-orange-500"
+                  ? "bg-yellow-400 text-black"
+                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
               <FaChalkboardTeacher />
@@ -100,8 +97,8 @@ export default function Sidebar() {
               href="/class"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/class"
-                  ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-orange-500"
+                  ? "bg-yellow-400 text-black"
+                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
             >
               <SiGoogleclassroom />
