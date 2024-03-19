@@ -82,58 +82,43 @@ export default function StudentPage() {
         <StudentRegister />
       </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
-        {students.map((student) => (
-          <div key={student._id} className="flex justify-between py-2">
-            <div className="flex gap-2 items-center">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>ST</AvatarFallback>
-              </Avatar>
-              <div className="flex gap-6 items-center">
-                <div>
-                  <h3 className="text-md font-medium leading-none">
-                    {student.username}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {student.fullname}
-                  </p>
-                </div>
-                <p className="text-lg">{`${student.class.level} - ${student.class.majorName}`}</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <Button>
-                <Link href={`/student/${student._id}`}>Edit</Link>
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={() => handleDelete(student._id)}
-              >
-                Delete
-              </Button>
-            </div>
-          </div>
-        ))}
+        <Table>
+          <TableCaption>A list of students.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Photo</TableHead>
+              <TableHead>Full Name</TableHead>
+              <TableHead>Class</TableHead>
+              <TableHead className="text-right">Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {students.map((student) => (
+              <TableRow key={student._id}>
+                <TableCell className="font-medium">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>ST</AvatarFallback>
+                  </Avatar>
+                </TableCell>
+                <TableCell>{student.fullname}</TableCell>
+                <TableCell>{`${student.class.level} - ${student.class.majorName}`}</TableCell>
+                <TableCell className="text-right space-x-1">
+                  <Button>
+                    <Link href={`/student/${student._id}`}>Edit</Link>
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleDelete(student._id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Card>
-      <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
     </div>
   );
 }
