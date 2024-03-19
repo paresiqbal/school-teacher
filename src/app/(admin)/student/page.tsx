@@ -1,7 +1,8 @@
 "use client";
 
-import StudentList from "./StudentList";
+// components
 import StudentRegister from "./StudentRegister";
+import StudentList from "./StudentList";
 
 // shadcn
 import { Card } from "@/components/ui/card";

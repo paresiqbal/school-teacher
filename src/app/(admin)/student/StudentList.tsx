@@ -1,7 +1,7 @@
 "use client";
 
 // next
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // shadcn
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,11 @@ interface IStudent {
   class: IClassInfo;
 }
 
+interface IMajor {
+  _id: string;
+  majorName: string;
+}
+
 async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
     next: {
@@ -55,21 +60,83 @@ async function deleteStudent(id: number): Promise<void> {
   }
 }
 
+async function getMajorsData(): Promise<IMajor[]> {
+  const res = await fetch("http://localhost:3001/class/majors", {
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  return res.json();
+}
+
 export default function StudentList() {
   const [students, setStudents] = useState<IStudent[]>([]);
+  const [majors, setMajors] = useState<IMajor[]>([]);
+
+  const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
+  const [selectedLevel, setSelectedLevel] = useState<string>("");
+  const [selectedMajor, setSelectedMajor] = useState<string>("");
 
   const handleDelete = async (id: number) => {
     await deleteStudent(id);
     setStudents(students.filter((student) => student._id !== id));
   };
 
+  const filterStudents = useCallback(() => {
+    const tempStudents = students.filter((student) => {
+      return (
+        (selectedLevel ? student.class.level === selectedLevel : true) &&
+        (selectedMajor ? student.class.majorName === selectedMajor : true)
+      );
+    });
+
+    setFilteredStudents(tempStudents);
+  }, [students, selectedLevel, selectedMajor]);
+
   useEffect(() => {
-    getStudentsData().then(setStudents);
-  }, []);
+    getMajorsData().then((data) => {
+      setMajors(data);
+    });
+    getStudentsData().then((data) => {
+      setStudents(data);
+      filterStudents();
+    });
+  }, [filterStudents]);
 
   return (
     <div>
-      {" "}
+      <label
+        htmlFor="level-select"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+      >
+        Level:
+      </label>
+      <select
+        id="level-select"
+        className="bg-zinc-50 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-2.5"
+        value={selectedLevel}
+        onChange={(e) => setSelectedLevel(e.target.value)}
+      >
+        <option value="">All Levels</option>
+        <option value="X">X</option>
+        <option value="XI">XI</option>
+        <option value="XII">XII</option>
+      </select>
+
+      <label htmlFor="major-select">Major:</label>
+      <select
+        id="major-select"
+        value={selectedMajor}
+        onChange={(e) => setSelectedMajor(e.target.value)}
+      >
+        <option value="">All Majors</option>
+        {majors.map((major) => (
+          <option key={major._id} value={major.majorName}>
+            {major.majorName}
+          </option>
+        ))}
+      </select>
       <Table>
         <TableCaption>A list of students.</TableCaption>
         <TableHeader>
@@ -82,7 +149,7 @@ export default function StudentList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {students.map((student) => (
+          {filteredStudents.map((student) => (
             <TableRow key={student._id}>
               <TableCell className="font-medium">
                 <Avatar>

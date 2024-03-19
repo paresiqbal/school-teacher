@@ -1,7 +1,9 @@
-"use state";
+"use client";
 
-import { useEffect, useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react";
+import { RxCaretSort } from "react-icons/rx";
+import { FaCheck } from "react-icons/fa";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,29 +20,32 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface IMajor {
-  _id: string;
-  majorName: string;
-}
+const frameworks = [
+  {
+    value: "next.js",
+    label: "Next.js",
+  },
+  {
+    value: "sveltekit",
+    label: "SvelteKit",
+  },
+  {
+    value: "nuxt.js",
+    label: "Nuxt.js",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },
+];
 
-interface PopClassProps {
-  onMajorSelected: (majorId: string) => void;
-}
-
-async function getMajorsData(): Promise<IMajor[]> {
-  const res = await fetch("http://localhost:3001/class/majors");
-  // Ensure you have error handling here for production code
-  return res.json();
-}
-
-export default function PopClass({ onMajorSelected }: PopClassProps) {
-  const [open, setOpen] = useState(false);
-  const [selectedMajor, setSelectedMajor] = useState("");
-  const [majors, setMajors] = useState<IMajor[]>([]);
-
-  useEffect(() => {
-    getMajorsData().then(setMajors);
-  }, []);
+export function ComboboxDemo() {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,49 +56,38 @@ export default function PopClass({ onMajorSelected }: PopClassProps) {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {selectedMajor
-            ? majors.find((major) => major._id === selectedMajor)?.majorName
-            : "Select major..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {value
+            ? frameworks.find((framework) => framework.value === value)?.label
+            : "Select framework..."}
+          <RxCaretSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search major..." />
+          <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
-            {majors.length === 0 && (
-              <CommandEmpty>No major found.</CommandEmpty>
-            )}
             <CommandGroup>
-              {majors.map((major) => (
+              {frameworks.map((framework) => (
                 <CommandItem
-                  key={major._id}
-                  value={major.majorName}
-                  onSelect={() => {
-                    const newMajorId =
-                      major.majorName === selectedMajor ? "" : major.majorName;
-                    console.log(
-                      "About to select major in PopClass:",
-                      newMajorId
-                    );
-                    setSelectedMajor(newMajorId);
+                  key={framework.value}
+                  value={framework.value}
+                  onSelect={(currentValue) => {
+                    setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    onMajorSelected(newMajorId);
                   }}
                 >
-                  <Check
+                  {framework.label}
+                  <FaCheck
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      selectedMajor === major.majorName
-                        ? "opacity-100"
-                        : "opacity-0"
+                      "ml-auto h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {major.majorName}
                 </CommandItem>
               ))}
             </CommandGroup>
           </CommandList>
+          <CommandEmpty>No framework found.</CommandEmpty>
         </Command>
       </PopoverContent>
     </Popover>
