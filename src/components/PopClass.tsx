@@ -41,7 +41,7 @@ const frameworks = [
   },
 ];
 
-export function ComboboxDemo() {
+export default function PopClass() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 

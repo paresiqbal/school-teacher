@@ -2,7 +2,7 @@
 
 // next
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import StudentRegister from "./StudentRegister";
 
@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import PopClass from "@/components/PopClass";
 
 interface IClassInfo {
   _id: string;
@@ -64,20 +65,12 @@ export default function StudentPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedMajor, setSelectedMajor] = useState<string>("");
 
-  useEffect(() => {
-    getStudentsData().then(setStudents);
-  }, []);
-
-  useEffect(() => {
-    filterStudents();
-  }, [students, selectedLevel, selectedMajor]);
-
   const handleDelete = async (id: number) => {
     await deleteStudent(id);
     setStudents(students.filter((student) => student._id !== id));
   };
 
-  const filterStudents = () => {
+  const filterStudents = useCallback(() => {
     const tempStudents = students.filter((student) => {
       return (
         (selectedLevel ? student.class.level === selectedLevel : true) &&
@@ -86,7 +79,14 @@ export default function StudentPage() {
     });
 
     setFilteredStudents(tempStudents);
-  };
+  }, [students, selectedLevel, selectedMajor]);
+
+  useEffect(() => {
+    getStudentsData().then((data) => {
+      setStudents(data);
+      filterStudents();
+    });
+  }, [filterStudents]);
 
   return (
     <div className="p-10">
@@ -120,6 +120,7 @@ export default function StudentPage() {
         <option value="IPA">IPA</option>
         <option value="IPS">IPS</option>
       </select>
+      <PopClass />
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <Table>
           <TableCaption>A list of students.</TableCaption>
