@@ -33,6 +33,11 @@ interface IStudent {
   class: IClassInfo;
 }
 
+interface IMajor {
+  _id: string;
+  majorName: string;
+}
+
 async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
     next: {
@@ -58,8 +63,19 @@ async function deleteStudent(id: number): Promise<void> {
   }
 }
 
+async function getMajorsData(): Promise<IMajor[]> {
+  const res = await fetch("http://localhost:3001/class/majors", {
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  return res.json();
+}
+
 export default function StudentPage() {
   const [students, setStudents] = useState<IStudent[]>([]);
+  const [majors, setMajors] = useState<IMajor[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedMajor, setSelectedMajor] = useState<string>("");
@@ -81,6 +97,9 @@ export default function StudentPage() {
   }, [students, selectedLevel, selectedMajor]);
 
   useEffect(() => {
+    getMajorsData().then((data) => {
+      setMajors(data);
+    });
     getStudentsData().then((data) => {
       setStudents(data);
       filterStudents();
@@ -121,9 +140,11 @@ export default function StudentPage() {
         onChange={(e) => setSelectedMajor(e.target.value)}
       >
         <option value="">All Majors</option>
-        <option value="TKJ">TKJ</option>
-        <option value="IPA">IPA</option>
-        <option value="IPS">IPS</option>
+        {majors.map((major) => (
+          <option key={major._id} value={major.majorName}>
+            {major.majorName}
+          </option>
+        ))}
       </select>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <Table>
