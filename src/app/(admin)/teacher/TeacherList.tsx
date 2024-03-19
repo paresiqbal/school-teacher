@@ -21,6 +21,7 @@ interface ITeacher {
   _id: string;
   username: string;
   fullname: string;
+  nip: number;
   role: string;
 }
 
@@ -74,6 +75,7 @@ export default function TeacherList() {
           <TableRow>
             <TableHead>Photo</TableHead>
             <TableHead>Full Name</TableHead>
+            <TableHead className="w-[400px]">NIP</TableHead>
             <TableHead>Role</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
@@ -88,6 +90,7 @@ export default function TeacherList() {
                 </Avatar>
               </TableCell>
               <TableCell>{teacher.fullname}</TableCell>
+              <TableCell className="w-[400px]">{teacher.nip}</TableCell>
               <TableCell>{teacher.role}</TableCell>
               <TableCell className="text-right space-x-1">
                 <Button>

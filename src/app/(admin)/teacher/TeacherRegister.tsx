@@ -27,6 +27,9 @@ const formSchema = z.object({
   fullname: z.string().min(1, {
     message: "Full name is required.",
   }),
+  nip: z.string().min(10, {
+    message: "NIP is required.",
+  }),
 });
 
 export default function TeacherRegister() {
@@ -36,6 +39,7 @@ export default function TeacherRegister() {
       username: "",
       password: "",
       fullname: "",
+      nip: "",
     },
   });
 
@@ -93,6 +97,24 @@ export default function TeacherRegister() {
                       placeholder="Full Name"
                       type="text"
                       id="fullname"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="nip"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>NIP</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Nomor Induk Pegawai"
+                      type="text"
+                      id="nip"
                       {...field}
                     />
                   </FormControl>
