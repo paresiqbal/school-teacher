@@ -76,6 +76,7 @@ export default function StudentList() {
           <TableRow>
             <TableHead>Photo</TableHead>
             <TableHead>Full Name</TableHead>
+            <TableHead>Level</TableHead>
             <TableHead>Class</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
@@ -90,6 +91,7 @@ export default function StudentList() {
                 </Avatar>
               </TableCell>
               <TableCell>{student.fullname}</TableCell>
+              <TableCell>{student.class.level}</TableCell>
               <TableCell>{`${student.class.level} - ${student.class.majorName}`}</TableCell>
               <TableCell className="text-right space-x-1">
                 <Button>
