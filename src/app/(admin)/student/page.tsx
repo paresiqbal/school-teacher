@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Combobox from "@/components/Combobox";
 
 interface IClassInfo {
   _id: string;
@@ -146,6 +147,8 @@ export default function StudentPage() {
           </option>
         ))}
       </select>
+
+      <Combobox />
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         <Table>
           <TableCaption>A list of students.</TableCaption>
