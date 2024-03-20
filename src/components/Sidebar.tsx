@@ -12,6 +12,7 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -40,7 +41,7 @@ export default function Sidebar() {
 
         <ul className="flex-1 px-3">
           <li
-            className={`relative flex flex-col gap-2 items-center my-1 font-medium text-xl`}
+            className={`relative flex flex-col gap-2 items-center my-1 font-medium text-lg`}
           >
             <Link
               href={"/dashboard"}
@@ -108,6 +109,23 @@ export default function Sidebar() {
                 }`}
               >
                 Class
+              </span>
+            </Link>
+            <Link
+              href="/record"
+              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                pathname === "/record"
+                  ? "bg-yellow-400 text-zinc-900"
+                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+              }`}
+            >
+              <IoCheckmarkDoneOutline />
+              <span
+                className={`overflow-hidden transition-all ${
+                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+                }`}
+              >
+                Attendance
               </span>
             </Link>
           </li>
