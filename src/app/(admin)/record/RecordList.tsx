@@ -1,8 +1,8 @@
 "use client";
 
-// next
 import { useEffect, useState } from "react";
 
+// Define your interfaces for typing your data
 interface IStudentAttendance {
   id: string;
   fullname: string;
@@ -26,13 +26,17 @@ interface IAttendanceRecord {
   students: IStudentAttendance[];
 }
 
-async function getClassesData(): Promise<IClass[]> {
-  const res = await fetch("http://localhost:3001/class/classes", {
-    next: {
-      revalidate: 0,
-    },
-  });
+// Assuming the teacher details includes these properties
+interface ITeacherDetails {
+  _id: string;
+  fullname: string;
+  nip: string;
+  username: string;
+}
 
+// Functions to fetch data from your backend
+async function getClassesData(): Promise<IClass[]> {
+  const res = await fetch("http://localhost:3001/class/classes");
   return res.json();
 }
 
@@ -43,45 +47,35 @@ async function fetchAttendanceRecord(
   const res = await fetch(
     `http://localhost:3001/attendance/attendance-record?date=${date}&classId=${classId}`
   );
-  if (!res.ok) {
-    // Error handling
-    return null;
-  }
+  if (!res.ok) return null;
   const data = await res.json();
-  return data.attendance; // Make sure to return the 'attendance' property of the response
+  return data.attendance;
+}
+
+async function fetchTeacherById(
+  teacherId: string
+): Promise<ITeacherDetails | null> {
+  const response = await fetch(
+    `http://localhost:3001/user/teacher/${teacherId}`
+  );
+  if (!response.ok) return null;
+  return response.json();
 }
 
 export default function RecordList() {
   const [classes, setClasses] = useState<IClass[]>([]);
-  const [filteredClasses, setFilteredClasses] = useState<IClass[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
-  const [selectedMajor, setSelectedMajor] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedClassId, setSelectedClassId] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
   const [attendanceRecord, setAttendanceRecord] =
     useState<IAttendanceRecord | null>(null);
+  const [teacherName, setTeacherName] = useState<string>("");
 
-  const handleClassSelection = (e: any) => {
-    const selectedId = e.target.value; // This is the class ID
-    const foundClass = classes.find((cls) => cls._id === selectedId);
-
-    if (foundClass) {
-      setSelectedClassId(foundClass._id); // Set the selected class ID immediately upon selection
-      // Assuming you also want to set level and majorName for display purposes
-      setSelectedLevel(foundClass.level);
-      setSelectedMajor(foundClass.majorName);
-    } else {
-      setSelectedClassId("");
-      // Reset level and majorName if needed
-      setSelectedLevel("");
-      setSelectedMajor("");
-    }
-  };
+  useEffect(() => {
+    getClassesData().then(setClasses);
+  }, []);
 
   const handleFetchAttendance = async () => {
-    console.log(
-      `Fetching attendance for date: ${selectedDate}, classId: ${selectedClassId}`
-    );
     if (!selectedDate || !selectedClassId) {
       alert("Please select a date and a class.");
       return;
@@ -90,19 +84,14 @@ export default function RecordList() {
       selectedDate,
       selectedClassId
     );
-    console.log("Fetched attendance:", attendance);
-    setAttendanceRecord(attendance);
+    if (attendance) {
+      setAttendanceRecord(attendance);
+      const teacherDetails = await fetchTeacherById(attendance.teacher);
+      if (teacherDetails) {
+        setTeacherName(teacherDetails.fullname); // Assuming teacher details have a 'fullname' property
+      }
+    }
   };
-
-  useEffect(() => {
-    const filtered = classes.filter((cls) => cls.level === selectedLevel);
-    setFilteredClasses(filtered);
-    setSelectedMajor("");
-  }, [selectedLevel, classes]);
-
-  useEffect(() => {
-    getClassesData().then(setClasses);
-  }, []);
 
   return (
     <div>
@@ -118,15 +107,18 @@ export default function RecordList() {
 
       <select
         value={selectedClassId}
-        onChange={handleClassSelection} // Use the new handler here
+        onChange={(e) => setSelectedClassId(e.target.value)}
       >
         <option value="">Select Class</option>
-        {filteredClasses.map((kelas) => (
-          <option key={kelas._id} value={kelas._id}>
-            {kelas.level} - {kelas.majorName}
-          </option>
-        ))}
+        {classes
+          .filter((cls) => cls.level === selectedLevel)
+          .map((kelas) => (
+            <option key={kelas._id} value={kelas._id}>
+              {kelas.level} - {kelas.majorName}
+            </option>
+          ))}
       </select>
+
       <input
         type="date"
         value={selectedDate}
@@ -139,12 +131,13 @@ export default function RecordList() {
       >
         Get Attendance Record
       </button>
-      {attendanceRecord && attendanceRecord.students && (
+
+      {attendanceRecord && (
         <div>
           <h2>Attendance Record Details</h2>
           <p>Date: {new Date(attendanceRecord.date).toLocaleDateString()}</p>
           <p>Class ID: {attendanceRecord.class}</p>
-          <p>Teacher ID: {attendanceRecord.teacher}</p>
+          <p>Teacher: {teacherName}</p>
           <p>Subject: {attendanceRecord.subject}</p>
           <h3>Students</h3>
           <ul>
