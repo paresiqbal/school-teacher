@@ -1,8 +1,7 @@
 "use client";
-
 import { useEffect, useState } from "react";
 
-// Define your interfaces for typing your data
+// Define interfaces
 interface IStudentAttendance {
   id: string;
   fullname: string;
@@ -26,7 +25,6 @@ interface IAttendanceRecord {
   students: IStudentAttendance[];
 }
 
-// Assuming the teacher details includes these properties
 interface ITeacherDetails {
   _id: string;
   fullname: string;
@@ -34,104 +32,85 @@ interface ITeacherDetails {
   username: string;
 }
 
-// Functions to fetch data from your backend
-async function getClassesData(): Promise<IClass[]> {
-  const res = await fetch("http://localhost:3001/class/classes");
-  return res.json();
-}
-
-async function fetchAttendanceRecord(
-  date: string,
-  classId: string
-): Promise<IAttendanceRecord | null> {
-  const res = await fetch(
-    `http://localhost:3001/attendance/attendance-record?date=${date}&classId=${classId}`
-  );
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.attendance;
-}
-
-async function fetchTeacherById(
-  teacherId: string
-): Promise<ITeacherDetails | null> {
-  const response = await fetch(
-    `http://localhost:3001/user/teacher/${teacherId}`
-  );
-  if (!response.ok) return null;
-  return response.json();
-}
-
 export default function RecordList() {
   const [classes, setClasses] = useState<IClass[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
-  const [selectedClassId, setSelectedClassId] = useState<string>("");
+  const [selectedClass, setSelectedClass] = useState<IClass | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [selectedMajorName, setSelectedMajorName] = useState<string>("");
   const [attendanceRecord, setAttendanceRecord] =
     useState<IAttendanceRecord | null>(null);
   const [teacherName, setTeacherName] = useState<string>("");
 
   useEffect(() => {
-    getClassesData().then(setClasses);
+    const fetchClasses = async () => {
+      const response = await fetch("http://localhost:3001/class/classes");
+      const data = await response.json();
+      setClasses(data);
+    };
+    fetchClasses();
   }, []);
 
+  useEffect(() => {
+    if (attendanceRecord) {
+      const fetchTeacherDetails = async () => {
+        const response = await fetch(
+          `http://localhost:3001/user/teacher/${attendanceRecord.teacher}`
+        );
+        if (!response.ok) return;
+        const teacher = await response.json();
+        setTeacherName(teacher?.fullname);
+      };
+      fetchTeacherDetails();
+    }
+  }, [attendanceRecord]);
+
   const handleFetchAttendance = async () => {
-    if (!selectedDate || !selectedClassId) {
+    if (!selectedDate || !selectedClass?._id) {
       alert("Please select a date and a class.");
       return;
     }
-    const attendance = await fetchAttendanceRecord(
-      selectedDate,
-      selectedClassId
+    const response = await fetch(
+      `http://localhost:3001/attendance/attendance-record?date=${selectedDate}&classId=${selectedClass._id}`
     );
-    if (attendance) {
-      setAttendanceRecord(attendance);
-      const teacherDetails = await fetchTeacherById(attendance.teacher);
-      if (teacherDetails) {
-        setTeacherName(teacherDetails.fullname); // Assuming teacher details have a 'fullname' property
-      }
-    }
+    if (!response.ok) return;
+    const { attendance } = await response.json();
+    setAttendanceRecord(attendance);
   };
-
-  const handleClassSelection = (e: any) => {
-    const classId = e.target.value;
-    const selectedClass = classes.find((cls) => cls._id === classId);
-
-    if (selectedClass) {
-      setSelectedClassId(classId);
-      setSelectedMajorName(selectedClass.majorName); // Ensure this sets the majorName
-    } else {
-      setSelectedClassId("");
-      setSelectedMajorName(""); // Reset major name if class selection is invalid
-    }
-  };
-
-  useEffect(() => {
-    // When level changes, reset class selection and major name
-    setSelectedClassId("");
-    setSelectedMajorName("");
-  }, [selectedLevel]);
 
   return (
     <div>
       <select
         value={selectedLevel}
-        onChange={(e) => setSelectedLevel(e.target.value)}
+        onChange={(e) => {
+          const level = e.target.value;
+          setSelectedLevel(level);
+          // Reset class selection when level changes
+          setSelectedClass(null);
+        }}
       >
         <option value="">Select Level</option>
-        <option value="X">X</option>
-        <option value="XI">XI</option>
-        <option value="XII">XII</option>
+        {Array.from(new Set(classes.map((cls) => cls.level))).map((level) => (
+          <option key={level} value={level}>
+            {level}
+          </option>
+        ))}
       </select>
 
-      <select value={selectedClassId} onChange={handleClassSelection}>
+      <select
+        value={selectedClass?._id || ""}
+        onChange={(e) => {
+          const classId = e.target.value;
+          const cls = classes.find((c) => c._id === classId) || null;
+          setSelectedClass(cls);
+        }}
+        disabled={!selectedLevel}
+      >
         <option value="">Select Class</option>
         {classes
           .filter((cls) => cls.level === selectedLevel)
-          .map((kelas) => (
-            <option key={kelas._id} value={kelas._id}>
-              {kelas.level} - {kelas.majorName}
+          .map((cls) => (
+            <option key={cls._id} value={cls._id}>
+              {cls.majorName}
             </option>
           ))}
       </select>
@@ -144,7 +123,7 @@ export default function RecordList() {
 
       <button
         onClick={handleFetchAttendance}
-        disabled={!selectedClassId || !selectedDate}
+        disabled={!selectedClass || !selectedDate}
       >
         Get Attendance Record
       </button>
@@ -154,7 +133,7 @@ export default function RecordList() {
           <h2>Attendance Record Details</h2>
           <p>Date: {new Date(attendanceRecord.date).toLocaleDateString()}</p>
           <p>
-            Class: {selectedLevel} - {selectedMajorName}
+            Class: {selectedLevel} - {selectedClass?.majorName}
           </p>
           <p>Teacher: {teacherName}</p>
           <p>Subject: {attendanceRecord.subject}</p>
