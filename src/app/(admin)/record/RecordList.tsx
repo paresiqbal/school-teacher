@@ -67,6 +67,7 @@ export default function RecordList() {
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedClassId, setSelectedClassId] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedMajorName, setSelectedMajorName] = useState<string>("");
   const [attendanceRecord, setAttendanceRecord] =
     useState<IAttendanceRecord | null>(null);
   const [teacherName, setTeacherName] = useState<string>("");
@@ -93,6 +94,25 @@ export default function RecordList() {
     }
   };
 
+  const handleClassSelection = (e: any) => {
+    const classId = e.target.value;
+    const selectedClass = classes.find((cls) => cls._id === classId);
+
+    if (selectedClass) {
+      setSelectedClassId(classId);
+      setSelectedMajorName(selectedClass.majorName); // Ensure this sets the majorName
+    } else {
+      setSelectedClassId("");
+      setSelectedMajorName(""); // Reset major name if class selection is invalid
+    }
+  };
+
+  useEffect(() => {
+    // When level changes, reset class selection and major name
+    setSelectedClassId("");
+    setSelectedMajorName("");
+  }, [selectedLevel]);
+
   return (
     <div>
       <select
@@ -105,10 +125,7 @@ export default function RecordList() {
         <option value="XII">XII</option>
       </select>
 
-      <select
-        value={selectedClassId}
-        onChange={(e) => setSelectedClassId(e.target.value)}
-      >
+      <select value={selectedClassId} onChange={handleClassSelection}>
         <option value="">Select Class</option>
         {classes
           .filter((cls) => cls.level === selectedLevel)
@@ -136,7 +153,9 @@ export default function RecordList() {
         <div>
           <h2>Attendance Record Details</h2>
           <p>Date: {new Date(attendanceRecord.date).toLocaleDateString()}</p>
-          <p>Class ID: {attendanceRecord.class}</p>
+          <p>
+            Class: {selectedLevel} - {selectedMajorName}
+          </p>
           <p>Teacher: {teacherName}</p>
           <p>Subject: {attendanceRecord.subject}</p>
           <h3>Students</h3>
