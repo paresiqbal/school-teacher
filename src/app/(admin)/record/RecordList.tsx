@@ -61,27 +61,20 @@ export default function RecordList() {
   const [attendanceRecord, setAttendanceRecord] =
     useState<IAttendanceRecord | null>(null);
 
-  const handleSearch = () => {
-    // Assuming there's only one class per level and major combination
-    const foundClass = filteredClasses.find(
-      (kelas) => kelas.majorName === selectedMajor
-    );
-    if (foundClass) {
-      alert(`Found Class ID: ${foundClass._id}`);
-    } else {
-      alert("No class found with the selected criteria.");
-    }
-  };
+  const handleClassSelection = (e: any) => {
+    const selectedId = e.target.value; // This is the class ID
+    const foundClass = classes.find((cls) => cls._id === selectedId);
 
-  const handleSearchClass = () => {
-    // Assuming selectedMajor now stores classId directly
-    const foundClass = classes.find((cls) => cls._id === selectedMajor);
     if (foundClass) {
-      setSelectedClassId(foundClass._id); // Storing the selected classId
-      alert(`Found Class ID: ${foundClass._id}`);
+      setSelectedClassId(foundClass._id); // Set the selected class ID immediately upon selection
+      // Assuming you also want to set level and majorName for display purposes
+      setSelectedLevel(foundClass.level);
+      setSelectedMajor(foundClass.majorName);
     } else {
-      alert("No class found with the selected criteria.");
       setSelectedClassId("");
+      // Reset level and majorName if needed
+      setSelectedLevel("");
+      setSelectedMajor("");
     }
   };
 
@@ -124,23 +117,22 @@ export default function RecordList() {
       </select>
 
       <select
-        value={selectedMajor} // This might need adjustment to reflect the new way of selecting classes
-        onChange={(e) => setSelectedMajor(e.target.value)}
+        value={selectedClassId}
+        onChange={handleClassSelection} // Use the new handler here
       >
-        <option value="">Select Major</option>
+        <option value="">Select Class</option>
         {filteredClasses.map((kelas) => (
           <option key={kelas._id} value={kelas._id}>
             {kelas.level} - {kelas.majorName}
           </option>
         ))}
       </select>
-      <button onClick={handleSearch}>Search</button>
       <input
         type="date"
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
-      <button onClick={handleSearchClass}>Search Class</button>
+
       <button
         onClick={handleFetchAttendance}
         disabled={!selectedClassId || !selectedDate}
