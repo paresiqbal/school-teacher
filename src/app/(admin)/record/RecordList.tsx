@@ -164,22 +164,20 @@ export default function RecordList() {
           >
             Date
           </label>
-          {/* <input
-            className="p-2 border border-gray-300 rounded-md"
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          /> */}
+
           <Popover>
             <PopoverTrigger asChild>
-              <button
-                className="p-2 bg-blue-500 text-white rounded-md flex items-center disabled:opacity-50"
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[240px] justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
                 disabled={!selectedClass}
               >
-                <MdOutlineDateRange className="mr-2" />{" "}
-                {/* Replace with your actual CalendarIcon */}
+                <MdOutlineDateRange className="mr-2" />
                 {date ? format(date, "PPP") : "Pick a date"}
-              </button>
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
@@ -187,10 +185,8 @@ export default function RecordList() {
                 selected={date}
                 onSelect={(newDate) => {
                   if (newDate) {
-                    // Ensure newDate is not undefined
                     setDate(newDate);
-                    // Make sure newDate is a Date object before formatting
-                    setSelectedDate(format(newDate, "yyyy-MM-dd")); // Adjust format as needed
+                    setSelectedDate(format(newDate, "yyyy-MM-dd"));
                   }
                 }}
                 initialFocus
@@ -205,13 +201,12 @@ export default function RecordList() {
           >
             Search
           </label>
-          <button
-            className="p-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+          <Button
             onClick={handleFetchAttendance}
             disabled={!selectedClass || !selectedDate}
           >
-            Get Attendance Record
-          </button>
+            Search
+          </Button>
         </div>
       </div>
 
