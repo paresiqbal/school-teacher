@@ -1,5 +1,18 @@
 "use client";
+
 import { useEffect, useState } from "react";
+
+import { MdOutlineDateRange } from "react-icons/md";
+import { format } from "date-fns";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -41,6 +54,8 @@ export default function RecordList() {
     IAttendanceRecord[]
   >([]);
   const [teacherNames, setTeacherNames] = useState<string[]>([]);
+
+  const [date, setDate] = useState<Date>();
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -149,12 +164,39 @@ export default function RecordList() {
           >
             Date
           </label>
-          <input
+          {/* <input
             className="p-2 border border-gray-300 rounded-md"
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-          />
+          /> */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                className="p-2 bg-blue-500 text-white rounded-md flex items-center disabled:opacity-50"
+                disabled={!selectedClass}
+              >
+                <MdOutlineDateRange className="mr-2" />{" "}
+                {/* Replace with your actual CalendarIcon */}
+                {date ? format(date, "PPP") : "Pick a date"}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={(newDate) => {
+                  if (newDate) {
+                    // Ensure newDate is not undefined
+                    setDate(newDate);
+                    // Make sure newDate is a Date object before formatting
+                    setSelectedDate(format(newDate, "yyyy-MM-dd")); // Adjust format as needed
+                  }
+                }}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
         </div>
         <div>
           <label
