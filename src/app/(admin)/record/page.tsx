@@ -9,7 +9,7 @@ export default function AttendanceRecord() {
         <p>Display all attendance record of students.</p>
       </div>
       <div className="flex py-10 gap-10">
-        <Card className="p-6">
+        <Card className="p-6 w-full">
           <RecordList />
         </Card>
       </div>

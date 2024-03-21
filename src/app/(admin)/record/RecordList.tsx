@@ -87,58 +87,91 @@ export default function RecordList() {
   };
 
   return (
-    <div className="flex flex-col space-y-4">
-      <select
-        className="p-2 border border-gray-300 rounded-md"
-        value={selectedLevel}
-        onChange={(e) => {
-          const level = e.target.value;
-          setSelectedLevel(level);
-          setSelectedClass(null);
-        }}
-      >
-        <option value="">Select Level</option>
-        {Array.from(new Set(classes.map((cls) => cls.level))).map((level) => (
-          <option key={level} value={level}>
-            {level}
-          </option>
-        ))}
-      </select>
-
-      <select
-        className="p-2 border border-gray-300 rounded-md"
-        value={selectedClass?._id || ""}
-        onChange={(e) => {
-          const classId = e.target.value;
-          const cls = classes.find((c) => c._id === classId) || null;
-          setSelectedClass(cls);
-        }}
-        disabled={!selectedLevel}
-      >
-        <option value="">Select Class</option>
-        {classes
-          .filter((cls) => cls.level === selectedLevel)
-          .map((cls) => (
-            <option key={cls._id} value={cls._id}>
-              {cls.majorName}
-            </option>
-          ))}
-      </select>
-
-      <input
-        className="p-2 border border-gray-300 rounded-md"
-        type="date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-      />
-
-      <button
-        className="p-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
-        onClick={handleFetchAttendance}
-        disabled={!selectedClass || !selectedDate}
-      >
-        Get Attendance Record
-      </button>
+    <div>
+      <div className="flex gap-10 items-center py-2">
+        <div>
+          <label
+            htmlFor="level"
+            className="block mb-2 text-sm font-medium text-gray-400"
+          >
+            Level:
+          </label>
+          <select
+            className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
+            value={selectedLevel}
+            onChange={(e) => {
+              const level = e.target.value;
+              setSelectedLevel(level);
+              setSelectedClass(null);
+            }}
+          >
+            <option value="">Select Level</option>
+            {Array.from(new Set(classes.map((cls) => cls.level))).map(
+              (level) => (
+                <option key={level} value={level}>
+                  {level}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="level"
+            className="block mb-2 text-sm font-medium text-gray-400"
+          >
+            Major
+          </label>
+          <select
+            className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
+            value={selectedClass?._id || ""}
+            onChange={(e) => {
+              const classId = e.target.value;
+              const cls = classes.find((c) => c._id === classId) || null;
+              setSelectedClass(cls);
+            }}
+            disabled={!selectedLevel}
+          >
+            <option value="">Select Class</option>
+            {classes
+              .filter((cls) => cls.level === selectedLevel)
+              .map((cls) => (
+                <option key={cls._id} value={cls._id}>
+                  {cls.majorName}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="butotn"
+            className="block mb-2 text-sm font-medium text-gray-400"
+          >
+            Date
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="butotn"
+            className="block mb-2 text-sm font-medium text-gray-400"
+          >
+            Search
+          </label>
+          <button
+            className="p-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+            onClick={handleFetchAttendance}
+            disabled={!selectedClass || !selectedDate}
+          >
+            Get Attendance Record
+          </button>
+        </div>
+      </div>
 
       {attendanceRecords.length > 0 && (
         <div className="mt-4">
@@ -155,9 +188,9 @@ export default function RecordList() {
               <p>Subject: {record.subject}</p>
               <h3 className="text-xl font-bold mt-2">Students</h3>
               <ul className="list-disc list-inside">
-                {record.students.map((student) => (
+                {record.students.map((student, index) => (
                   <li key={student._id}>
-                    {student.fullname}: {student.isPresent}
+                    {index + 1}. {student.fullname}: {student.isPresent}
                   </li>
                 ))}
               </ul>
