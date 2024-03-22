@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+// icons
 import { MdOutlineDateRange } from "react-icons/md";
+import { RxCaretSort } from "react-icons/rx";
+
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
@@ -23,6 +26,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -222,37 +230,61 @@ export default function RecordList() {
       {attendanceRecords.length > 0 && (
         <div className="my-10">
           {attendanceRecords.map((record, index) => (
-            <div key={index} className="py-10">
-              <h2 className="text-2xl font-bold">Attendance Record Details</h2>
-              <p className="mt-2">
-                Date: {new Date(record.date).toLocaleDateString()}
-              </p>
-              <p className="mt-2">
-                Class: {selectedLevel} - {selectedClass?.majorName}
-              </p>
-              <p>Teacher: {teacherNames[index]}</p>
-              <p>Subject: {record.subject}</p>
-              <Table>
-                <TableCaption>Attendance List</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>No.</TableHead>
-                    <TableHead>Student Name</TableHead>
-                    <TableHead>Presence</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {record.students.map((student, studentIndex) => (
-                    <TableRow key={student._id}>
-                      <TableCell>{studentIndex + 1}</TableCell>
-                      <TableCell>{student.fullname}</TableCell>
-                      <TableCell>{student.isPresent}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              <Separator className="my-4" />
-            </div>
+            <Collapsible key={index} className="w-full space-y-2">
+              <div className="flex items-center text-sm font-semibold gap-6">
+                <p>{new Date(record.date).toLocaleDateString()}</p>
+                <p>
+                  {selectedLevel} - {selectedClass?.majorName}
+                </p>
+                <p> {teacherNames[index]}</p>
+                <CollapsibleTrigger
+                  asChild
+                  className="cursor-pointer text-lg font-semibold"
+                >
+                  <Button variant="ghost" size="sm">
+                    <RxCaretSort className="h-4 w-4" />
+                    <span className="sr-only">Toggle</span>
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
+              <CollapsibleContent>
+                <div className="mt-4">
+                  <p>
+                    <strong>Date:</strong>
+                    {new Date(record.date).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Class:</strong> {selectedLevel} -
+                    {selectedClass?.majorName}
+                  </p>
+                  <p>
+                    <strong>Teacher:</strong> {teacherNames[index]}
+                  </p>
+                  <p>
+                    <strong>Subject:</strong> {record.subject}
+                  </p>
+                  <Table>
+                    <TableCaption>Attendance List</TableCaption>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>No.</TableHead>
+                        <TableHead>Student Name</TableHead>
+                        <TableHead>Presence</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {record.students.map((student, studentIndex) => (
+                        <TableRow key={student._id}>
+                          <TableCell>{studentIndex + 1}</TableCell>
+                          <TableCell>{student.fullname}</TableCell>
+                          <TableCell>{student.isPresent}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           ))}
         </div>
       )}

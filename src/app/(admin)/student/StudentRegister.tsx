@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 
 // library
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
 
 interface IClass {
   _id: string;
