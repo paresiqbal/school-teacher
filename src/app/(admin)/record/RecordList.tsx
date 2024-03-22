@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 // icons
-
 import { RxCaretSort } from "react-icons/rx";
 
 // shadcn
