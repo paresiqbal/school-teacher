@@ -10,11 +10,10 @@ export interface IStudentAttendance {
   fullname: string;
   isPresent: string;
 }
-
+// New Interface for ClassInfo
 interface IClassInfo {
-  classId: string;
-  major: string;
   level: string;
+  majorName: string;
 }
 
 export interface IAttendanceRecord {
@@ -22,6 +21,7 @@ export interface IAttendanceRecord {
   teacher: string;
   subject: string;
   students: IStudentAttendance[];
+  classInfo: IClassInfo;
 }
 
 export default function PdfGenerator({ attendanceRecords }: PdfGeneratorProps) {
@@ -33,19 +33,23 @@ export default function PdfGenerator({ attendanceRecords }: PdfGeneratorProps) {
     doc.setFontSize(12);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 28);
 
-    let startY = 36; // Starting position for the first record
+    let startY = 36;
 
     attendanceRecords.forEach((record, index) => {
-      // If not the first record, add space before the next record
+      const { date, teacher, subject, classInfo } = record;
+      const { level, majorName } = classInfo; // Destructure classInfo here
+
       if (index > 0) startY += 10;
 
-      // Adding Record Header with Date, Teacher, and Subject
-      const recordHeader = `Record: ${index + 1} - Date: ${new Date(
-        record.date
-      ).toLocaleDateString()}, Subject: ${record.subject}`;
-      doc.text(recordHeader, 14, startY);
+      const recordHeaderDetails = [
+        `Date: ${new Date(date).toLocaleDateString()}`,
+        `Subject: ${subject}`,
+        `Level: ${level}`,
+        `Major: ${majorName}`,
+        `Teacher: ${teacher}`,
+      ].join(", ");
+      doc.text(recordHeaderDetails, 14, startY);
 
-      // Define the columns for the attendance table
       const tableColumn = ["No.", "Student Name", "Presence"];
       const tableRows = record.students.map(
         (student: IStudentAttendance, studentIndex: number) => [
@@ -55,22 +59,17 @@ export default function PdfGenerator({ attendanceRecords }: PdfGeneratorProps) {
         ]
       );
 
-      // Generate the table
       autoTable(doc, {
         head: [tableColumn],
         body: tableRows,
-        startY: startY + 6, // Start just below the record header
+        startY: startY + 6,
         theme: "grid",
-        didDrawPage: () => {
-          // Optional: Add hooks for actions after drawing each page
-        },
+        didDrawPage: () => {},
       });
 
-      // Update startY for the next record using finalY from the last table
-      startY = (doc as any).lastAutoTable.finalY + 20; // Adjust space between records
+      startY = (doc as any).lastAutoTable.finalY + 20;
     });
 
-    // Save the document
     if (attendanceRecords.length > 0) {
       const firstRecord = attendanceRecords[0];
       const date = new Date(firstRecord.date)
@@ -80,7 +79,6 @@ export default function PdfGenerator({ attendanceRecords }: PdfGeneratorProps) {
       const documentName = `Attendance_${date}_${subject}.pdf`;
       doc.save(documentName);
     } else {
-      // Fallback name if there are no attendance records
       doc.save("Attendance-Report.pdf");
     }
   };

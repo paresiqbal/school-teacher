@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PdfGenerator from "./PdfGenerator";
 
 // icons
+
 import { RxCaretSort } from "react-icons/rx";
 
 // shadcn
@@ -25,7 +25,7 @@ import Selector from "./Selector";
 import EditDialog from "./EditDialog";
 
 // Define interfaces
-export interface IStudentAttendance {
+interface IStudentAttendance {
   id: string;
   fullname: string;
   class: string;
@@ -39,7 +39,7 @@ interface IClass {
   majorName: string;
 }
 
-export interface IAttendanceRecord {
+interface IAttendanceRecord {
   _id: string;
   date: string;
   class: string;
@@ -58,7 +58,6 @@ export default function RecordList() {
   >([]);
   const [teacherNames, setTeacherNames] = useState<string[]>([]);
   const [date, setDate] = useState<Date>();
-  const pdfGenerator = PdfGenerator({ attendanceRecords });
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -217,12 +216,6 @@ export default function RecordList() {
                         ))}
                       </TableBody>
                     </table>
-                    <button
-                      onClick={pdfGenerator.generatePDF}
-                      className="my-4 p-2 bg-blue-500 text-white rounded"
-                    >
-                      Generate PDF Report
-                    </button>
                   </div>
                 </div>
               </CollapsibleContent>
