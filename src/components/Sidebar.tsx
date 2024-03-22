@@ -16,6 +16,11 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
@@ -112,9 +117,9 @@ export default function Sidebar() {
               </span>
             </Link>
             <Link
-              href="/record"
+              href="/attendance"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/record"
+                pathname === "/attendance"
                   ? "bg-yellow-400 text-zinc-900"
                   : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
               }`}
@@ -128,6 +133,11 @@ export default function Sidebar() {
                 Attendance
               </span>
             </Link>
+            <Collapsible>
+              <CollapsibleTrigger>Attendance</CollapsibleTrigger>
+              <CollapsibleContent>Student Record</CollapsibleContent>
+              <CollapsibleContent>Teacher Record</CollapsibleContent>
+            </Collapsible>
           </li>
         </ul>
 
