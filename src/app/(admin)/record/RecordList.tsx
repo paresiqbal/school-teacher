@@ -138,6 +138,7 @@ export default function RecordList() {
         setSelectedDate={setSelectedDate}
         handleFetchAttendance={handleFetchAttendance}
       />
+
       {attendanceRecords.length > 0 && (
         <div className="my-10 space-y-4">
           {attendanceRecords.map((record, index) => (
