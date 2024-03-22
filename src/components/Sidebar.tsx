@@ -13,6 +13,7 @@ import { PiStudent } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,6 +26,9 @@ import {
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
   const pathname = usePathname();
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
     <aside className="h-screen">
@@ -116,7 +120,7 @@ export default function Sidebar() {
                 Class
               </span>
             </Link>
-            <Link
+            {/* <Link
               href="/attendance"
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/attendance"
@@ -132,12 +136,42 @@ export default function Sidebar() {
               >
                 Attendance
               </span>
-            </Link>
-            <Collapsible>
-              <CollapsibleTrigger>Attendance</CollapsibleTrigger>
-              <CollapsibleContent>Student Record</CollapsibleContent>
-              <CollapsibleContent>Teacher Record</CollapsibleContent>
-            </Collapsible>
+            </Link> */}
+            <div>
+              <div
+                onClick={toggleDropdown}
+                className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                  pathname.startsWith("/attendance")
+                    ? "bg-yellow-400 text-zinc-900"
+                    : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                }`}
+              >
+                <IoCheckmarkDoneOutline />
+                <span
+                  className={`overflow-hidden transition-all ${
+                    expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+                  }`}
+                >
+                  Attendance
+                </span>
+              </div>
+              {isDropdownOpen && (
+                <div className="mt-1 bg-zinc-800 rounded-md shadow-lg">
+                  <Link
+                    href="/attendance/record1"
+                    className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
+                  >
+                    Record 1
+                  </Link>
+                  <Link
+                    href="/attendance/record2"
+                    className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
+                  >
+                    Record 2
+                  </Link>
+                </div>
+              )}
+            </div>
           </li>
         </ul>
 
