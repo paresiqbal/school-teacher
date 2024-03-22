@@ -20,9 +20,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import Selector from "./Selector";
-import EditDialog from "./EditDialog";
-import { generatePDF } from "./generatePDF";
+import Selector from "../Selector";
+import EditDialog from "../EditDialog";
+import { generatePDF } from "../generatePDF";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -48,7 +48,7 @@ interface IAttendanceRecord {
   students: IStudentAttendance[];
 }
 
-export default function RecordList() {
+export default function StudentRecord() {
   const [classes, setClasses] = useState<IClass[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedClass, setSelectedClass] = useState<IClass | null>(null);
