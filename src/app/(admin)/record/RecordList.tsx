@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/collapsible";
 import Selector from "./Selector";
 import EditDialog from "./EditDialog";
+import generatePDF from "./generatePDF";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -221,6 +222,18 @@ export default function RecordList() {
               </CollapsibleContent>
             </Collapsible>
           ))}
+          <button
+            onClick={() =>
+              generatePDF(
+                attendanceRecords,
+                teacherNames,
+                selectedLevel,
+                selectedClass
+              )
+            }
+          >
+            Generate PDF
+          </button>
         </div>
       )}
     </div>
