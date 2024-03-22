@@ -30,6 +30,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import Selector from "./Selector";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -113,112 +114,18 @@ export default function RecordList() {
 
   return (
     <div>
-      <div className="flex gap-10 items-center py-2">
-        <div>
-          <label
-            htmlFor="level"
-            className="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Level:
-          </label>
-          <select
-            className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
-            value={selectedLevel}
-            onChange={(e) => {
-              const level = e.target.value;
-              setSelectedLevel(level);
-              setSelectedClass(null);
-            }}
-          >
-            <option value="">Select Level</option>
-            {Array.from(new Set(classes.map((cls) => cls.level))).map(
-              (level) => (
-                <option key={level} value={level}>
-                  {level}
-                </option>
-              )
-            )}
-          </select>
-        </div>
-        <div>
-          <label
-            htmlFor="level"
-            className="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Major
-          </label>
-          <select
-            className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
-            value={selectedClass?._id || ""}
-            onChange={(e) => {
-              const classId = e.target.value;
-              const cls = classes.find((c) => c._id === classId) || null;
-              setSelectedClass(cls);
-            }}
-            disabled={!selectedLevel}
-          >
-            <option value="">Select Class</option>
-            {classes
-              .filter((cls) => cls.level === selectedLevel)
-              .map((cls) => (
-                <option key={cls._id} value={cls._id}>
-                  {cls.majorName}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div>
-          <label
-            htmlFor="butotn"
-            className="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Date
-          </label>
-
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className={cn(
-                  "w-[240px] justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
-                )}
-                disabled={!selectedClass}
-              >
-                <MdOutlineDateRange className="mr-2" />
-                {date ? format(date, "PPP") : "Pick a date"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={(newDate) => {
-                  if (newDate) {
-                    setDate(newDate);
-                    setSelectedDate(format(newDate, "yyyy-MM-dd"));
-                  }
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div>
-          <label
-            htmlFor="butotn"
-            className="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Search
-          </label>
-          <Button
-            onClick={handleFetchAttendance}
-            disabled={!selectedClass || !selectedDate}
-          >
-            Search
-          </Button>
-        </div>
-      </div>
+      <Selector
+        classes={classes}
+        selectedLevel={selectedLevel}
+        setSelectedLevel={setSelectedLevel}
+        selectedClass={selectedClass}
+        setSelectedClass={setSelectedClass}
+        date={date}
+        setDate={setDate}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        handleFetchAttendance={handleFetchAttendance}
+      />
       {attendanceRecords.length > 0 && (
         <div className="my-10 space-y-4">
           {attendanceRecords.map((record, index) => (
