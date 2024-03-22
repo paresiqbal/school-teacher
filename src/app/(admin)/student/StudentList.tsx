@@ -148,6 +148,7 @@ export default function StudentList() {
           </select>
         </div>
       </div>
+
       <Table>
         <TableCaption>A list of students.</TableCaption>
         <TableHeader>

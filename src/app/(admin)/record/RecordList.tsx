@@ -8,11 +8,21 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Separator } from "@/components/ui/separator";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -209,28 +219,39 @@ export default function RecordList() {
           </Button>
         </div>
       </div>
-
       {attendanceRecords.length > 0 && (
-        <div className="mt-4">
+        <div className="my-10">
           {attendanceRecords.map((record, index) => (
-            <div key={index} className="mt-4">
+            <div key={index} className="py-10">
               <h2 className="text-2xl font-bold">Attendance Record Details</h2>
               <p className="mt-2">
-                Date: {new Date(attendanceRecords[0].date).toLocaleDateString()}
+                Date: {new Date(record.date).toLocaleDateString()}
               </p>
               <p className="mt-2">
                 Class: {selectedLevel} - {selectedClass?.majorName}
               </p>
               <p>Teacher: {teacherNames[index]}</p>
               <p>Subject: {record.subject}</p>
-              <h3 className="text-xl font-bold mt-2">Students</h3>
-              <ul className="list-disc list-inside">
-                {record.students.map((student, index) => (
-                  <li key={student._id}>
-                    {index + 1}. {student.fullname}: {student.isPresent}
-                  </li>
-                ))}
-              </ul>
+              <Table>
+                <TableCaption>Attendance List</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>No.</TableHead>
+                    <TableHead>Student Name</TableHead>
+                    <TableHead>Presence</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {record.students.map((student, studentIndex) => (
+                    <TableRow key={student._id}>
+                      <TableCell>{studentIndex + 1}</TableCell>
+                      <TableCell>{student.fullname}</TableCell>
+                      <TableCell>{student.isPresent}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Separator className="my-4" />
             </div>
           ))}
         </div>
