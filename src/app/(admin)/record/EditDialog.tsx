@@ -1,6 +1,5 @@
-"use client";
+// Import statements remain the same
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,28 +10,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-interface IAttendance {
-  attendanceId: string;
-  studentId: string;
-  isPresent: string;
-}
 
 interface IEditDialogProps {
   attendanceId: string;
   studentId: string;
   currentPresence: string;
+  onUpdate: (
+    attendanceId: string,
+    studentId: string,
+    newStatus: string
+  ) => void;
 }
 
+// Function to update attendance record in the backend
 async function updateAttendance(
   attendanceId: string,
   studentId: string,
   isPresent: string
 ): Promise<boolean> {
   try {
-    // Correctly structure the JSON body
     const res = await fetch(
       "http://localhost:3001/attendance/edit-attendance-record",
       {
@@ -44,10 +41,10 @@ async function updateAttendance(
 
     const data = await res.json();
     if (res.ok) {
-      alert(data.message); // Success message
+      alert(data.message);
       return true;
     } else {
-      alert(data.message); // Error message from server
+      alert(data.message);
       return false;
     }
   } catch (error) {
@@ -56,17 +53,19 @@ async function updateAttendance(
   }
 }
 
+// EditDialog component
 export default function EditDialog({
   attendanceId,
   studentId,
   currentPresence,
+  onUpdate,
 }: IEditDialogProps) {
   const [isPresent, setIsPresent] = useState<string>(currentPresence);
 
   const submitUpdate = async () => {
     const success = await updateAttendance(attendanceId, studentId, isPresent);
     if (success) {
-      // Handle success (e.g., close dialog, refresh data)
+      onUpdate(attendanceId, studentId, isPresent);
     } else {
       // Optionally handle failure
     }
@@ -95,7 +94,7 @@ export default function EditDialog({
             >
               <option value="present">Present</option>
               <option value="absent">Absent</option>
-              <option value="excuse">excuse</option>
+              <option value="excuse">Excused</option>
             </select>
           </div>
           <DialogFooter>

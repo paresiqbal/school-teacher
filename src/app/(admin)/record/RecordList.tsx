@@ -103,6 +103,27 @@ export default function RecordList() {
     setAttendanceRecords(data.attendanceRecords);
   };
 
+  const updateAttendanceStatusInState = (
+    attendanceId: string,
+    studentId: string,
+    newStatus: string
+  ) => {
+    setAttendanceRecords((currentRecords) =>
+      currentRecords.map((record) => {
+        if (record._id === attendanceId) {
+          const updatedStudents = record.students.map((student) => {
+            if (student.id === studentId) {
+              return { ...student, isPresent: newStatus };
+            }
+            return student;
+          });
+          return { ...record, students: updatedStudents };
+        }
+        return record;
+      })
+    );
+  };
+
   return (
     <div>
       <Selector
@@ -185,9 +206,10 @@ export default function RecordList() {
                             <TableCell>{student.isPresent}</TableCell>
                             <TableCell>
                               <EditDialog
-                                attendanceId={record._id}
-                                studentId={student.id}
-                                currentPresence={student.isPresent}
+                                attendanceId={record._id} // Correctly accessing record's ID
+                                studentId={student.id} // Correctly accessing student's ID
+                                currentPresence={student.isPresent} // Correctly accessing student's presence status
+                                onUpdate={updateAttendanceStatusInState}
                               />
                             </TableCell>
                           </TableRow>
