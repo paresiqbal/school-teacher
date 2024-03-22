@@ -3,7 +3,7 @@ import "jspdf-autotable";
 
 interface Student {
   fullname: string;
-  isPresent: string;
+  isPresent: string; // "yes", "no", or "excuse"
 }
 
 interface Record {
@@ -26,37 +26,47 @@ export const generatePDF = (
 
   attendanceRecords.forEach((record: Record, index: number) => {
     const teacherName = teacherNames[index] || "N/A";
-    const heading = [
-      ["Date", "Subject", "Class", "Teacher"],
-      [record.date, record.subject, selectedLevel, teacherName],
+    // First table for record details
+    const detailsTableBody = [
+      ["Date:", record.date],
+      ["Subject:", record.subject],
+      ["Class:", `${selectedLevel} - ${selectedClass?.majorName || ""}`],
+      ["Teacher:", teacherName],
     ];
-    const body = record.students.map(
+
+    // Check if not the first record, add a page
+    if (index > 0) {
+      doc.addPage();
+    }
+
+    doc.autoTable({
+      head: [["Record Information", ""]],
+      body: detailsTableBody,
+      theme: "plain",
+      startY: 10,
+    });
+
+    let startY = doc.lastAutoTable.finalY + 10; // Start Y position for the next table
+
+    // Second table for students
+    const studentTableBody = record.students.map(
       (student: Student, studentIndex: number) => [
         studentIndex + 1,
         student.fullname,
-        student.isPresent === "yes" ? "present" : "absent",
+        student.isPresent === "yes"
+          ? "Present"
+          : student.isPresent === "no"
+          ? "Absent"
+          : "Excused", // Handling all three presence statuses
       ]
     );
 
     doc.autoTable({
       head: [["No.", "Student Name", "Presence"]],
-      body: body,
-      didDrawPage: (data: any) => {
-        // This can be used to add a header to each page
-        doc.setFontSize(14);
-        doc.text(`Attendance Record for ${selectedClass?.majorName}`, 14, 15);
-      },
-      startY: index === 0 ? 20 : doc.internal.pageSize.height - 10,
-    });
-
-    doc.autoTable({
-      body: heading,
-      theme: "plain",
-      startY: doc.lastAutoTable.finalY + 5,
+      body: studentTableBody,
+      startY: startY,
     });
   });
 
   doc.save("attendance-records.pdf");
 };
-
-export default generatePDF;

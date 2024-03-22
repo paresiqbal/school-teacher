@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/collapsible";
 import Selector from "./Selector";
 import EditDialog from "./EditDialog";
-import generatePDF from "./generatePDF";
+import { generatePDF } from "./generatePDF";
 
 // Define interfaces
 interface IStudentAttendance {
