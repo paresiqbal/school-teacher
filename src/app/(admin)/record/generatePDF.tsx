@@ -1,12 +1,16 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 
+// Assuming these interfaces are derived directly from your JSON structure
 interface Student {
+  id: string;
   fullname: string;
-  isPresent: string; // "yes", "no", or "excuse"
+  isPresent: string; // "present", "excuse", possibly "absent"
+  _id: string;
 }
 
-interface Record {
+interface AttendanceRecord {
+  _id: string;
   date: string;
   subject: string;
   students: Student[];
@@ -17,54 +21,59 @@ interface Class {
 }
 
 export const generatePDF = (
-  attendanceRecords: Record[],
-  teacherNames: string[],
+  attendanceRecords: AttendanceRecord[],
+  teacherNames: string[], // Assuming this aligns with the records
   selectedLevel: string,
   selectedClass: Class | null
 ) => {
   const doc = new jsPDF() as jsPDF & { autoTable: any; lastAutoTable: any };
 
-  attendanceRecords.forEach((record: Record, index: number) => {
-    const teacherName = teacherNames[index] || "N/A";
-    // First table for record details
-    const detailsTableBody = [
-      ["Date:", record.date],
-      ["Subject:", record.subject],
-      ["Class:", `${selectedLevel} - ${selectedClass?.majorName || ""}`],
-      ["Teacher:", teacherName],
-    ];
-
-    // Check if not the first record, add a page
-    if (index > 0) {
-      doc.addPage();
+  const mapPresence = (isPresent: string) => {
+    switch (isPresent.toLowerCase()) {
+      case "present":
+        return "Present";
+      case "absent":
+        return "Absent";
+      case "excuse":
+        return "Excused";
+      default:
+        return "Unknown"; // Handle unexpected values
     }
+  };
 
+  attendanceRecords.forEach((record: AttendanceRecord, index: number) => {
+    const teacherName = teacherNames[index] || "N/A";
+    const startY = index > 0 ? doc.lastAutoTable.finalY + 10 : 10;
+
+    // Add a new page for each record after the first
+    if (index > 0) doc.addPage();
+
+    // Table for record details
     doc.autoTable({
-      head: [["Record Information", ""]],
-      body: detailsTableBody,
+      head: [["Record Details", ""]],
+      body: [
+        ["Date", record.date],
+        ["Subject", record.subject],
+        ["Class", `${selectedLevel} - ${selectedClass?.majorName || ""}`],
+        ["Teacher", teacherName],
+      ],
       theme: "plain",
-      startY: 10,
+      startY,
     });
 
-    let startY = doc.lastAutoTable.finalY + 10; // Start Y position for the next table
-
-    // Second table for students
+    // Students table
     const studentTableBody = record.students.map(
       (student: Student, studentIndex: number) => [
         studentIndex + 1,
         student.fullname,
-        student.isPresent === "yes"
-          ? "Present"
-          : student.isPresent === "no"
-          ? "Absent"
-          : "Excused", // Handling all three presence statuses
+        mapPresence(student.isPresent), // Map presence to a readable format
       ]
     );
 
     doc.autoTable({
       head: [["No.", "Student Name", "Presence"]],
       body: studentTableBody,
-      startY: startY,
+      startY: doc.lastAutoTable.finalY + 10,
     });
   });
 
