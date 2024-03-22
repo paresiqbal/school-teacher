@@ -169,6 +169,7 @@ export default function RecordList() {
                           <TableHead className="p-2">No.</TableHead>
                           <TableHead>Student Name</TableHead>
                           <TableHead>Presence</TableHead>
+                          <TableHead>Action</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -182,6 +183,9 @@ export default function RecordList() {
                             </TableCell>
                             <TableCell>{student.fullname}</TableCell>
                             <TableCell>{student.isPresent}</TableCell>
+                            <TableCell>
+                              <Button>Edit status</Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
