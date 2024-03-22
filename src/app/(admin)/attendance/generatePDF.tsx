@@ -1,11 +1,10 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 
-// Assuming these interfaces are derived directly from your JSON structure
 interface Student {
   id: string;
   fullname: string;
-  isPresent: string; // "present", "excuse", possibly "absent"
+  isPresent: string; // "present", "excuse", "absent"
   _id: string;
 }
 
@@ -22,7 +21,7 @@ interface Class {
 
 export const generatePDF = (
   attendanceRecords: AttendanceRecord[],
-  teacherNames: string[], // Assuming this aligns with the records
+  teacherNames: string[],
   selectedLevel: string,
   selectedClass: Class | null
 ) => {
@@ -37,7 +36,7 @@ export const generatePDF = (
       case "excuse":
         return "Excused";
       default:
-        return "Unknown"; // Handle unexpected values
+        return "Unknown";
     }
   };
 
@@ -66,7 +65,7 @@ export const generatePDF = (
       (student: Student, studentIndex: number) => [
         studentIndex + 1,
         student.fullname,
-        mapPresence(student.isPresent), // Map presence to a readable format
+        mapPresence(student.isPresent),
       ]
     );
 
