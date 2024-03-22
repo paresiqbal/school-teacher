@@ -11,6 +11,12 @@ export interface IStudentAttendance {
   isPresent: string;
 }
 
+interface IClassInfo {
+  classId: string;
+  major: string;
+  level: string;
+}
+
 export interface IAttendanceRecord {
   date: string;
   teacher: string;
