@@ -22,6 +22,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import Selector from "./Selector";
+import EditDialog from "./EditDialog";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -56,7 +57,6 @@ export default function RecordList() {
     IAttendanceRecord[]
   >([]);
   const [teacherNames, setTeacherNames] = useState<string[]>([]);
-
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
@@ -184,7 +184,11 @@ export default function RecordList() {
                             <TableCell>{student.fullname}</TableCell>
                             <TableCell>{student.isPresent}</TableCell>
                             <TableCell>
-                              <Button>Edit status</Button>
+                              <EditDialog
+                                attendanceId={record._id}
+                                studentId={student.id}
+                                currentPresence={student.isPresent}
+                              />
                             </TableCell>
                           </TableRow>
                         ))}
