@@ -228,60 +228,75 @@ export default function RecordList() {
         </div>
       </div>
       {attendanceRecords.length > 0 && (
-        <div className="my-10">
+        <div className="my-10 space-y-4">
           {attendanceRecords.map((record, index) => (
-            <Collapsible key={index} className="w-full space-y-2">
-              <div className="flex items-center text-sm font-semibold gap-6">
-                <p>{new Date(record.date).toLocaleDateString()}</p>
-                <p>
-                  {selectedLevel} - {selectedClass?.majorName}
-                </p>
-                <p> {teacherNames[index]}</p>
-                <CollapsibleTrigger
-                  asChild
-                  className="cursor-pointer text-lg font-semibold"
-                >
-                  <Button variant="ghost" size="sm">
-                    <RxCaretSort className="h-4 w-4" />
-                    <span className="sr-only">Toggle</span>
-                  </Button>
-                </CollapsibleTrigger>
-              </div>
-              <CollapsibleContent>
-                <div className="mt-4">
-                  <p>
-                    <strong>Date:</strong>
+            <Collapsible
+              key={index}
+              className="bg-zinc-900 shadow-lg rounded-lg overflow-hidden"
+            >
+              <div className="flex items-center justify-between p-4 text-sm font-semibold bg-zinc-900">
+                <div className="flex items-center gap-4">
+                  <p className="text-yellow-500">
                     {new Date(record.date).toLocaleDateString()}
                   </p>
                   <p>
-                    <strong>Class:</strong> {selectedLevel} -
-                    {selectedClass?.majorName}
+                    {selectedLevel} - {selectedClass?.majorName}
                   </p>
-                  <p>
-                    <strong>Teacher:</strong> {teacherNames[index]}
-                  </p>
-                  <p>
-                    <strong>Subject:</strong> {record.subject}
-                  </p>
-                  <Table>
-                    <TableCaption>Attendance List</TableCaption>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>No.</TableHead>
-                        <TableHead>Student Name</TableHead>
-                        <TableHead>Presence</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {record.students.map((student, studentIndex) => (
-                        <TableRow key={student._id}>
-                          <TableCell>{studentIndex + 1}</TableCell>
-                          <TableCell>{student.fullname}</TableCell>
-                          <TableCell>{student.isPresent}</TableCell>
+                  <p>{teacherNames[index]}</p>
+                </div>
+                <CollapsibleTrigger asChild>
+                  <button className="flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-200">
+                    <RxCaretSort className="h-4 w-4" aria-hidden="true" />
+                    <span className="sr-only">Toggle</span>
+                  </button>
+                </CollapsibleTrigger>
+              </div>
+              <CollapsibleContent>
+                <div className="p-4">
+                  <div className="space-y-2">
+                    <p>
+                      <strong>Date:</strong>
+                      {new Date(record.date).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Class:</strong> {selectedLevel} -
+                      {selectedClass?.majorName}
+                    </p>
+                    <p>
+                      <strong>Teacher:</strong> {teacherNames[index]}
+                    </p>
+                    <p>
+                      <strong>Subject:</strong> {record.subject}
+                    </p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left">
+                      <TableCaption className="p-2 text-lg font-medium">
+                        Attendance List
+                      </TableCaption>
+                      <TableHeader>
+                        <TableRow className="bg-zinc-950">
+                          <TableHead className="p-2">No.</TableHead>
+                          <TableHead>Student Name</TableHead>
+                          <TableHead>Presence</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {record.students.map((student, studentIndex) => (
+                          <TableRow
+                            key={student._id}
+                            className="border-b even:bg-zinc-950"
+                          >
+                            <TableCell className="p-2">
+                              {studentIndex + 1}
+                            </TableCell>
+                            <TableCell>{student.fullname}</TableCell>
+                            <TableCell>{student.isPresent}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </table>
+                  </div>
                 </div>
               </CollapsibleContent>
             </Collapsible>
