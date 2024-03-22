@@ -3,21 +3,12 @@
 import { useEffect, useState } from "react";
 
 // icons
-import { MdOutlineDateRange } from "react-icons/md";
+
 import { RxCaretSort } from "react-icons/rx";
 
-import { format } from "date-fns";
-
-import { cn } from "@/lib/utils";
+// shadcn
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Table,
   TableBody,
   TableCaption,
   TableCell,
