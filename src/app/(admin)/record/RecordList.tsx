@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Separator } from "@/components/ui/separator";
 import {
   Popover,
   PopoverContent,
@@ -54,13 +53,6 @@ interface IAttendanceRecord {
   teacher: string;
   subject: string;
   students: IStudentAttendance[];
-}
-
-interface ITeacherDetails {
-  _id: string;
-  fullname: string;
-  nip: string;
-  username: string;
 }
 
 export default function RecordList() {
@@ -245,10 +237,10 @@ export default function RecordList() {
                   <p>{teacherNames[index]}</p>
                 </div>
                 <CollapsibleTrigger asChild>
-                  <button className="flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-200">
+                  <Button className="flex p-2 rounded-md hover:bg-yellow-500">
                     <RxCaretSort className="h-4 w-4" aria-hidden="true" />
                     <span className="sr-only">Toggle</span>
-                  </button>
+                  </Button>
                 </CollapsibleTrigger>
               </div>
               <CollapsibleContent>
@@ -285,7 +277,7 @@ export default function RecordList() {
                         {record.students.map((student, studentIndex) => (
                           <TableRow
                             key={student._id}
-                            className="border-b even:bg-zinc-950"
+                            className="border-b even:bg-zinc-800"
                           >
                             <TableCell className="p-2">
                               {studentIndex + 1}
