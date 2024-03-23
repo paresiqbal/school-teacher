@@ -125,7 +125,11 @@ export default function StudentRecord() {
   };
 
   return (
-    <div>
+    <div className="p-10">
+      <div className="pb-10">
+        <h1 className="text-3xl font-bold">Attendance report of students</h1>
+        <p>See and create report daily or weekly students attendance.</p>
+      </div>
       <Selector
         classes={classes}
         selectedLevel={selectedLevel}
@@ -222,7 +226,7 @@ export default function StudentRecord() {
               </CollapsibleContent>
             </Collapsible>
           ))}
-          <button
+          <Button
             onClick={() =>
               generatePDF(
                 attendanceRecords,
@@ -233,7 +237,7 @@ export default function StudentRecord() {
             }
           >
             Generate PDF
-          </button>
+          </Button>
         </div>
       )}
     </div>

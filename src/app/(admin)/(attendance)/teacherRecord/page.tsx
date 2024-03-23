@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import React, { useState } from "react";
 
 interface Record {
   _id: string;
@@ -8,32 +10,41 @@ interface Record {
 }
 
 interface TeacherRecordProps {
-  attendanceRecords: Record[];
+  attendanceRecords?: Record[]; // Marking as optional
 }
 
-const TeacherRecord: React.FC<TeacherRecordProps> = ({ attendanceRecords }) => {
-  // State for the search term
-  const [searchTerm, setSearchTerm] = useState("");
+const TeacherRecord: React.FC<TeacherRecordProps> = ({
+  attendanceRecords = [],
+}) => {
+  const [searchInput, setSearchInput] = useState(""); // Holds the input from the user
+  const [searchTerm, setSearchTerm] = useState(""); // The term to actually search for
 
-  // Filtered records based on search term
+  // This function updates the actual search term which is used for filtering
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+  };
+
+  // Filtered records based on the actual search term
   const filteredRecords = attendanceRecords.filter((record) =>
-    // Assuming you want to search by the teacher's ID for simplicity
-    // You might need to adjust this to match the teacher's name or other attributes
-    // depending on how you manage teacher names in your application
     record.teacher.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div>
       <h2>Teacher Attendance Records</h2>
-      {/* Search input */}
-      <input
-        type="text"
-        placeholder="Search by teacher ID"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
-      />
+      {/* Search input and button */}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by teacher ID"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="search-input"
+        />
+        <button onClick={handleSearch} className="search-button">
+          Search
+        </button>
+      </div>
       <div className="records-list">
         {filteredRecords.length > 0 ? (
           filteredRecords.map((record) => (
