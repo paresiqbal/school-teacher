@@ -17,11 +17,6 @@ import { FaChevronDown } from "react-icons/fa";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
@@ -120,23 +115,6 @@ export default function Sidebar() {
                 Class
               </span>
             </Link>
-            {/* <Link
-              href="/attendance"
-              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/attendance"
-                  ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
-              }`}
-            >
-              <IoCheckmarkDoneOutline />
-              <span
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                }`}
-              >
-                Attendance
-              </span>
-            </Link> */}
             <div>
               <div
                 onClick={toggleDropdown}
@@ -158,16 +136,16 @@ export default function Sidebar() {
               {isDropdownOpen && (
                 <div className="mt-1 bg-zinc-800 rounded-md shadow-lg">
                   <Link
-                    href="/attendance/record1"
+                    href="/studentRecord"
                     className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
                   >
-                    Record 1
+                    Student Record
                   </Link>
                   <Link
-                    href="/attendance/record2"
+                    href="/teacherRecord"
                     className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
                   >
-                    Record 2
+                    Teacher Record
                   </Link>
                 </div>
               )}
