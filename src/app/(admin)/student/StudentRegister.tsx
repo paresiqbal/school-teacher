@@ -1,14 +1,16 @@
 "use client";
+
+// next
 import { useEffect, useState } from "react";
 
 // library
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// import QRCode from "qrcode";
 
 // shadcn
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -18,7 +20,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 interface IClass {
   _id: string;
@@ -36,8 +37,8 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  nis: z.coerce.number().int().min(4, {
-    message: "NIS must be at least 4 digits.",
+  nis: z.coerce.number().int().min(6, {
+    message: "NIS must be at least 6 digits.",
   }),
   yearEntry: z.coerce.number().int().min(4, {
     message: "Year of entry must be at least 4 digits.",
@@ -47,6 +48,7 @@ const formSchema = z.object({
 
 export default function StudentRegister() {
   const [classes, setClasses] = useState<IClass[]>([]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,19 +60,6 @@ export default function StudentRegister() {
       yearEntry: 0,
     },
   });
-
-  useEffect(() => {
-    async function fetchClasses() {
-      const response = await fetch("http://localhost:3001/class/classes");
-      if (!response.ok) throw new Error("Failed to fetch classes");
-      const data = await response.json();
-      setClasses(data);
-    }
-
-    fetchClasses().catch((error) =>
-      console.error("Fetch classes error:", error)
-    );
-  }, []);
 
   const studentRegister = async (values: z.infer<typeof formSchema>) => {
     const registrationValues = { ...values, role: "student" };
@@ -88,11 +77,26 @@ export default function StudentRegister() {
         throw new Error("Uh oh! Failed to register student.");
       }
       const data = await response.json();
+
       console.log("Registration successful:", data);
     } catch (error) {
       console.error("Uh oh! Something went wrong.", error);
     }
   };
+
+  useEffect(() => {
+    async function fetchClasses() {
+      const response = await fetch("http://localhost:3001/class/classes");
+      if (!response.ok) throw new Error("Failed to fetch classes");
+
+      const data = await response.json();
+      setClasses(data);
+    }
+
+    fetchClasses().catch((error) =>
+      console.error("Fetch classes error:", error)
+    );
+  }, []);
 
   return (
     <div className="flex flex-col p-4 justify-center items-center">

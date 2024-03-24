@@ -2,10 +2,10 @@
 
 // next
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 
 // shadcn
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,

@@ -1,5 +1,3 @@
-"use client";
-
 // components
 import StudentRegister from "./StudentRegister";
 import StudentList from "./StudentList";
