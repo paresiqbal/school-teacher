@@ -27,7 +27,7 @@ interface IClass {
 async function getMajors(): Promise<IMajor[]> {
   const response = await fetch("http://localhost:3001/class/majors", {
     next: {
-      revalidate: 0,
+      revalidate: 3,
     },
   });
 
@@ -37,7 +37,7 @@ async function getMajors(): Promise<IMajor[]> {
 async function getClasses() {
   const response = await fetch("http://localhost:3001/class/classes", {
     next: {
-      revalidate: 0,
+      revalidate: 3,
     },
   });
 
