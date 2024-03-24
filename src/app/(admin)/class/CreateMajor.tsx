@@ -7,6 +7,8 @@ import { z } from "zod";
 
 // shadcn
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -16,7 +18,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   majorName: z.string().min(3, {
@@ -25,6 +26,8 @@ const formSchema = z.object({
 });
 
 export default function CreateMajor() {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,16 +46,30 @@ export default function CreateMajor() {
         },
         body: JSON.stringify(majorValues),
       });
+
       if (!response.ok) {
         throw new Error("Failed to create major. Please try again.");
       }
 
       const major = await response.json();
-      console.log("Major created:", major);
+      form.reset();
+      toast({
+        title: "Success",
+        description: `Major ${major.name} created successfully.`,
+      });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
-      console.error("Uh oh! Something went wrong.", error);
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        variant: "destructive",
+      });
     }
   };
+
   return (
     <div className="flex flex-col">
       <div className="text-center pb-4">
