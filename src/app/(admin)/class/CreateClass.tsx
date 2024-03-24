@@ -1,3 +1,4 @@
+// next
 import { useEffect, useState } from "react";
 
 // library
@@ -9,18 +10,20 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-const formSchema = z.object({
-  level: z.enum(["X", "XI", "XII"]),
-  majorId: z.string(),
-});
-
 interface Major {
   _id: string;
   majorName: string;
 }
 
+const formSchema = z.object({
+  level: z.enum(["X", "XI", "XII"]),
+  majorId: z.string(),
+});
+
 export default function CreateClass() {
   const [majors, setMajors] = useState<Major[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,6 +40,7 @@ export default function CreateClass() {
     try {
       const response = await fetch("http://localhost:3001/class/majors");
       if (!response.ok) throw new Error("Failed to fetch majors.");
+
       const data: Major[] = await response.json();
       setMajors(data);
     } catch (error) {
@@ -45,6 +49,8 @@ export default function CreateClass() {
   };
 
   const createClass = async (values: { level: string; majorId: string }) => {
+    setIsSubmitting(true);
+
     try {
       const response = await fetch("http://localhost:3001/class/addClass", {
         method: "POST",
@@ -57,24 +63,24 @@ export default function CreateClass() {
       const data = await response.json();
       if (!response.ok) {
         if (data.error && data.error.includes("already exists")) {
-          alert("A class with the same level and major already exists.");
+          alert("Class already exists. Please try again.");
         } else {
           throw new Error(
             data.error || "Failed to create class. Please try again."
           );
         }
       } else {
-        console.log("Class created:", data);
-
         form.reset({
           level: "",
           majorId: "",
         });
 
-        alert("Class created successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       }
     } catch (error) {
-      console.error("Uh oh! Something went wrong.", error);
+      alert("Failed to create class. Please try again");
     }
   };
 
@@ -122,7 +128,7 @@ export default function CreateClass() {
             </select>
           </div>
           <Button type="submit" className="w-full">
-            Create Class
+            {isSubmitting ? "Creating..." : "Create Class"}
           </Button>
         </form>
       </Form>
