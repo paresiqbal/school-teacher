@@ -137,13 +137,21 @@ export default function Sidebar() {
                 <div className="mt-1 bg-zinc-800 rounded-md shadow-lg">
                   <Link
                     href="/studentRecord"
-                    className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
+                    className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                      pathname.startsWith("/studentRecord")
+                        ? "bg-yellow-400 text-zinc-900"
+                        : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                    }`}
                   >
                     Student Record
                   </Link>
                   <Link
                     href="/teacherRecord"
-                    className="block px-4 py-2 text-sm text-white hover:bg-zinc-700"
+                    className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                      pathname.startsWith("/teacherRecord")
+                        ? "bg-yellow-400 text-zinc-900"
+                        : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                    }`}
                   >
                     Teacher Record
                   </Link>
