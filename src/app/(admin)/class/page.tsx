@@ -34,6 +34,7 @@ async function getMajors(): Promise<IMajor[]> {
   return response.json();
 }
 
+// get all classes
 async function getClasses() {
   const response = await fetch("http://localhost:3001/class/classes", {
     next: {
@@ -46,8 +47,45 @@ async function getClasses() {
 
 export default function ClassPage() {
   const [majors, setMajors] = useState<IMajor[]>([]);
-
   const [classes, setClasses] = useState<IClass[]>([]);
+
+  // delete major by ID
+  const deleteMajor = async (majorId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/class/delete-major/${majorId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete the major");
+      }
+
+      setMajors(majors.filter((major) => major._id !== majorId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteClass = async (classId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/class/delete-class/${classId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete the class");
+      }
+      // Filter out the deleted class
+      setClasses(classes.filter((classItem) => classItem._id !== classId));
+    } catch (error) {
+      console.error(error);
+      // Optionally, handle the error in the UI
+    }
+  };
 
   useEffect(() => {
     getMajors().then((data) => setMajors(data));
@@ -71,7 +109,12 @@ export default function ClassPage() {
               className="py-2 flex justify-between items-center"
             >
               <p>{major.majorName}</p>
-              <Button variant="destructive">Delete</Button>
+              <Button
+                variant="destructive"
+                onClick={() => deleteMajor(major._id)}
+              >
+                Delete
+              </Button>
             </div>
           ))}
         </Card>
@@ -86,7 +129,12 @@ export default function ClassPage() {
               <p>
                 {classItem.level} - {classItem.majorName}
               </p>
-              <Button variant="destructive">Delete</Button>
+              <Button
+                variant="destructive"
+                onClick={() => deleteClass(classItem._id)}
+              >
+                Delete
+              </Button>
             </div>
           ))}
         </Card>
