@@ -79,11 +79,10 @@ export default function ClassPage() {
       if (!response.ok) {
         throw new Error("Failed to delete the class");
       }
-      // Filter out the deleted class
+
       setClasses(classes.filter((classItem) => classItem._id !== classId));
     } catch (error) {
       console.error(error);
-      // Optionally, handle the error in the UI
     }
   };
 
