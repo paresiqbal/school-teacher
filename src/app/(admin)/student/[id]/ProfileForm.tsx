@@ -1,98 +1,60 @@
 "use client";
 
-// next
-import { useEffect, useState } from "react";
-
-// zod
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
-
-// shadcn
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-const formSchema = z.object({
-  fullname: z.string().min(3, {
-    message: "Full name is required.",
-  }),
-  username: z.string().min(4, {
-    message: "Username must be at least 4 characters.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-  nis: z.coerce.number().int().min(6, {
-    message: "NIS must be at least 6 digits.",
-  }),
-  yearEntry: z.coerce.number().int().min(4, {
-    message: "Year of entry must be at least 4 digits.",
-  }),
-});
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 interface ProfileFormProps {
   id: string;
 }
 
-interface FormInputs {
-  fullname: string;
-  username: string;
-  password: string;
-  nis: string;
-  yearEntry: string;
-  avatar: string;
-}
-
 export default function ProfileForm({ id }: ProfileFormProps) {
-  const [initialLoading, setInitialLoading] = useState(true);
-
-  const form = useForm<FormInputs>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullname: "",
-      username: "",
-      password: "",
-      nis: "",
-      yearEntry: "",
-      avatar: "",
-    },
+  const [student, setStudent] = useState({
+    username: "",
+    password: "",
+    fullname: "",
+    nis: "",
+    yearEntry: "",
+    avatar: "",
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchStudentData = async () => {
+    const fetchStudent = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           `http://localhost:3001/student/student/${id}`
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Student not found or server error");
         }
         const data = await response.json();
-        form.reset({
-          username: data.username,
-          fullname: data.fullname,
-          nis: data.nis.toString(),
-          yearEntry: data.yearEntry.toString(),
-          avatar: data.avatar || "",
-        });
-        setInitialLoading(false);
+        setStudent((prev) => ({ ...prev, ...data }));
       } catch (error) {
-        console.error("Failed to fetch student data:", error);
+        if (error instanceof Error) {
+          setError(error.message);
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchStudentData();
-  }, [id, form]);
+    if (id) {
+      fetchStudent();
+    }
+  }, [id]);
 
-  const updateStudent: SubmitHandler<FormInputs> = async (formData) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setStudent((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:3001/student/update/${id}`,
@@ -101,51 +63,87 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(student),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Failed to update student");
       }
+      const updatedStudent = await response.json();
+      setStudent(updatedStudent);
+      alert("Student updated successfully!");
     } catch (error) {
-      console.error("Error updating student:", error);
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <div>
-      <div className="py-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
-        <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
-        </p>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(updateStudent)} className="space-y-2">
-          <FormField
-            control={form.control}
-            name="fullname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Full Name"
-                    type="text"
-                    id="fullname"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Register Student
-          </Button>
-        </form>
-      </Form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h1>Update Student Profile</h1>
+      <label>
+        Username:{" "}
+        <input
+          type="text"
+          name="username"
+          value={student.username}
+          onChange={handleChange}
+        />
+      </label>
+      {/* Omit password field if not intended for update */}
+      <label>
+        Password:{" "}
+        <input
+          type="password"
+          name="password"
+          placeholder="New Password"
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Full Name:{" "}
+        <input
+          type="text"
+          name="fullname"
+          value={student.fullname}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        NIS:{" "}
+        <input
+          type="text"
+          name="nis"
+          value={student.nis}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Year of Entry:{" "}
+        <input
+          type="text"
+          name="yearEntry"
+          value={student.yearEntry}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Avatar URL:{" "}
+        <input
+          type="text"
+          name="avatar"
+          value={student.avatar}
+          onChange={handleChange}
+        />
+      </label>
+      <button type="submit">Update Profile</button>
+    </form>
   );
 }
