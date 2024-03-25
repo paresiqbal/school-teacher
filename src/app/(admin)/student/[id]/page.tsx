@@ -1,17 +1,15 @@
-"use client";
-
-// library
-import { z } from "zod";
-
 // shadcn
-
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProfileForm from "./ProfileForm";
 
 interface Iid {
   id: string;
 }
 
 export default function StudentDetails({ params }: { params: Iid }) {
+  const { id } = params;
+
   return (
     <div className="p-10">
       <div className="pb-10">
@@ -21,6 +19,19 @@ export default function StudentDetails({ params }: { params: Iid }) {
         </p>
         <Separator className="my-4" />
       </div>
+      <Tabs defaultValue="Profile" className="flex">
+        <TabsList className="grid w-full grid-cols-3 col-span-3">
+          <TabsTrigger value="Profile">Profile</TabsTrigger>
+          <TabsTrigger value="qrcode">QR Code</TabsTrigger>
+          <TabsTrigger value="password">Delete</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="Profile">
+          <ProfileForm id={params.id} />
+        </TabsContent>
+        <TabsContent value="Qrcode"></TabsContent>
+        <TabsContent value="Delete"></TabsContent>
+      </Tabs>
     </div>
   );
 }
