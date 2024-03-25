@@ -1,6 +1,17 @@
 "use client";
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 interface ProfileFormProps {
   id: string;
@@ -86,63 +97,62 @@ export default function ProfileForm({ id }: ProfileFormProps) {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Update Student Profile</h1>
-      <label>
-        Username:{" "}
-        <input
-          type="text"
-          name="username"
-          value={student.username}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="password"
-          name="password"
-          placeholder="New Password"
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Full Name:{" "}
-        <input
-          type="text"
-          name="fullname"
-          value={student.fullname}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        NIS:{" "}
-        <input
-          type="text"
-          name="nis"
-          value={student.nis}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Year of Entry:{" "}
-        <input
-          type="text"
-          name="yearEntry"
-          value={student.yearEntry}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Avatar URL:{" "}
-        <input
-          type="text"
-          name="avatar"
-          value={student.avatar}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Update Profile</button>
-    </form>
+    <div>
+      <div className="py-4">
+        <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
+        <p className="text-sm text-muted-foreground">
+          This is how others will see you on the site.
+        </p>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-2 flex flex-col gap-3">
+        <label className="text-sm font-medium flex flex-col gap-2">
+          Full Name
+          <Input
+            type="text"
+            name="fullname"
+            value={student.fullname}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="text-sm font-medium flex flex-col gap-2">
+          Username
+          <Input
+            type="text"
+            name="username"
+            value={student.username}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="text-sm font-medium flex flex-col gap-2">
+          Password
+          <Input
+            type="password"
+            name="password"
+            placeholder="New Password"
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          NIS
+          <Input
+            type="text"
+            name="nis"
+            value={student.nis}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Year of Entry
+          <Input
+            type="text"
+            name="yearEntry"
+            value={student.yearEntry}
+            onChange={handleChange}
+          />
+        </label>
+        <Button type="submit">Update Profile</Button>
+      </form>
+    </div>
   );
 }
