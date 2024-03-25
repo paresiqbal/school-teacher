@@ -97,7 +97,6 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           onChange={handleChange}
         />
       </label>
-      {/* Omit password field if not intended for update */}
       <label>
         Password:{" "}
         <input
