@@ -19,7 +19,7 @@ export default function StudentDetails({ params }: { params: Iid }) {
         </p>
         <Separator className="my-4" />
       </div>
-      <Tabs defaultValue="Profile" className="flex">
+      <Tabs defaultValue="Profile" className="flex flex-col">
         <TabsList className="grid w-full grid-cols-3 col-span-3">
           <TabsTrigger value="Profile">Profile</TabsTrigger>
           <TabsTrigger value="qrcode">QR Code</TabsTrigger>
