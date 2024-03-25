@@ -6,6 +6,7 @@ import DeleteForm from "./DeleteForm";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import QrForm from "./QrForm";
 
 interface Iid {
   id: string;
@@ -34,7 +35,9 @@ export default function StudentDetails({ params }: { params: Iid }) {
         <TabsContent value="Profile">
           <ProfileForm id={params.id} />
         </TabsContent>
-        <TabsContent value="qrcode">QR CODE HERE</TabsContent>
+        <TabsContent value="qrcode">
+          <QrForm id={params.id} />
+        </TabsContent>
         <TabsContent value="delete">
           <div className="py-4">
             <h3>Danger zone</h3>
