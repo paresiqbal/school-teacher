@@ -20,6 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 interface IClass {
   _id: string;
@@ -87,10 +89,9 @@ export default function StudentRegister() {
       });
 
       response.json();
-      alert("Student registered successfully!");
+      toast.success("Student registered successfully.");
     } catch (error) {
-      console.error("Uh oh! Something went wrong.", error);
-      alert("Failed to register student.");
+      toast.error("Student failed to register.");
     }
   };
 
@@ -119,6 +120,7 @@ export default function StudentRegister() {
             Enter student details to register an account.
           </p>
         </div>
+        <Toaster richColors />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(studentRegister)}
