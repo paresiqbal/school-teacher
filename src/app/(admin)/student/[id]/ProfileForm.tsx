@@ -1,17 +1,13 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+// next
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+
+// ui
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 interface ProfileFormProps {
   id: string;
@@ -83,7 +79,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
       }
       const updatedStudent = await response.json();
       setStudent(updatedStudent);
-      alert("Student updated successfully!");
+      toast.success("Data updated successfully.");
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -104,6 +100,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           This is how others will see you on the site.
         </p>
       </div>
+      <Toaster richColors />
       <form onSubmit={handleSubmit} className="space-y-2 flex flex-col gap-3">
         <label className="text-sm font-medium flex flex-col gap-2">
           Full Name
@@ -132,7 +129,6 @@ export default function ProfileForm({ id }: ProfileFormProps) {
             onChange={handleChange}
           />
         </label>
-
         <label>
           NIS
           <Input
