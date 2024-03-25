@@ -76,11 +76,21 @@ export default function StudentRegister() {
       if (!response.ok) {
         throw new Error("Uh oh! Failed to register student.");
       }
-      const data = await response.json();
 
-      console.log("Registration successful:", data);
+      form.reset({
+        fullname: "",
+        username: "",
+        password: "",
+        nis: 0,
+        classId: "",
+        yearEntry: 0,
+      });
+
+      response.json();
+      alert("Student registered successfully!");
     } catch (error) {
       console.error("Uh oh! Something went wrong.", error);
+      alert("Failed to register student.");
     }
   };
 

@@ -32,10 +32,6 @@ export default function CreateClass() {
     },
   });
 
-  useEffect(() => {
-    fetchMajors();
-  }, []);
-
   const fetchMajors = async () => {
     try {
       const response = await fetch("http://localhost:3001/class/majors");
@@ -83,6 +79,10 @@ export default function CreateClass() {
       alert("Failed to create class. Please try again");
     }
   };
+
+  useEffect(() => {
+    fetchMajors();
+  }, []);
 
   return (
     <div className="flex flex-col">
