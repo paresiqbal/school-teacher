@@ -2,11 +2,9 @@
 
 // next
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import Image from "next/image";
 
 // library
 import { z } from "zod";
-import QRCode from "qrcode";
 
 // shadcn
 import { Input } from "@/components/ui/input";
@@ -46,17 +44,6 @@ async function updateStudentDetail(id: string, data: IStudent) {
   return res.json();
 }
 
-// generate qr base on id
-async function generateQRCode(id: string) {
-  try {
-    const qrCodeDataURL = await QRCode.toDataURL(id);
-    return qrCodeDataURL;
-  } catch (error) {
-    console.error("Error generating QR code:", error);
-    return "";
-  }
-}
-
 export default function StudentDetails({ params }: { params: Iid }) {
   const [student, setStudent] = useState<IStudent | null>(null);
   const [formData, setFormData] = useState<IStudent>({
@@ -66,15 +53,6 @@ export default function StudentDetails({ params }: { params: Iid }) {
     nis: 0,
     yearEntry: 0,
   });
-
-  const [qrCodeDataURL, setQRCodeDataURL] = useState<string>("");
-
-  const handleGenerateQRCode = async () => {
-    if (student) {
-      const dataURL = await generateQRCode(student.nis.toString());
-      setQRCodeDataURL(dataURL);
-    }
-  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -126,7 +104,7 @@ export default function StudentDetails({ params }: { params: Iid }) {
         </p>
         <Separator className="my-4" />
       </div>
-      <Tabs defaultValue="account" className="w-full">
+      <Tabs defaultValue="Profile" className="flex flex-col">
         <TabsList className="grid w-full grid-cols-3 col-span-3">
           <TabsTrigger value="Profile">Profile</TabsTrigger>
           <TabsTrigger value="qrcode">QR Code</TabsTrigger>
@@ -182,19 +160,6 @@ export default function StudentDetails({ params }: { params: Iid }) {
                 </label>
                 <br />
                 <Button type="submit">Update Profile</Button>
-                {/* <Button onClick={handleGenerateQRCode}>Generate QR Code</Button>
-                {qrCodeDataURL && (
-                  <div>
-                    <Image
-                      width={500}
-                      height={500}
-                      className="w-32 h-32 rounded-md overflow-hidden"
-                      src={qrCodeDataURL}
-                      alt="QR Code"
-                    />
-                    <p>Nama</p>
-                  </div>
-                )} */}
               </form>
             </div>
           ) : (
