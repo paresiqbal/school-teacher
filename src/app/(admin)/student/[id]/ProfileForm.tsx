@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-// Assuming you're using TypeScript, it's good practice to define the props type
 interface ProfileFormProps {
   id: string;
 }
@@ -17,6 +16,29 @@ export default function ProfileForm({ id }: ProfileFormProps) {
     avatar: "",
   });
 
+  // Fetch student's original data
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/student/student/${id}`
+        );
+        setFormData({
+          username: response.data.username,
+          password: "", // Don't fetch passwords for security reasons
+          fullname: response.data.fullname,
+          nis: response.data.nis.toString(), // Convert to string if necessary
+          yearEntry: response.data.yearEntry.toString(), // Convert to string if necessary
+          avatar: response.data.avatar || "", // Handle if avatar is optional
+        });
+      } catch (error) {
+        console.error("Failed to fetch student data:", error);
+      }
+    };
+
+    fetchStudentData();
+  }, [id]); // This effect depends on `id`
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -27,13 +49,17 @@ export default function ProfileForm({ id }: ProfileFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Remove the password from the payload if it hasn't been changed
+    const payload = formData.password
+      ? formData
+      : { ...formData, password: undefined };
     try {
-      const response = await axios.patch(`/update/${id}`, formData);
-      console.log("Student updated successfully:", response.data);
-      // Handle success (e.g., showing a success message)
+      await axios.patch(`http://localhost:3001/student/update/${id}`, payload);
+      console.log("Student updated successfully");
+      // Add success handling here (e.g., notification to the user)
     } catch (error) {
       console.error("Error updating student:");
-      // Handle error (e.g., showing an error message)
+      // Add error handling here (e.g., showing an error message)
     }
   };
 
