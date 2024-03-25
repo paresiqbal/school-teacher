@@ -1,10 +1,34 @@
 "use client";
+
+// next
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+// library
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 interface ProfileFormProps {
   id: string;
 }
+
+const formSchema = z.object({
+  fullname: z.string().min(3, {
+    message: "Full name is required.",
+  }),
+  username: z.string().min(4, {
+    message: "Username must be at least 4 characters.",
+  }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters.",
+  }),
+  nis: z.coerce.number().int().min(6, {
+    message: "NIS must be at least 6 digits.",
+  }),
+  yearEntry: z.coerce.number().int().min(4, {
+    message: "Year of entry must be at least 4 digits.",
+  }),
+});
 
 export default function ProfileForm({ id }: ProfileFormProps) {
   const [formData, setFormData] = useState({
@@ -16,20 +40,23 @@ export default function ProfileForm({ id }: ProfileFormProps) {
     avatar: "",
   });
 
-  // Fetch student's original data
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `http://localhost:3001/student/student/${id}`
         );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
         setFormData({
-          username: response.data.username,
-          password: "", // Don't fetch passwords for security reasons
-          fullname: response.data.fullname,
-          nis: response.data.nis.toString(), // Convert to string if necessary
-          yearEntry: response.data.yearEntry.toString(), // Convert to string if necessary
-          avatar: response.data.avatar || "", // Handle if avatar is optional
+          username: data.username,
+          password: "",
+          fullname: data.fullname,
+          nis: data.nis.toString(),
+          yearEntry: data.yearEntry.toString(),
+          avatar: data.avatar || "",
         });
       } catch (error) {
         console.error("Failed to fetch student data:", error);
@@ -37,7 +64,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
     };
 
     fetchStudentData();
-  }, [id]); // This effect depends on `id`
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,17 +76,33 @@ export default function ProfileForm({ id }: ProfileFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Remove the password from the payload if it hasn't been changed
-    const payload = formData.password
-      ? formData
-      : { ...formData, password: undefined };
+
+    const payload = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "avatar" && typeof value === "object") {
+        payload.append(key, value);
+      } else if (key !== "password" || (key === "password" && value)) {
+        payload.append(key, value.toString());
+      }
+    });
+
     try {
-      await axios.patch(`http://localhost:3001/student/update/${id}`, payload);
-      console.log("Student updated successfully");
-      // Add success handling here (e.g., notification to the user)
+      const response = await fetch(
+        `http://localhost:3001/student/update/${id}`,
+        {
+          method: "PATCH",
+          body: payload,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Student updated successfully", data);
     } catch (error) {
-      console.error("Error updating student:");
-      // Add error handling here (e.g., showing an error message)
+      console.error("Error updating student:", error);
     }
   };
 
