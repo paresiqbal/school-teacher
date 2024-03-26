@@ -1,8 +1,14 @@
 "use client";
+
+// next
 import { useState, useEffect } from "react";
 import Image from "next/image";
+
+// libary
 import QRCode from "qrcode";
 import html2canvas from "html2canvas";
+
+// shadcn
 import { Button } from "@/components/ui/button";
 
 type Student = {

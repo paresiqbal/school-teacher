@@ -1,33 +1,11 @@
 // component
-import Link from "next/link";
 import TeacherRegister from "./TeacherRegister";
+import TeacherList from "./TeacherList";
 
 // shadcn
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import TeacherList from "./TeacherList";
-
-interface Teacher {
-  _id: number;
-  username: string;
-  fullname: string;
-  nip: string;
-  role: string;
-}
-
-async function getTeachersData(): Promise<Teacher[]> {
-  const res = await fetch("http://localhost:3001/user/teachers", {
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  return res.json();
-}
 
 export default async function TeacherPage() {
-  const teachers = await getTeachersData();
   return (
     <div className="p-10">
       <div>
