@@ -4,7 +4,7 @@ import "jspdf-autotable";
 interface Student {
   id: string;
   fullname: string;
-  isPresent: string; // "present", "excuse", "absent"
+  isPresent: string;
   _id: string;
 }
 

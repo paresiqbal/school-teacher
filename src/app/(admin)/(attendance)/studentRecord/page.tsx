@@ -4,8 +4,9 @@
 import { useEffect, useState } from "react";
 
 // components
-import Selector from "../Selector";
-import EditDialog from "../EditDialog";
+import Selector from "../studentRecord/Selector";
+import EditDialog from "../studentRecord/EditDialog";
+import { generatePDF } from "../studentRecord/generatePDF";
 
 // icons
 import { RxCaretSort } from "react-icons/rx";
@@ -25,8 +26,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-
-import { generatePDF } from "../generatePDF";
 
 // Define interfaces
 interface IStudentAttendance {
