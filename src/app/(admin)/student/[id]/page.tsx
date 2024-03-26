@@ -5,7 +5,6 @@ import DeleteForm from "./DeleteForm";
 // shadcn
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import QrForm from "./QrForm";
 
 interface Iid {

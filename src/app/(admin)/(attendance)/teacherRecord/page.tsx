@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 
 interface ITeacher {
   _id: string;
@@ -78,7 +79,9 @@ export default function TeacherRecord({ params }: { params: Iid }) {
               <TableCell>{teacher.fullname}</TableCell>
               <TableCell className="w-[400px]">{teacher.nip}</TableCell>
               <TableCell>{teacher.role}</TableCell>
-              <TableCell className="text-right space-x-1"></TableCell>
+              <TableCell className="text-right space-x-1">
+                <Link href={`/teacherRecord/${teacher._id}`}>Go</Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
