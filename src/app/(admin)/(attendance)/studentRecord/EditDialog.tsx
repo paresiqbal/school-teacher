@@ -11,6 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 interface IEditDialogProps {
   attendanceId: string;
@@ -41,10 +43,10 @@ async function updateAttendance(
 
     const data = await res.json();
     if (res.ok) {
-      alert(data.message);
+      toast.success("Student status update.");
       return true;
     } else {
-      alert(data.message);
+      toast.error("Student failed to update status.");
       return false;
     }
   } catch (error) {
@@ -61,11 +63,13 @@ export default function EditDialog({
   onUpdate,
 }: IEditDialogProps) {
   const [isPresent, setIsPresent] = useState<string>(currentPresence);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const submitUpdate = async () => {
     const success = await updateAttendance(attendanceId, studentId, isPresent);
     if (success) {
       onUpdate(attendanceId, studentId, isPresent);
+      setIsOpen(false);
     } else {
       // Optionally handle failure
     }
@@ -73,6 +77,7 @@ export default function EditDialog({
 
   return (
     <div>
+      <Toaster richColors />
       <Dialog>
         <DialogTrigger asChild>
           <Button className="bg-yellow-400">Edit Presence</Button>
@@ -84,13 +89,13 @@ export default function EditDialog({
               Update the student presence status.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4">
+          <div className="flex gap-20">
             <Label htmlFor="presence">Presence Status</Label>
             <select
               id="presence"
               value={isPresent}
               onChange={(e) => setIsPresent(e.target.value)}
-              className="col-span-3"
+              className="col-span-3 py-1.5 px-6 rounded-md bg-zinc-900"
             >
               <option value="present">Present</option>
               <option value="absent">Absent</option>
