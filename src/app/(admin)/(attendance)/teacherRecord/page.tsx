@@ -3,8 +3,9 @@
 //  next
 import { useEffect, useState } from "react";
 
+// components
+
 // shadcn
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
@@ -24,6 +25,10 @@ interface ITeacher {
   role: string;
 }
 
+interface Iid {
+  id: string;
+}
+
 async function getTeachersData(): Promise<ITeacher[]> {
   const res = await fetch("http://localhost:3001/user/teachers", {
     cache: "no-store",
@@ -35,7 +40,7 @@ async function getTeachersData(): Promise<ITeacher[]> {
   return res.json();
 }
 
-export default function TeacherRecord() {
+export default function TeacherRecord({ params }: { params: Iid }) {
   const [teachers, setTeachers] = useState<ITeacher[]>([]);
 
   useEffect(() => {
@@ -45,7 +50,11 @@ export default function TeacherRecord() {
   }, []);
 
   return (
-    <div>
+    <div className="p-10">
+      <div>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisici praesentium.</h1>
+        <p>Lorem ipsum dolor sit amet.</p>
+      </div>
       <Table>
         <TableCaption>A list of teachers.</TableCaption>
         <TableHeader>
@@ -69,9 +78,7 @@ export default function TeacherRecord() {
               <TableCell>{teacher.fullname}</TableCell>
               <TableCell className="w-[400px]">{teacher.nip}</TableCell>
               <TableCell>{teacher.role}</TableCell>
-              <TableCell className="text-right space-x-1">
-                <Button>Attendance Detail</Button>
-              </TableCell>
+              <TableCell className="text-right space-x-1"></TableCell>
             </TableRow>
           ))}
         </TableBody>
