@@ -1,6 +1,11 @@
 "use client";
 
+// next
 import { useEffect, useState } from "react";
+
+// components
+import Selector from "../Selector";
+import EditDialog from "../EditDialog";
 
 // icons
 import { RxCaretSort } from "react-icons/rx";
@@ -20,8 +25,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import Selector from "../Selector";
-import EditDialog from "../EditDialog";
+
 import { generatePDF } from "../generatePDF";
 
 // Define interfaces
