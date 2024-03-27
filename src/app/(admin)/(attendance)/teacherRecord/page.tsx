@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface ITeacher {
   _id: string;
@@ -52,9 +53,9 @@ export default function TeacherRecord({ params }: { params: Iid }) {
 
   return (
     <div className="p-10">
-      <div>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisici praesentium.</h1>
-        <p>Lorem ipsum dolor sit amet.</p>
+      <div className="pb-10">
+        <h1 className="text-3xl font-bold">Attendance report of students</h1>
+        <p>See and create report daily or weekly students attendance.</p>
       </div>
       <Table>
         <TableCaption>A list of teachers.</TableCaption>
@@ -80,7 +81,11 @@ export default function TeacherRecord({ params }: { params: Iid }) {
               <TableCell className="w-[400px]">{teacher.nip}</TableCell>
               <TableCell>{teacher.role}</TableCell>
               <TableCell className="text-right space-x-1">
-                <Link href={`/teacherRecord/${teacher._id}`}>Go</Link>
+                <Button>
+                  <Link href={`/teacherRecord/${teacher._id}`}>
+                    See Details
+                  </Link>
+                </Button>
               </TableCell>
             </TableRow>
           ))}
