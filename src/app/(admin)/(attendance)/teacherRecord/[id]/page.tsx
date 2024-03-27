@@ -7,7 +7,7 @@ export default function DetailAttendance({ params }: { params: Iid }) {
 
   return (
     <div>
-      <h1>{}</h1>
+      <h1>sasd</h1>
     </div>
   );
 }
