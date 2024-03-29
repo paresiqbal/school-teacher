@@ -16,7 +16,7 @@ interface AttendanceRecord {
   _id: string;
   subject: string;
   date: string;
-  classId: string; // Make sure this matches the class _id you want to display
+  classId: string;
   students: Student[];
 }
 
@@ -79,8 +79,6 @@ export default function DetailAttendance({ params }: { params: Iid }) {
           attendancePromise,
           classesPromise,
         ]);
-        console.log("Attendance Data:", attendanceData); // Log attendance data
-        console.log("Class Data:", classData); // Log class data
         setData(attendanceData);
         setClasses(classData);
       } catch (error) {
@@ -91,40 +89,29 @@ export default function DetailAttendance({ params }: { params: Iid }) {
     fetchDataAsync();
   }, [params.id]);
 
-  // Function to find class information by ID
-  const findClassById = (classId: string) => {
-    return classes?.find((cls) => cls._id === classId);
-  };
-
   return (
-    <div>
+    <div className="flex gap-10">
       <h1>{data ? "Attendance Records" : "Loading..."}</h1>
       {data?.attendanceRecords.map((record) => {
-        // Find the class for this record
-        const classInfo = findClassById(record.classId);
         return (
-          <div key={record._id}>
+          <div key={record._id} className="flex">
             <h2>
               {record.subject} - {new Date(record.date).toLocaleDateString()}
-              {classInfo
-                ? ` - ${classInfo.level} - ${classInfo.majorName}`
-                : ""}
+              {classes ? (
+                <ul>
+                  {classes.map((cls) => (
+                    <li key={cls._id}>
+                      {cls.level} - {cls.majorName}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Loading classes...</p>
+              )}
             </h2>
           </div>
         );
       })}
-
-      {classes ? (
-        <ul>
-          {classes.map((cls) => (
-            <li key={cls._id}>
-              {cls.level} - {cls.majorName}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading classes...</p>
-      )}
     </div>
   );
 }
