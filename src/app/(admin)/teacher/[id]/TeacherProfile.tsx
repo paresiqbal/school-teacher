@@ -63,7 +63,7 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3001/user/updateTeacher/${id}`,
+        `http://localhost:3001/user/update-teacher/${id}`,
         {
           method: "PATCH",
           headers: {

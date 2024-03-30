@@ -102,7 +102,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
       </div>
       <Toaster richColors />
       <form onSubmit={handleSubmit} className="space-y-2 flex flex-col gap-3">
-        <label className="text-sm font-medium flex flex-col gap-2">
+        <label className="text-sm font-medium">
           Full Name
           <Input
             type="text"
@@ -129,7 +129,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
             onChange={handleChange}
           />
         </label>
-        <label>
+        <label className="text-sm font-medium flex flex-col gap-2">
           NIS
           <Input
             type="text"
@@ -138,7 +138,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
             onChange={handleChange}
           />
         </label>
-        <label>
+        <label className="text-sm font-medium flex flex-col gap-2">
           Year of Entry
           <Input
             type="text"
