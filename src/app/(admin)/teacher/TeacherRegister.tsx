@@ -69,13 +69,13 @@ export default function TeacherRegister() {
 
   return (
     <div className="flex flex-col p-4 justify-center items-center">
-      <div className="w-full flex-col justify-center">
-        <div className="text-center pb-4">
-          <h1 className="text-2xl font-semibold tracking-tight">
+      <div className="w-full flex-col justify-center p-4">
+        <div className="pb-6">
+          <h2 className="text-xl font-semibold tracking-tight">
             Register an teacher account
-          </h1>
+          </h2>
           <p className="text-sm text-muted-foreground">
-            Enter your username, password and full name to register an teacher
+            Enter teacher details to register an account.
           </p>
         </div>
         <Form {...form}>

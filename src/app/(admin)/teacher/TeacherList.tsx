@@ -7,6 +7,7 @@ import Link from "next/link";
 // shadcn
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -91,7 +92,9 @@ export default function TeacherList() {
               </TableCell>
               <TableCell>{teacher.fullname}</TableCell>
               <TableCell className="w-[400px]">{teacher.nip}</TableCell>
-              <TableCell>{teacher.role}</TableCell>
+              <TableCell>
+                <Badge>{teacher.role}</Badge>
+              </TableCell>
               <TableCell className="text-right space-x-1">
                 <Button>
                   <Link href={`/teacher/${teacher._id}`}>Edit</Link>
