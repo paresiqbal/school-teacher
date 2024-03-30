@@ -16,6 +16,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ListFilter } from "lucide-react";
 
 interface IClassInfo {
   _id: string;
@@ -94,6 +103,16 @@ export default function StudentList() {
     setFilteredStudents(tempStudents);
   }, [students, selectedLevel, selectedMajor]);
 
+  const handleSelect = (level: any) => {
+    setSelectedLevel(level);
+    // Additional logic to handle the selected level can be added here
+  };
+
+  const handleSelectMajor = (majorName: any) => {
+    setSelectedMajor(majorName);
+    // You can add additional logic here if needed
+  };
+
   useEffect(() => {
     getMajorsData().then((data) => {
       setMajors(data);
@@ -116,7 +135,7 @@ export default function StudentList() {
           </p>
         </div>
         <div className="flex gap-10 items-center">
-          <div>
+          {/* <div>
             <label
               htmlFor="level-select"
               className="block mb-2 text-sm font-medium text-gray-400"
@@ -134,28 +153,64 @@ export default function StudentList() {
               <option value="XI">XI</option>
               <option value="XII">XII</option>
             </select>
-          </div>
-          <div>
-            <label
-              htmlFor="major-select"
-              className="block mb-2 text-sm font-medium text-gray-400"
-            >
-              Major:
-            </label>
-            <select
-              id="major-select"
-              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
-              value={selectedMajor}
-              onChange={(e) => setSelectedMajor(e.target.value)}
-            >
-              <option value="">All Majors</option>
+          </div> */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
+                <ListFilter className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only">Level</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Filter by Level</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuCheckboxItem
+                checked={selectedLevel === "X"}
+                onCheckedChange={() => handleSelect("X")}
+              >
+                X
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={selectedLevel === "XI"}
+                onCheckedChange={() => handleSelect("XI")}
+              >
+                XI
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={selectedLevel === "XII"}
+                onCheckedChange={() => handleSelect("XII")}
+              >
+                XII
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
+                <ListFilter className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only">Majors</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Filter by Major</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuCheckboxItem
+                checked={selectedMajor === ""}
+                onCheckedChange={() => handleSelectMajor("")}
+              >
+                All Majors
+              </DropdownMenuCheckboxItem>
               {majors.map((major) => (
-                <option key={major._id} value={major.majorName}>
+                <DropdownMenuCheckboxItem
+                  key={major._id}
+                  checked={selectedMajor === major.majorName}
+                  onCheckedChange={() => handleSelectMajor(major.majorName)}
+                >
                   {major.majorName}
-                </option>
+                </DropdownMenuCheckboxItem>
               ))}
-            </select>
-          </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
       <Table>
