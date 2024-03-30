@@ -33,7 +33,7 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account, profile, user }: any) {
+    async jwt({ token, account, user }: any) {
       if (account?.providers === "credentials") {
         token.username = user.username;
         token.fullname = user.fullname;
