@@ -3,6 +3,7 @@
 // next
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,65 +65,77 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col p-4 justify-center items-center min-h-screen">
-      <div className="mx-auto flex p-5 lg:mx-auto w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Login to an account
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Enter your username and password below
-          </p>
+    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <div className="flex items-center justify-center py-12">
+        <div className="mx-auto grid w-[350px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">Login to an account</h1>
+            <p className="text-balance text-muted-foreground">
+              Enter your username and password below
+            </p>
+          </div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleLogin)}
+              className="space-y-2"
+            >
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="username"
+                        type="text"
+                        id="username"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="password"
+                        type="password"
+                        id="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
+            </form>
+          </Form>
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground">Dont have account ?</p>
+            <p className="text-sm text-muted-foreground underline underline-offset-4">
+              Contact admin @superadmin
+            </p>
+          </div>
         </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-2">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="username"
-                      type="text"
-                      id="username"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="password"
-                      type="password"
-                      id="password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </form>
-        </Form>
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground">Dont have account ?</p>
-          <p className="text-sm text-muted-foreground underline underline-offset-4">
-            Contact admin @superadmin
-          </p>
-        </div>
+      </div>
+      <div className="hidden bg-muted lg:block">
+        <Image
+          src="/placeholder.svg"
+          alt="Image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
       </div>
     </div>
   );
