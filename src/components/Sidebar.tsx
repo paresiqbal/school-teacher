@@ -1,10 +1,13 @@
 "use client";
 
+// next
 import { useState } from "react";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+// library
+// import { useAuth } from "@/contexts/AuthContext";
 
 // icons
 import {
@@ -21,6 +24,7 @@ import {
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
@@ -28,6 +32,8 @@ export default function Sidebar() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  // const { user, logout } = useAuth();
 
   return (
     <aside className="h-screen">

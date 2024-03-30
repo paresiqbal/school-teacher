@@ -6,7 +6,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: "secret", // TODO: Change this to a secure secret
+  secret: "secret",
   providers: [
     CredentialsProvider({
       type: "credentials",
