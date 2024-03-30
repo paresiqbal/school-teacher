@@ -103,31 +103,43 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
         </p>
       </div>
       <Toaster />
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          type="text"
-          name="fullname"
-          value={teacher.fullname}
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="username"
-          value={teacher.username}
-          onChange={handleChange}
-        />
-        <Input
-          type="password"
-          name="password"
-          placeholder="New Password (leave blank to keep current)"
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="nip"
-          value={teacher.nip}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-3">
+        <label className="text-sm font-medium">
+          Full Name
+          <Input
+            type="text"
+            name="fullname"
+            value={teacher.fullname}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="text-sm font-medium">
+          Username
+          <Input
+            type="text"
+            name="username"
+            value={teacher.username}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="text-sm font-medium">
+          Password
+          <Input
+            type="password"
+            name="password"
+            placeholder="New Password (leave blank to keep current)"
+            onChange={handleChange}
+          />
+        </label>
+        <label className="text-sm font-medium">
+          NIP
+          <Input
+            type="text"
+            name="nip"
+            value={teacher.nip}
+            onChange={handleChange}
+          />
+        </label>
         <Button type="submit" disabled={loading}>
           Update Profile
         </Button>
