@@ -2,6 +2,7 @@
 
 // next
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // components
 import Selector from "../studentRecord/Selector";
@@ -34,8 +35,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
+
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 // Define interfaces
 interface IStudentAttendance {
@@ -221,7 +223,7 @@ export default function StudentRecord() {
                             <TableHead className="p-2">No.</TableHead>
                             <TableHead>Student Name</TableHead>
                             <TableHead>Presence</TableHead>
-                            <TableHead>Action</TableHead>
+                            <TableHead className="text-right">Action</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -234,8 +236,12 @@ export default function StudentRecord() {
                                 {studentIndex + 1}
                               </TableCell>
                               <TableCell>{student.fullname}</TableCell>
-                              <TableCell>{student.isPresent}</TableCell>
                               <TableCell>
+                                <Badge variant="outline">
+                                  {student.isPresent}
+                                </Badge>
+                              </TableCell>
+                              <TableCell className="text-right">
                                 <EditDialog
                                   attendanceId={record._id}
                                   studentId={student.id}
