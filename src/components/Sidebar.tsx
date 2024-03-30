@@ -16,6 +16,7 @@ import {
   School,
   ListChecks,
   User,
+  UserRound,
 } from "lucide-react";
 
 // shadcn
@@ -163,7 +164,7 @@ export default function Sidebar() {
                         : "hover:bg-yellow-500"
                     }`}
                   >
-                    <User />
+                    <UserRound />
                     <span
                       className={`overflow-hidden transition-all ${
                         expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
