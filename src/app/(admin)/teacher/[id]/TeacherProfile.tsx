@@ -127,7 +127,7 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
           <Input
             type="password"
             name="password"
-            placeholder="New Password (leave blank to keep current)"
+            placeholder="New Password"
             onChange={handleChange}
           />
         </label>
