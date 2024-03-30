@@ -24,6 +24,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 
+interface UserSession {
+  user: {
+    fullname?: string | null;
+    username?: string | null;
+    role?: string;
+  };
+}
+
 const formSchema = z.object({
   username: z.string().min(4, {
     message: "Username must be at least 4 characters.",
@@ -34,9 +42,12 @@ const formSchema = z.object({
 });
 
 export default function LoginPage() {
-  const { push } = useRouter();
   const router = useRouter();
-  const { data: session, status } = useSession();
+
+  const { data: session, status } = useSession() as {
+    data: UserSession;
+    status: string;
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,11 +65,10 @@ export default function LoginPage() {
         redirect: false,
         username: values.username,
         password: values.password,
-        callbackUrl: "/dashboard",
       });
 
       if (!res?.error) {
-        push("/dashboard");
+        // Here, you may want to set some local state to indicate a successful login if needed
       } else {
         console.log("error", res.error);
       }
@@ -68,10 +78,21 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/dashboard");
+    if (status === "authenticated" && session?.user?.role) {
+      switch (session.user.role) {
+        case "admin":
+          router.push("/adminDashboard");
+          break;
+        case "teacher":
+          router.push("/teacherDashboard");
+          break;
+        default:
+          console.log("Unhandled user role:", session.user.role);
+      }
+    } else if (status === "unauthenticated") {
+      router.push("/login");
     }
-  }, [status, router]);
+  }, [status, session, router]);
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
