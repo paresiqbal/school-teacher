@@ -17,6 +17,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+
+// icons
+import { Search } from "lucide-react";
 
 interface ITeacher {
   _id: string;
@@ -54,6 +58,7 @@ async function deleteTeacher(id: string): Promise<void> {
 
 export default function TeacherList() {
   const [teachers, setTeachers] = useState<ITeacher[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleDelete = async (id: string) => {
     await deleteTeacher(id);
@@ -61,6 +66,10 @@ export default function TeacherList() {
       currentTeachers.filter((teacher) => teacher._id !== id)
     );
   };
+
+  const filteredTeachers = teachers.filter((teacher) =>
+    teacher.fullname.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     getTeachersData().then((data) => {
@@ -70,6 +79,26 @@ export default function TeacherList() {
 
   return (
     <div>
+      <div className="flex justify-between py-4">
+        <div>
+          <h3 className="font-semibold leading-none tracking-tight">
+            Students
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Manage student and view their details.
+          </p>
+        </div>
+        <div className="relative ml-auto flex-1 md:grow-0">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search..."
+            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
       <Table>
         <TableCaption>A list of teachers.</TableCaption>
         <TableHeader>

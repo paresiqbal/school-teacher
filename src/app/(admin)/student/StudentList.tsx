@@ -125,7 +125,7 @@ export default function StudentList() {
 
   return (
     <div>
-      <div className="flex justify-between py-6">
+      <div className="flex justify-between py-4">
         <div>
           <h3 className="font-semibold leading-none tracking-tight">
             Students
