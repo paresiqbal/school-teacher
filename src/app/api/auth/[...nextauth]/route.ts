@@ -16,22 +16,18 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials as {
-          username: string;
-          password: string;
-        };
+        const res = await fetch("http://localhost:3001/user/login", {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" },
+        });
 
-        const user: any = {
-          id: 1,
-          fullname: "Admin",
-          username: "admin",
-          role: "admin",
-        };
+        const user = await res.json();
 
-        if (username === "admin" && password === "admin") {
+        if (res.ok && user) {
           return user;
         } else {
-          return null;
+          throw new Error("Authentication failed");
         }
       },
     }),
