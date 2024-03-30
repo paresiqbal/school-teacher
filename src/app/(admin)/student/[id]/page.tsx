@@ -1,11 +1,24 @@
+//next
+import Link from "next/link";
+
 // components
 import ProfileForm from "./ProfileForm";
 import DeleteForm from "./DeleteForm";
 
+// library
+import QrForm from "./QrForm";
+
 // shadcn
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QrForm from "./QrForm";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface Iid {
   id: string;
@@ -16,7 +29,26 @@ export default function StudentDetails({ params }: { params: Iid }) {
 
   return (
     <div className="p-10">
-      <div className="pb-10">
+      <Breadcrumb className="hidden md:flex">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/student">Student</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Details</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="pt-8">
         <h1 className="text-2xl font-bold tracking-tight">Setting</h1>
         <p className="text-muted-foreground">
           Manage your account settings and set user preferences.
