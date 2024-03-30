@@ -92,7 +92,7 @@ export default function ClassPage() {
   }, []);
 
   return (
-    <div className="p-10">
+    <div className="p-10 bg-muted/40 h-full">
       <div>
         <h1 className="text-3xl font-bold">Create a major and classes</h1>
         <p>create major and class.</p>

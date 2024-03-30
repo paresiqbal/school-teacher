@@ -52,7 +52,7 @@ export default function TeacherRecord({ params }: { params: Iid }) {
   }, []);
 
   return (
-    <div className="p-10">
+    <div className="p-10 bg-muted/40 h-full">
       <div className="pb-10">
         <h1 className="text-3xl font-bold">Attendance report of students</h1>
         <p>See and create report daily or weekly students attendance.</p>
