@@ -247,7 +247,11 @@ export default function StudentRegister() {
                         </option>
                       ))}
                     </select> */}
-                    <Select {...field}>
+                    <Select
+                      {...field}
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
+                    >
                       <SelectTrigger id="status" aria-label="Select a class">
                         <SelectValue placeholder="Select a class" />
                       </SelectTrigger>
