@@ -21,13 +21,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "sonner";
 
@@ -236,10 +235,10 @@ export default function StudentRegister() {
                     Class
                   </FormLabel>
                   <FormControl>
-                    <select
+                    {/* <select
                       {...field}
                       id="classId"
-                      className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
+                      className="bg-card border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
                     >
                       <option value="">Select a class</option>
                       {classes.map((kelas) => (
@@ -247,7 +246,19 @@ export default function StudentRegister() {
                           {kelas.level} {kelas.majorName}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
+                    <Select {...field}>
+                      <SelectTrigger id="status" aria-label="Select a class">
+                        <SelectValue placeholder="Select a class" />
+                      </SelectTrigger>
+                      <SelectContent id="classId">
+                        {classes.map((kelas) => (
+                          <SelectItem key={kelas._id} value={kelas._id}>
+                            {kelas.level} {kelas.majorName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
