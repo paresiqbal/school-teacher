@@ -20,6 +20,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { toast } from "sonner";
 import { Toaster } from "sonner";
 
@@ -112,10 +120,10 @@ export default function StudentRegister() {
   return (
     <div className="flex flex-col p-4 justify-center items-center">
       <div className="w-full flex flex-col p-4">
-        <div className="text-center pb-4">
-          <h1 className="text-2xl font-semibold tracking-tight">
+        <div className="pb-6">
+          <h2 className="text-xl font-semibold tracking-tight">
             Register an student account
-          </h1>
+          </h2>
           <p className="text-sm text-muted-foreground">
             Enter student details to register an account.
           </p>

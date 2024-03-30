@@ -1,3 +1,6 @@
+// next
+import Link from "next/link";
+
 // components
 import StudentRegister from "./StudentRegister";
 import StudentList from "./StudentList";
@@ -12,7 +15,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
 
 export default function StudentPage() {
   return (
