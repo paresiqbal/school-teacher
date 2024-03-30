@@ -7,12 +7,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // icons
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
-import { MdDashboardCustomize } from "react-icons/md";
-import { PiStudent } from "react-icons/pi";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { SiGoogleclassroom } from "react-icons/si";
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import {
+  LayoutDashboard,
+  ChevronLeft,
+  ChevronRight,
+  GraduationCap,
+  CircleUserRound,
+  School,
+  ListChecks,
+  User,
+} from "lucide-react";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,7 +42,7 @@ export default function Sidebar() {
             }`}
           />
           <Button onClick={() => setExpanded((current) => !current)}>
-            {expanded ? <FaChevronRight /> : <FaChevronLeft />}
+            {expanded ? <ChevronRight /> : <ChevronLeft />}
           </Button>
         </div>
 
@@ -51,10 +55,10 @@ export default function Sidebar() {
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/dashboard"
                   ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                  : "hover:bg-yellow-500"
               }`}
             >
-              <MdDashboardCustomize />
+              <LayoutDashboard />
               <span
                 className={`overflow-hidden transition-all ${
                   expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
@@ -68,10 +72,10 @@ export default function Sidebar() {
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/student"
                   ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                  : "hover:bg-yellow-500"
               }`}
             >
-              <PiStudent />
+              <GraduationCap />
               <span
                 className={`overflow-hidden transition-all ${
                   expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
@@ -85,10 +89,10 @@ export default function Sidebar() {
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/teacher"
                   ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                  : "hover:bg-yellow-500"
               }`}
             >
-              <FaChalkboardTeacher />
+              <CircleUserRound />
               <span
                 className={`overflow-hidden transition-all ${
                   expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
@@ -102,10 +106,10 @@ export default function Sidebar() {
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/class"
                   ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                  : "hover:bg-yellow-500"
               }`}
             >
-              <SiGoogleclassroom />
+              <School />
               <span
                 className={`overflow-hidden transition-all ${
                   expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
@@ -120,10 +124,10 @@ export default function Sidebar() {
                 className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                   pathname.startsWith("/attendance")
                     ? "bg-yellow-400 text-zinc-900"
-                    : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                    : "hover:bg-yellow-500"
                 }`}
               >
-                <IoCheckmarkDoneOutline />
+                <ListChecks />
                 <span
                   className={`overflow-hidden transition-all ${
                     expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
@@ -133,26 +137,40 @@ export default function Sidebar() {
                 </span>
               </div>
               {isDropdownOpen && (
-                <div className="mt-1 bg-zinc-800 rounded-md shadow-lg">
+                <div className="mt-1 rounded-md shadow-lg">
                   <Link
                     href="/studentRecord"
-                    className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                      pathname.startsWith("/studentRecord")
+                    className={`text-white  flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                      pathname === "/studentRecord"
                         ? "bg-yellow-400 text-zinc-900"
-                        : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                        : "hover:bg-yellow-500"
                     }`}
                   >
-                    Student Record
+                    <User />
+                    <span
+                      className={`overflow-hidden transition-all ${
+                        expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+                      }`}
+                    >
+                      Student Record
+                    </span>
                   </Link>
                   <Link
                     href="/teacherRecord"
-                    className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                      pathname.startsWith("/teacherRecord")
+                    className={`text-white text-base flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
+                      pathname === "/teacherRecord"
                         ? "bg-yellow-400 text-zinc-900"
-                        : "hover:bg-gradient-to-r from-yellow-400 to-sky-500"
+                        : "hover:bg-yellow-500"
                     }`}
                   >
-                    Teacher Record
+                    <User />
+                    <span
+                      className={`overflow-hidden transition-all ${
+                        expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+                      }`}
+                    >
+                      Teacher Record
+                    </span>
                   </Link>
                 </div>
               )}
