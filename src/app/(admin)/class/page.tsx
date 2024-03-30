@@ -2,6 +2,7 @@
 
 // next
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // componesnts
 import CreateMajor from "./CreateMajor";
@@ -11,6 +12,14 @@ import CreateClass from "./CreateClass";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface IMajor {
   _id: string;
@@ -93,7 +102,20 @@ export default function ClassPage() {
 
   return (
     <div className="p-10 bg-muted/40 h-full">
-      <div>
+      <Breadcrumb className="hidden md:flex">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Class</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="pt-8">
         <h1 className="text-3xl font-bold">Create a major and classes</h1>
         <p>create major and class.</p>
       </div>
