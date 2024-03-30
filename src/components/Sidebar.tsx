@@ -6,8 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// library
-// import { useAuth } from "@/contexts/AuthContext";
+import { signOut } from "next-auth/react";
 
 // icons
 import {
@@ -32,8 +31,6 @@ export default function Sidebar() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
-  // const { user, logout } = useAuth();
 
   return (
     <aside className="h-screen">
@@ -190,6 +187,7 @@ export default function Sidebar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
+          <button onClick={() => signOut()}>Sign out</button>
         </div>
       </nav>
     </aside>
