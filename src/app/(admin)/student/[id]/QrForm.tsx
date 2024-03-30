@@ -90,9 +90,6 @@ export default function QrForm({ id }: { id: string }) {
             <p className="text-lg">
               Name: <span className="font-medium">{student.fullname}</span>
             </p>
-            <p className="text-lg">
-              Major: <span className="font-medium">{student.major}</span>
-            </p>
             <div className="flex flex-col gap-2">
               <Button onClick={handleGenerateQrCode}>Generate QR Code</Button>
               <Button onClick={handleDownloadImage}>Download QR</Button>
