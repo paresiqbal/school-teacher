@@ -2,11 +2,12 @@
 
 //  next
 import { useEffect, useState } from "react";
-
+import Link from "next/link";
 // components
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -16,8 +17,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface ITeacher {
   _id: string;
@@ -53,6 +60,19 @@ export default function TeacherRecord({ params }: { params: Iid }) {
 
   return (
     <div className="p-10 bg-muted/40 h-full">
+      <Breadcrumb className="hidden md:flex">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Teacher Attendance</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="pb-10">
         <h1 className="text-3xl font-bold">Attendance report of students</h1>
         <p>See and create report daily or weekly students attendance.</p>

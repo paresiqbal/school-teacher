@@ -150,7 +150,7 @@ export default function StudentRecord() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Class</BreadcrumbPage>
+            <BreadcrumbPage>Student Attendance</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
