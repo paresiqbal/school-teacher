@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 
 // componesnts
 import CreateMajor from "./CreateMajor";
-import { Card } from "@/components/ui/card";
+import CreateClass from "./CreateClass";
 
 // shadcn
 import { Separator } from "@/components/ui/separator";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import CreateClass from "./CreateClass";
 
 interface IMajor {
   _id: string;

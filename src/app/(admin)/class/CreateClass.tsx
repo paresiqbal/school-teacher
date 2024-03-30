@@ -7,8 +7,23 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 // shadcn
-import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Major {
   _id: string;
@@ -91,42 +106,70 @@ export default function CreateClass() {
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
-          <div className="flex flex-col">
-            <label
-              htmlFor="level"
-              className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Class Level:
-            </label>
-            <select
-              {...form.register("level")}
-              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
-            >
-              <option value="">Select Level</option>
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
-            </select>
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="majorId"
-              className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Major:
-            </label>
-            <select
-              {...form.register("majorId")}
-              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
-            >
-              <option value="">Select Major</option>
-              {majors.map((major) => (
-                <option key={major._id} value={major._id}>
-                  {major.majorName}
-                </option>
-              ))}
-            </select>
-          </div>
+          <FormField
+            control={form.control}
+            name="level"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Class Level:
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    {...field}
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger
+                      id="classLevel"
+                      aria-label="Select a class level"
+                    >
+                      <SelectValue placeholder="Select Level" />
+                    </SelectTrigger>
+                    <SelectContent id="level">
+                      <SelectItem value="X">X</SelectItem>
+                      <SelectItem value="XI">XI</SelectItem>
+                      <SelectItem value="XII">XII</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="majorId"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel
+                  htmlFor="majorId"
+                  className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Major:
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    {...field}
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger id="majorId" aria-label="Select a major">
+                      <SelectValue placeholder="Select Major" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {majors.map((major) => (
+                        <SelectItem key={major._id} value={major._id}>
+                          {major.majorName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type="submit" className="w-full">
             {isSubmitting ? "Creating..." : "Create Class"}
           </Button>

@@ -235,18 +235,6 @@ export default function StudentRegister() {
                     Class
                   </FormLabel>
                   <FormControl>
-                    {/* <select
-                      {...field}
-                      id="classId"
-                      className="bg-card border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-full p-3"
-                    >
-                      <option value="">Select a class</option>
-                      {classes.map((kelas) => (
-                        <option key={kelas._id} value={kelas._id}>
-                          {kelas.level} {kelas.majorName}
-                        </option>
-                      ))}
-                    </select> */}
                     <Select
                       {...field}
                       defaultValue={field.value}
