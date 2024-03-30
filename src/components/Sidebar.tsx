@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 // icons
 import {
@@ -24,6 +24,7 @@ import {
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { log } from "console";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
@@ -31,6 +32,10 @@ export default function Sidebar() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const { data: session } = useSession();
+
+  console.log(session);
 
   return (
     <aside className="h-screen">
@@ -187,7 +192,22 @@ export default function Sidebar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
-          <button onClick={() => signOut()}>Sign out</button>
+          <div
+            className={`flex flex-col justify-center ml-3 ${
+              expanded ? "hidden" : "block"
+            }`}
+          >
+            <span className="text-base font-medium">{session?.user?.name}</span>
+            <span className="text-sm">{session?.user?.email}</span>
+          </div>
+          <button
+            onClick={() => signOut()}
+            className={`overflow-hidden transition-all ${
+              expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+            }`}
+          >
+            Sign out
+          </button>
         </div>
       </nav>
     </aside>
