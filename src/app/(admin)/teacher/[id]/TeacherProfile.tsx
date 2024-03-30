@@ -1,0 +1,137 @@
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast, Toaster } from "sonner";
+
+interface ITeacher {
+  username: string;
+  password: string;
+  fullname: string;
+  nip: string;
+}
+
+interface ProfileFormProps {
+  id: string;
+}
+
+export default function TeacherProfile({ id }: ProfileFormProps) {
+  const [teacher, setTeacher] = useState<ITeacher>({
+    username: "",
+    password: "",
+    fullname: "",
+    nip: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchTeacher = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `http://localhost:3001/user/teacher/${id}`
+        );
+        if (!response.ok) {
+          throw new Error("Teacher not found or server error");
+        }
+        const data = await response.json();
+        setTeacher((prev) => ({ ...prev, ...data }));
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchTeacher();
+    }
+  }, [id]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTeacher((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3001/user/updateTeacher/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(teacher),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update teacher");
+      }
+      const updatedTeacher = await response.json();
+      setTeacher(updatedTeacher);
+      toast.success("Teacher updated successfully.");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+        toast.error(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div>
+      <div className="py-4">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Teacher Profile
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Update your profile information here.
+        </p>
+      </div>
+      <Toaster />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Input
+          type="text"
+          name="fullname"
+          value={teacher.fullname}
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          name="username"
+          value={teacher.username}
+          onChange={handleChange}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="New Password (leave blank to keep current)"
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          name="nip"
+          value={teacher.nip}
+          onChange={handleChange}
+        />
+        <Button type="submit" disabled={loading}>
+          Update Profile
+        </Button>
+      </form>
+    </div>
+  );
+}

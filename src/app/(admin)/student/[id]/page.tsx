@@ -53,7 +53,6 @@ export default function StudentDetails({ params }: { params: Iid }) {
         <p className="text-muted-foreground">
           Manage your account settings and set user preferences.
         </p>
-
         <Separator className="my-4" />
       </div>
       <Tabs defaultValue="Profile" className="flex flex-col">
@@ -62,7 +61,6 @@ export default function StudentDetails({ params }: { params: Iid }) {
           <TabsTrigger value="qrcode">QR Code</TabsTrigger>
           <TabsTrigger value="delete">Delete</TabsTrigger>
         </TabsList>
-
         <TabsContent value="Profile">
           <ProfileForm id={params.id} />
         </TabsContent>

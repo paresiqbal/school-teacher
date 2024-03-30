@@ -104,7 +104,7 @@ export default function StudentList() {
         : true;
       const matchesSearchQuery = student.fullname
         .toLowerCase()
-        .includes(searchQuery.toLowerCase()); // Search query check
+        .includes(searchQuery.toLowerCase());
       return matchesLevel && matchesMajor && matchesSearchQuery;
     });
 
@@ -113,12 +113,10 @@ export default function StudentList() {
 
   const handleSelect = (level: any) => {
     setSelectedLevel(level);
-    // Additional logic to handle the selected level can be added here
   };
 
   const handleSelectMajor = (majorName: any) => {
     setSelectedMajor(majorName);
-    // You can add additional logic here if needed
   };
 
   useEffect(() => {
@@ -132,7 +130,6 @@ export default function StudentList() {
   }, [filterStudents]);
 
   useEffect(() => {
-    // Re-filter students whenever the search query changes
     filterStudents();
   }, [searchQuery, filterStudents]);
 

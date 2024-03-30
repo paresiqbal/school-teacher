@@ -1,164 +1,71 @@
 "use client";
 
 // next
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
-
-// zod
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import Link from "next/link";
 
 // shadcn
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import TeacherProfile from "./TeacherProfile";
 
-interface Teacher {
-  username: string;
-  password: string;
-  fullname: string;
-  nip?: string; // Making nip property optional
-}
-
-interface ParamsType {
+interface Iid {
   id: string;
 }
 
-// Define zod schema
-const teacherSchema = z.object({
-  username: z.string().min(4),
-  password: z.string().min(6),
-  fullname: z.string().min(1),
-  nip: z.string().optional(),
-});
-
-// fetching teacher details
-async function updateTeacherDetails(id: string, data: Teacher) {
-  const res = await fetch(`http://localhost:3001/user/teacher/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
-
-export default function TeacherDetails({ params }: { params: ParamsType }) {
-  const [teacher, setTeacher] = useState<Teacher | null>(null);
-  const [formData, setFormData] = useState<Teacher>({
-    fullname: "",
-    username: "",
-    password: "",
-    nip: "",
-  });
-
-  useEffect(() => {
-    async function fetchTeacherDetails() {
-      try {
-        const response = await fetch(
-          `http://localhost:3001/user/teacher/${params.id}`
-        );
-        const data: Teacher = await response.json();
-        setTeacher(data);
-        setFormData(data);
-      } catch (error) {
-        console.error("Error fetching teacher details:", error);
-      }
-    }
-    fetchTeacherDetails();
-  }, [params.id]);
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const validatedData = teacherSchema.parse(formData);
-      if (teacher) {
-        await updateTeacherDetails(params.id, validatedData);
-        alert("Teacher details updated successfully");
-      }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        console.error("Validation error:", error.errors);
-        alert("Validation error. Please check your input.");
-      } else {
-        console.error("Error updating teacher details:", error);
-        alert("Failed to update teacher details. Please try again later.");
-      }
-    }
-  };
-
+export default function TeacherDetails({ params }: { params: Iid }) {
   return (
     <div className="p-10">
-      <div>
+      <Breadcrumb className="hidden md:flex">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/teacher">Teacher</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Details</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="pt-8">
         <h1 className="text-2xl font-bold tracking-tight">Setting</h1>
         <p className="text-muted-foreground">
-          Manage your account settings and set e-mail preferences.
+          Manage your account settings and set user preferences.
         </p>
+        <Separator className="my-4" />
       </div>
-      <div className="flex gap-10 py-10">
-        <div className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-9 px-20 py-2 bg-muted hover:bg-muted justify-start">
-          Profile
-        </div>
-        {teacher ? (
-          <div className="flex flex-col w-full">
-            <h3 className="text-lg font-medium">Profile</h3>
-            <p className="text-sm text-muted-foreground">
-              This is how others will see you on the site
-            </p>
-            <form onSubmit={handleSubmit} className="py-8">
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Full Name:
-              </label>
-              <Input
-                type="text"
-                name="fullname"
-                value={formData.fullname}
-                onChange={handleInputChange}
-              />
-              <br />
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Username:
-                <Input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Password:
-                <Input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                NIP:
-                <Input
-                  type="text"
-                  name="nip"
-                  value={formData.nip}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <Button type="submit">Update Profile</Button>
-            </form>
+      <Tabs defaultValue="Profile" className="flex flex-col">
+        <TabsList className="grid w-full grid-cols-3 col-span-3">
+          <TabsTrigger value="Profile">Profile</TabsTrigger>
+          <TabsTrigger value="qrcode">QR Code</TabsTrigger>
+          <TabsTrigger value="delete">Delete</TabsTrigger>
+        </TabsList>
+        <TabsContent value="Profile">
+          <TeacherProfile id={params.id} />
+        </TabsContent>
+        <TabsContent value="qrcode"></TabsContent>
+        <TabsContent value="delete">
+          <div className="py-4">
+            <h3>Danger zone</h3>
+            <p>Be careful about deleting students</p>
           </div>
-        ) : (
-          <p>Loading teacher details...</p>
-        )}
-      </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
