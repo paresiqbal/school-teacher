@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <div className="max-w-[2000px] mx-auto">
-      <nav className="mx-auto py-2 px-4 bg-zinc-900 flex justify-between items-center">
+      <nav className="mx-auto py-2 px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <button className="lg:hidden" onClick={toggleNavbar}>
             <svg
@@ -46,7 +46,7 @@ export default function Navbar() {
           </Link>
 
           <div
-            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto bg-zinc-900 fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
+            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
               isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             }`}
           >

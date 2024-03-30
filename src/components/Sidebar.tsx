@@ -13,7 +13,6 @@ import { PiStudent } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -27,7 +26,7 @@ export default function Sidebar() {
 
   return (
     <aside className="h-screen">
-      <nav className="h-full flex flex-col bg-zinc-900 border-r shadow-md">
+      <nav className="h-full flex flex-col border-r shadow-md">
         <div className="p-4 pb-2 flex justify-between items-center">
           <Image
             src="/logo.png"

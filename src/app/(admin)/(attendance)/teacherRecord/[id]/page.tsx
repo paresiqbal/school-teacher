@@ -16,7 +16,7 @@ interface AttendanceRecord {
   _id: string;
   subject: string;
   date: string;
-  classId: string;
+  class: string;
   students: Student[];
 }
 
@@ -29,7 +29,6 @@ interface ClassInfo {
   level: string;
   majorId: string;
   majorName: string;
-  __v: number;
 }
 
 const fetchData = async (id: string): Promise<FetchDataResponse | null> => {
@@ -93,20 +92,19 @@ export default function DetailAttendance({ params }: { params: Iid }) {
     <div className="flex gap-10">
       <h1>{data ? "Attendance Records" : "Loading..."}</h1>
       {data?.attendanceRecords.map((record) => {
+        const matchingClass = classes?.find((cls) => cls._id === record.class); // Find the matching class based on ID
         return (
           <div key={record._id} className="flex">
             <h2>
               {record.subject} - {new Date(record.date).toLocaleDateString()}
-              {classes ? (
+              {matchingClass ? (
                 <ul>
-                  {classes.map((cls) => (
-                    <li key={cls._id}>
-                      {cls.level} - {cls.majorName}
-                    </li>
-                  ))}
+                  <li>
+                    {matchingClass.level} - {matchingClass.majorName}
+                  </li>
                 </ul>
               ) : (
-                <p>Loading classes...</p>
+                <p>Loading class info...</p>
               )}
             </h2>
           </div>
