@@ -24,7 +24,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ListFilter } from "lucide-react";
+import { ListFilter, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface IClassInfo {
   _id: string;
@@ -86,6 +87,7 @@ export default function StudentList() {
   const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedMajor, setSelectedMajor] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleDelete = async (id: number) => {
     await deleteStudent(id);
@@ -94,14 +96,20 @@ export default function StudentList() {
 
   const filterStudents = useCallback(() => {
     const tempStudents = students.filter((student) => {
-      return (
-        (selectedLevel ? student.class.level === selectedLevel : true) &&
-        (selectedMajor ? student.class.majorName === selectedMajor : true)
-      );
+      const matchesLevel = selectedLevel
+        ? student.class.level === selectedLevel
+        : true;
+      const matchesMajor = selectedMajor
+        ? student.class.majorName === selectedMajor
+        : true;
+      const matchesSearchQuery = student.fullname
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()); // Search query check
+      return matchesLevel && matchesMajor && matchesSearchQuery;
     });
 
     setFilteredStudents(tempStudents);
-  }, [students, selectedLevel, selectedMajor]);
+  }, [students, selectedLevel, selectedMajor, searchQuery]);
 
   const handleSelect = (level: any) => {
     setSelectedLevel(level);
@@ -123,6 +131,11 @@ export default function StudentList() {
     });
   }, [filterStudents]);
 
+  useEffect(() => {
+    // Re-filter students whenever the search query changes
+    filterStudents();
+  }, [searchQuery, filterStudents]);
+
   return (
     <div>
       <div className="flex justify-between py-4">
@@ -135,25 +148,6 @@ export default function StudentList() {
           </p>
         </div>
         <div className="flex gap-10 items-center">
-          {/* <div>
-            <label
-              htmlFor="level-select"
-              className="block mb-2 text-sm font-medium text-gray-400"
-            >
-              Level:
-            </label>
-            <select
-              id="level-select"
-              className="bg-zinc-900 border border-yellow-400 text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 w-52 p-3"
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-            >
-              <option value="">All Levels</option>
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
-            </select>
-          </div> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
@@ -211,6 +205,16 @@ export default function StudentList() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <div className="relative ml-auto flex-1 md:grow-0">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search..."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <Table>
