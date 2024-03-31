@@ -7,7 +7,4 @@ export function mainMiddleware(request: NextRequest) {
   return res;
 }
 
-export default withAuth(mainMiddleware, [
-  "/adminDashboard",
-  "teacherDashboard",
-]);
+export default withAuth(mainMiddleware, ["/adminDashboard", "/dashboard"]);
