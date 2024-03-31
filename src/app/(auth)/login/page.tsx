@@ -68,7 +68,7 @@ export default function LoginPage() {
       });
 
       if (!res?.error) {
-        // Here, you may want to set some local state to indicate a successful login if needed
+        alert("Login success");
       } else {
         console.log("error", res.error);
       }
@@ -84,7 +84,7 @@ export default function LoginPage() {
           router.push("/adminDashboard");
           break;
         case "teacher":
-          router.push("/teacherDashboard");
+          router.push("/dashboard");
           break;
         default:
           console.log("Unhandled user role:", session.user.role);
