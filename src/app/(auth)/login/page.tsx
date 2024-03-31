@@ -78,18 +78,24 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
+    console.log(`Authentication status: ${status}`);
+    console.log("Session:", session);
+
     if (status === "authenticated" && session?.user?.role) {
       switch (session.user.role) {
         case "admin":
+          console.log("Redirecting to adminDashboard");
           router.push("/adminDashboard");
           break;
         case "teacher":
+          console.log("Redirecting to dashboard");
           router.push("/dashboard");
           break;
         default:
           console.log("Unhandled user role:", session.user.role);
       }
     } else if (status === "unauthenticated") {
+      console.log("Redirecting to login");
       router.push("/login");
     }
   }, [status, session, router]);
