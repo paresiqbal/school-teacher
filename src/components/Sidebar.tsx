@@ -6,8 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { signOut, useSession } from "next-auth/react";
-
 // icons
 import {
   LayoutDashboard,
@@ -31,10 +29,6 @@ export default function Sidebar() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
-  const { data: session } = useSession();
-
-  console.log(session);
 
   return (
     <aside className="h-screen">
@@ -195,18 +189,7 @@ export default function Sidebar() {
             className={`flex flex-col justify-center ml-3 ${
               expanded ? "hidden" : "block"
             }`}
-          >
-            <span className="text-base font-medium">{session?.user?.name}</span>
-            <span className="text-sm">{session?.user?.email}</span>
-          </div>
-          <button
-            onClick={() => signOut()}
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-            }`}
-          >
-            Sign out
-          </button>
+          ></div>
         </div>
       </nav>
     </aside>
