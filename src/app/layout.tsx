@@ -2,10 +2,10 @@
 
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
+import { SessionProvider } from "next-auth/react";
 
 // components
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -16,14 +16,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={GeistSans.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );
