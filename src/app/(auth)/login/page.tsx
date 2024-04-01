@@ -2,8 +2,6 @@
 
 // next
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 // zod
@@ -22,15 +20,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
-
-interface UserSession {
-  user: {
-    fullname?: string | null;
-    username?: string | null;
-    role?: string;
-  };
-}
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -42,13 +31,6 @@ const formSchema = z.object({
 });
 
 export default function LoginPage() {
-  const router = useRouter();
-
-  const { data: session, status } = useSession() as {
-    data: UserSession;
-    status: string;
-  };
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,29 +58,6 @@ export default function LoginPage() {
       console.log("error", error);
     }
   };
-
-  useEffect(() => {
-    console.log(`Authentication status: ${status}`);
-    console.log("Session:", session);
-
-    if (status === "authenticated" && session?.user?.role) {
-      switch (session.user.role) {
-        case "admin":
-          console.log("Redirecting to adminDashboard");
-          router.push("/adminDashboard");
-          break;
-        case "teacher":
-          console.log("Redirecting to dashboard");
-          router.push("/dashboard");
-          break;
-        default:
-          console.log("Unhandled user role:", session.user.role);
-      }
-    } else if (status === "unauthenticated") {
-      console.log("Redirecting to login");
-      router.push("/login");
-    }
-  }, [status, session, router]);
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">

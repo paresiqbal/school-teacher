@@ -32,8 +32,9 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   callbacks: {
-    async jwt({ token, account, user }: any) {
+    async jwt({ token, account, user, profile }: any) {
       if (account?.providers === "credentials") {
         token.username = user.username;
         token.fullname = user.fullname;
@@ -44,14 +45,14 @@ const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token, user }: any) {
-      session.user.role = user.role;
-
       if ("username" in token) {
         session.user.username = token.username;
       }
+
       if ("fullname" in token) {
         session.user.fullname = token.fullname;
       }
+
       if ("role" in token) {
         session.user.role = token.role;
       }
@@ -59,9 +60,9 @@ const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  pages: {
-    signIn: "/login",
-  },
+  // pages: {
+  //   signIn: "/login",
+  // },
 };
 
 const handler = NextAuth(authOptions);
