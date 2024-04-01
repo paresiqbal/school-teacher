@@ -14,9 +14,9 @@ export default function Home() {
         SMK NEGERI 1 REJANG LEBONG
       </h1>
       <div className="flex flex-col lg:flex-row w-full items-center gap-8 lg:gap-20">
-        <div className="flex justify-center lg:w-1/2">
+        <div className="flex justify-center lg:w-1/2 bg-muted/40 rounded-md">
           <Image
-            src="/placeholder.png"
+            src="/images/awal.svg"
             width={500}
             height={500}
             priority

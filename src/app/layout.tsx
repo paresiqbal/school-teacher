@@ -1,7 +1,7 @@
 "use client";
 
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { GeistSans } from "geist/font/sans";
 import { SessionProvider } from "next-auth/react";
 
 // components
