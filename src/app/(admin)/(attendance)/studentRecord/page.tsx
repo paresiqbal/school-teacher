@@ -10,7 +10,7 @@ import EditDialog from "../studentRecord/EditDialog";
 import { generatePDF } from "../studentRecord/generatePDF";
 
 // icons
-import { RxCaretSort } from "react-icons/rx";
+import { ChevronsUpDown } from "lucide-react";
 
 // shadcn
 import { Button } from "@/components/ui/button";
@@ -190,7 +190,7 @@ export default function StudentRecord() {
                   </div>
                   <CollapsibleTrigger asChild>
                     <Button className="flex p-2 rounded-md hover:bg-yellow-500">
-                      <RxCaretSort className="h-4 w-4" aria-hidden="true" />
+                      <ChevronsUpDown className="h-4 w-4" aria-hidden="true" />
                       <span className="sr-only">Toggle</span>
                     </Button>
                   </CollapsibleTrigger>
