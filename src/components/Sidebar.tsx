@@ -24,7 +24,6 @@ import {
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { log } from "console";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
@@ -60,7 +59,7 @@ export default function Sidebar() {
             className={`relative flex flex-col gap-2 items-center my-1 font-medium text-lg`}
           >
             <Link
-              href={"/dashboard"}
+              href={"/adminDashboard"}
               className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
                 pathname === "/dashboard"
                   ? "bg-yellow-400 text-zinc-900"
