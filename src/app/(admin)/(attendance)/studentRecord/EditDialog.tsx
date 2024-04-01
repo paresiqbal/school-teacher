@@ -63,15 +63,13 @@ export default function EditDialog({
   onUpdate,
 }: IEditDialogProps) {
   const [isPresent, setIsPresent] = useState<string>(currentPresence);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [_, setIsOpen] = useState<boolean>(false);
 
   const submitUpdate = async () => {
     const success = await updateAttendance(attendanceId, studentId, isPresent);
     if (success) {
       onUpdate(attendanceId, studentId, isPresent);
       setIsOpen(false);
-    } else {
-      // Optionally handle failure
     }
   };
 
