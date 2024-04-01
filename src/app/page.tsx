@@ -5,7 +5,6 @@ import Image from "next/image";
 
 // shadcn
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 
 export default function Home() {
   return (
@@ -28,9 +27,7 @@ export default function Home() {
           <h2 className="text-xl lg:text-3xl text-center lg:text-left">
             Manage Students Attendance and Grades
           </h2>
-          <Button className="w-full lg:w-auto" onClick={() => signIn()}>
-            Sign In
-          </Button>
+          <Button className="w-full lg:w-auto">Sign In</Button>
           <p className="text-sm lg:text-base text-center lg:text-left">
             Contact admin @superadmin
           </p>
