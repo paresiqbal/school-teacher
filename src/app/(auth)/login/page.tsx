@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -39,23 +40,26 @@ export default function LoginPage() {
     },
   });
 
+  const { push } = useRouter();
+
   const handleLogin = async () => {
     const values = form.getValues();
 
     try {
       const res = await signIn("credentials", {
-        redirect: false,
+        reriect: false,
         username: values.username,
         password: values.password,
+        callbackUrl: "/adminDashboard",
       });
 
       if (!res?.error) {
-        alert("Login success");
+        push("/adminDashboard");
       } else {
-        console.log("error", res.error);
+        console.log(res.error);
       }
     } catch (error) {
-      console.log("error", error);
+      console.log(error);
     }
   };
 

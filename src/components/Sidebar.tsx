@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 // icons
 import {
@@ -26,6 +27,8 @@ import { Button } from "@/components/ui/button";
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
   const pathname = usePathname();
+
+  const { status }: { data: any; status: string } = useSession();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -189,7 +192,13 @@ export default function Sidebar() {
             className={`flex flex-col justify-center ml-3 ${
               expanded ? "hidden" : "block"
             }`}
-          ></div>
+          >
+            {status === "authenticated" ? (
+              <button onClick={() => signOut()}>logout</button>
+            ) : (
+              "loading"
+            )}
+          </div>
         </div>
       </nav>
     </aside>
