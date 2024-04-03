@@ -1,4 +1,3 @@
-import { mainMiddleware } from "@/middleware";
 import { getToken } from "next-auth/jwt";
 import {
   NextFetchEvent,
@@ -9,30 +8,27 @@ import {
 
 export default function withAuth(
   middleware: NextMiddleware,
-  reqAuth: string[] = []
+  requireAuth: string[] = []
 ) {
   return async (req: NextRequest, next: NextFetchEvent) => {
     const pathname = req.nextUrl.pathname;
 
-    const onlyAdmin = ["/adminDashboard"];
-
-    if (reqAuth.includes(pathname)) {
+    // url yang perlu di auth
+    if (requireAuth.includes(pathname)) {
       const token = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
       });
 
+      // jika token tidak ada, redirect ke halaman login
       if (!token) {
         const url = new URL("/login", req.url);
         url.searchParams.set("callbackUrl", encodeURI(req.url));
-        return NextResponse.redirect(url);
-      }
 
-      if (token.role !== "admin" && onlyAdmin.includes(pathname)) {
-        return NextResponse.redirect(new URL("/teacherDashboard", req.url));
+        return NextResponse.redirect(url);
       }
     }
 
-    return mainMiddleware(req);
+    return middleware(req, next);
   };
 }

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ReactEventHandler, useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -70,7 +70,6 @@ export default function LoginPage() {
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      {error !== "" && <div className="text-red text-2xl">{error}</div>}
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
@@ -79,6 +78,7 @@ export default function LoginPage() {
               Enter your username and password below
             </p>
           </div>
+          {error !== "" && <div className="text-red text-2xl">{error}</div>}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleLogin)}
