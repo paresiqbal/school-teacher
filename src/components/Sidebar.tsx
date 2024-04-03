@@ -28,7 +28,9 @@ export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
   const pathname = usePathname();
 
-  const { status }: { data: any; status: string } = useSession();
+  const { data: session, status }: { data: any; status: string } = useSession();
+  console.log(session);
+  console.log(session);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -188,6 +190,7 @@ export default function Sidebar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
+          <div></div>
           <div
             className={`flex flex-col justify-center ml-3 ${
               expanded ? "hidden" : "block"
