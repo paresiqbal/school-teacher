@@ -55,7 +55,7 @@ export default function LoginPage({ searchParams }: any) {
       });
 
       if (!res?.error) {
-        push(callbackUrl);
+        push("/adminDashboard");
       } else {
         console.log(res.error);
       }

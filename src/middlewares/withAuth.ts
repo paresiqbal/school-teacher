@@ -31,10 +31,6 @@ export default function withAuth(
       if (token.role !== "admin" && onlyAdmin.includes(pathname)) {
         return NextResponse.redirect(new URL("/teacherDashboard", req.url));
       }
-
-      if (token.role !== "teacher" && pathname === "/teacherDashboard") {
-        return NextResponse.redirect(new URL("/adminDashboard", req.url));
-      }
     }
 
     return mainMiddleware(req);

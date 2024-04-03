@@ -7,6 +7,7 @@ export default function AdminDashboard() {
 
   console.log(session);
   console.log(status);
+
   if (session?.user.role !== "admin") {
     return <p>You are not admin</p>;
   }
