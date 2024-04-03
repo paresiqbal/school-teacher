@@ -16,24 +16,19 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { username, password } = credentials as {
-          username: string;
-          password: string;
-        };
+        const res = await fetch("http://localhost:3001/user/login", {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" },
+        });
 
-        const user: any = {
-          id: 1,
-          name: "Pares",
-          username: "admin",
-          password: "123456",
-          role: "admin",
-        };
+        const user = await res.json();
 
-        if (username === "admin" && password === "123456") {
+        if (res.ok && user) {
           return user;
-        } else {
-          return null;
         }
+        // Return null if user data could not be retrieved
+        return null;
       },
     }),
   ],
@@ -41,7 +36,7 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }: any) {
       if (user) {
         token.username = user.username;
-        token.name = user.name;
+        token.fullname = user.fullname;
         token.role = user.role;
       }
 
@@ -55,8 +50,8 @@ const authOptions: NextAuthOptions = {
           session.user.username = token.username;
         }
 
-        if ("name" in token) {
-          session.user.name = token.name;
+        if ("fullname" in token) {
+          session.user.fullname = token.fullname;
         }
 
         if ("role" in token) {
