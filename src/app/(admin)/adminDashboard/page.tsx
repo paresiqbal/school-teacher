@@ -11,15 +11,6 @@ export default function AdminDashboard() {
   if (session?.user.role !== "admin") {
     return <p>You are not admin</p>;
   }
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.push("/");
-  //   } else {
-  //     if (session !== undefined && session?.user.role !== "admin") {
-  //       router.push("/dashboard");
-  //     }
-  //   }
-  // }, [router, session, session?.user.role, status]);
 
   return (
     <div className="text-center p-10 bg-muted/40">
