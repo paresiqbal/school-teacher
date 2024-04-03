@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -31,7 +32,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function LoginPage({ searchParams }: any) {
+export default function LoginPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,7 +42,7 @@ export default function LoginPage({ searchParams }: any) {
   });
 
   const { push } = useRouter();
-  const callbackUrl = searchParams.callbackUrl || "/";
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
     const values = form.getValues();
@@ -51,13 +52,16 @@ export default function LoginPage({ searchParams }: any) {
         reriect: false,
         username: values.username,
         password: values.password,
-        callbackUrl: callbackUrl,
+        callbackUrl: "/adminDashboard",
       });
 
       if (!res?.error) {
-        push(callbackUrl);
+        push("/adminDashboard");
       } else {
-        console.log(res.error);
+        if (res.status === 401) {
+          setError("Username or password is incorrect");
+        }
+        console.log(res);
       }
     } catch (error) {
       console.log(error);
@@ -66,6 +70,7 @@ export default function LoginPage({ searchParams }: any) {
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      {error !== "" && <div className="text-red text-2xl">{error}</div>}
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
