@@ -1,7 +1,7 @@
 "use client";
 
 // next
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 
 // zod
@@ -43,8 +43,11 @@ export default function LoginPage({ searchParams }: any) {
 
   const { push } = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const callbackUrl = searchParams.callbackUrl || "/";
-  console.log(searchParams.callbackUrl);
+  const { data: session }: { data: any } = useSession();
+
+  // const callbackUrl = searchParams.callbackUrl || "/";
+  // console.log(searchParams.callbackUrl);
+  console.log(session);
 
   const handleLogin = async () => {
     const values = form.getValues();
@@ -54,11 +57,19 @@ export default function LoginPage({ searchParams }: any) {
         reriect: false,
         username: values.username,
         password: values.password,
-        callbackUrl,
+        callbackUrl: "/adminDashboard",
       });
 
       if (!res?.error) {
-        push(callbackUrl);
+        // Assuming you update the session upon successful login
+        // This might need to be adjusted based on how you handle session updates
+        if (session?.user?.role === "teacher") {
+          push("/teacherDashboard"); // Redirect to the teacher's dashboard
+        } else if (session?.user?.role === "admin") {
+          push("/adminDashboard"); // Redirect to the admin dashboard
+        } else {
+          push("/"); // Redirect to the homepage or another default route
+        }
       } else {
         if (res.status === 401) {
           setError("Username or password is incorrect");
