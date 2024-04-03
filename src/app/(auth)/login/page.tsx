@@ -51,11 +51,11 @@ export default function LoginPage({ searchParams }: any) {
         reriect: false,
         username: values.username,
         password: values.password,
-        callbackUrl,
+        callbackUrl: callbackUrl,
       });
 
       if (!res?.error) {
-        push("/adminDashboard");
+        push(callbackUrl);
       } else {
         console.log(res.error);
       }

@@ -3,10 +3,7 @@
 import { useSession } from "next-auth/react";
 
 export default function AdminDashboard() {
-  const { data: session, status }: { data: any; status: string } = useSession();
-
-  console.log(session);
-  console.log(status);
+  const { data: session }: { data: any } = useSession();
 
   if (session?.user.role !== "admin") {
     return <p>You are not admin</p>;
