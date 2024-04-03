@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import withAuth from "./middlewares/withAuth";
 
-export function middleware(req: NextRequest) {}
+export function mainMiddleware(req: NextRequest) {
+  const res = NextResponse.next();
+  return res;
+}
 
-export const config = {
-  matcher: ["/adminDashboard/:path*", "/dashboard"],
-};
+export default withAuth(mainMiddleware, ["/adminDashboard", "/dashboard"]);

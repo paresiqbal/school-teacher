@@ -1,24 +1,22 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function AdminDashboard() {
   const { data: session, status }: { data: any; status: string } = useSession();
-  const router = useRouter();
+
   console.log(session);
   console.log(status);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    } else {
-      if (session !== undefined && session?.user.role !== "admin") {
-        router.push("/dashboard");
-      }
-    }
-  }, [router, session, session?.user.role, status]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/");
+  //   } else {
+  //     if (session !== undefined && session?.user.role !== "admin") {
+  //       router.push("/dashboard");
+  //     }
+  //   }
+  // }, [router, session, session?.user.role, status]);
 
   return (
     <div className="text-center p-10 bg-muted/40">
