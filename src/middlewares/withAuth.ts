@@ -8,11 +8,13 @@ import {
 } from "next/server";
 
 export default function withAuth(
-  middlware: NextMiddleware,
+  middleware: NextMiddleware,
   reqAuth: string[] = []
 ) {
   return async (req: NextRequest, next: NextFetchEvent) => {
     const pathname = req.nextUrl.pathname;
+
+    const onlyAdmin = ["/adminDashboard"];
 
     if (reqAuth.includes(pathname)) {
       const token = await getToken({
@@ -23,11 +25,18 @@ export default function withAuth(
       if (!token) {
         const url = new URL("/login", req.url);
         url.searchParams.set("callbackUrl", encodeURI(req.url));
-
         return NextResponse.redirect(url);
+      }
+
+      if (token.role !== "admin" && onlyAdmin.includes(pathname)) {
+        return NextResponse.redirect(new URL("/teacherDashboard", req.url));
+      }
+
+      if (token.role !== "teacher" && pathname === "/teacherDashboard") {
+        return NextResponse.redirect(new URL("/adminDashboard", req.url));
       }
     }
 
-    return mainMiddleware(req); // there should be a next() function here
+    return mainMiddleware(req);
   };
 }

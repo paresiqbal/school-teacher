@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 
-export default function Dashboard() {
+export default function TeacherDashboard() {
   const { data: session, status }: { data: any; status: string } = useSession();
   console.log(session);
   console.log(status);

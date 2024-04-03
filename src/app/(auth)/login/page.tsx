@@ -41,6 +41,7 @@ export default function LoginPage({ searchParams }: any) {
   });
 
   const { push } = useRouter();
+  const callbackUrl = searchParams.callbackUrl || "/";
 
   const handleLogin = async () => {
     const values = form.getValues();
@@ -50,11 +51,11 @@ export default function LoginPage({ searchParams }: any) {
         reriect: false,
         username: values.username,
         password: values.password,
-        callbackUrl: searchParams.callbackUrl,
+        callbackUrl,
       });
 
       if (!res?.error) {
-        push(searchParams.callbackUrl);
+        push(callbackUrl);
       } else {
         console.log(res.error);
       }
