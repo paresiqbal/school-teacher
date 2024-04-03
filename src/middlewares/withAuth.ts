@@ -6,6 +6,15 @@ import {
   NextResponse,
 } from "next/server";
 
+// checking
+const adminPage = [
+  "/adminDashboard",
+  "/class",
+  "/teacher",
+  "/student",
+  "/attendance",
+];
+
 export default function withAuth(
   middleware: NextMiddleware,
   requireAuth: string[] = []
@@ -26,6 +35,11 @@ export default function withAuth(
         url.searchParams.set("callbackUrl", encodeURI(req.url));
 
         return NextResponse.redirect(url);
+      }
+
+      // check role and url
+      if (token.role !== "admin" && adminPage.includes(pathname)) {
+        return NextResponse.redirect(new URL("/teacherDashboard", req.url));
       }
     }
 

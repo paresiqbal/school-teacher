@@ -32,7 +32,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function LoginPage() {
+export default function LoginPage({ searchParams }: any) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,6 +43,8 @@ export default function LoginPage() {
 
   const { push } = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const callbackUrl = searchParams.callbackUrl || "/";
+  console.log(searchParams.callbackUrl);
 
   const handleLogin = async () => {
     const values = form.getValues();
@@ -52,11 +54,11 @@ export default function LoginPage() {
         reriect: false,
         username: values.username,
         password: values.password,
-        callbackUrl: "/adminDashboard",
+        callbackUrl,
       });
 
       if (!res?.error) {
-        push("/adminDashboard");
+        push(callbackUrl);
       } else {
         if (res.status === 401) {
           setError("Username or password is incorrect");
