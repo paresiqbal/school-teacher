@@ -190,7 +190,9 @@ export default function Sidebar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
-          <div></div>
+          <div>
+            <p>{session?.user?.role}</p>
+          </div>
           <div
             className={`flex flex-col justify-center ml-3 ${
               expanded ? "hidden" : "block"

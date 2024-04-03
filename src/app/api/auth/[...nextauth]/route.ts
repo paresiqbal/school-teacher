@@ -22,12 +22,18 @@ const authOptions: NextAuthOptions = {
           headers: { "Content-Type": "application/json" },
         });
 
-        const user = await res.json();
+        const data = await res.json();
 
-        if (res.ok && user) {
+        if (res.ok && data.token) {
+          const user = {
+            token: data.token,
+            id: data.userID,
+            role: data.role,
+          };
+
           return user;
         }
-        // Return null if user data could not be retrieved
+
         return null;
       },
     }),
@@ -35,11 +41,10 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
-        token.username = user.username;
-        token.fullname = user.fullname;
+        token.id = user.id;
         token.role = user.role;
+        token.backendToken = user.token;
       }
-
       return token;
     },
 
