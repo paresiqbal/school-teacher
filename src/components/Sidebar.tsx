@@ -190,19 +190,26 @@ export default function Sidebar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>ST</AvatarFallback>
           </Avatar>
-          <div>
-            <p>{session?.user?.role}</p>
-          </div>
-          <div
-            className={`flex flex-col justify-center ml-3 ${
-              expanded ? "hidden" : "block"
-            }`}
-          >
-            {status === "authenticated" ? (
-              <button onClick={() => signOut()}>logout</button>
-            ) : (
-              "loading"
-            )}
+          <div className="flex flex-col">
+            <div
+              className={`overflow-hidden transition-all ${
+                expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
+              }`}
+            >
+              <p>{session?.user?.fullname}</p>
+              <p>{session?.user?.role}</p>
+            </div>
+            <div
+              className={`flex flex-col justify-center w-full ${
+                expanded ? "hidden" : "block"
+              }`}
+            >
+              {status === "authenticated" ? (
+                <Button onClick={() => signOut()}>logout</Button>
+              ) : (
+                "loading"
+              )}
+            </div>
           </div>
         </div>
       </nav>

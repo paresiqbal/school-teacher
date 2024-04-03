@@ -29,6 +29,8 @@ const authOptions: NextAuthOptions = {
             token: data.token,
             id: data.userID,
             role: data.role,
+            username: data.username,
+            fullname: data.fullname,
           };
 
           return user;
@@ -41,28 +43,33 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
-        token.id = user.id;
         token.role = user.role;
-        token.backendToken = user.token;
+        token.fullname = user.fullname;
+        token.username = user.username;
       }
       return token;
     },
 
     // generate session
-    async session({ session, token }: any) {
-      if (session.user) {
-        if ("username" in token) {
-          session.user.username = token.username;
-        }
+    async session({ session, token, user }: any) {
+      // if (session.user) {
+      //   if ("username" in token) {
+      //     session.user.username = token.username;
+      //   }
 
-        if ("fullname" in token) {
-          session.user.fullname = token.fullname;
-        }
+      //   if ("fullname" in token) {
+      //     session.user.fullname = token.fullname;
+      //   }
 
-        if ("role" in token) {
-          session.user.role = token.role;
-        }
-      }
+      //   if ("role" in token) {
+      //     session.user.role = token.role;
+      //   }
+      // }
+      session.accessToken = token.accessToken;
+      session.user.id = token.id;
+      session.user.role = token.role;
+      session.user.fullname = token.fullname;
+      session.user.username = token.username;
 
       return session;
     },
