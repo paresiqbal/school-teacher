@@ -35,7 +35,7 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <Link href={"/dashboard"}>
+          <Link href={"/teacherDashboard"}>
             <Image
               src="/logo.png"
               alt="logo"
@@ -45,8 +45,10 @@ export default function Navbar() {
             />
           </Link>
           <div
-            className={`lg:flex bg-muted lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
-              isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
+              isOpen
+                ? "translate-x-0 bg-muted"
+                : "-translate-x-full lg:translate-x-0"
             }`}
           >
             <button onClick={toggleNavbar} className="p-4 lg:hidden">
@@ -67,22 +69,16 @@ export default function Navbar() {
             </button>
             <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-6">
               <Link
-                href="/teacher"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+                href="/teacherDashboard"
+                className="lg:text-sm hover:text-gray-400 transition-colors"
               >
-                Teacher
+                Dashboard
               </Link>
               <Link
-                href="/student"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
+                href="/about"
+                className="lg:text-sm hover:text-gray-400 transition-colors"
               >
-                Student
-              </Link>
-              <Link
-                href="/class"
-                className="text-white lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Classes
+                About
               </Link>
             </div>
           </div>

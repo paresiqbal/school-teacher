@@ -45,8 +45,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const { data: session }: { data: any } = useSession();
 
-  console.log(session);
-
   const handleLogin = async () => {
     const values = form.getValues();
 
@@ -78,13 +76,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full h-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login to an account</h1>
+            <h1 className="text-3xl font-bold">Masuk kedalam akun.</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your username and password below
+              Masukan username dan password di bawah ini.
             </p>
           </div>
           {error !== "" && <div className="text-red text-2xl">{error}</div>}
@@ -130,14 +128,14 @@ export default function LoginPage() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Login
+                Masuk
               </Button>
             </form>
           </Form>
           <div className="text-center">
-            <p className="text-sm text-muted-foreground">Dont have account ?</p>
+            <p className="text-sm text-muted-foreground">Tidak punya akun ?</p>
             <p className="text-sm text-muted-foreground underline underline-offset-4">
-              Contact admin @superadmin
+              Hubungi admin @superadmin
             </p>
           </div>
         </div>
@@ -148,6 +146,7 @@ export default function LoginPage() {
           alt="Image"
           width="1920"
           height="1080"
+          priority
           className="h-full w-full object-fit"
         />
       </div>

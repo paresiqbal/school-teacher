@@ -14,4 +14,5 @@ export default withAuth(mainMiddleware, [
   "/class",
   "/studentRecord",
   "/teacherRecord",
+  "/teacherDashboard",
 ]);
