@@ -9,8 +9,8 @@ export async function mainMiddleware(req: NextRequest) {
 
 export default withAuth(mainMiddleware, [
   "/adminDashboard",
-  "/student/:path*",
-  "/teacher/:path*",
+  "/student",
+  "/teacher",
   "/class",
   "/studentRecord",
   "/teacherRecord",

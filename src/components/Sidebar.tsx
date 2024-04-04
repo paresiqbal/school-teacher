@@ -29,8 +29,6 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const { data: session, status }: { data: any; status: string } = useSession();
-  console.log(session);
-  console.log(session);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);

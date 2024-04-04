@@ -9,8 +9,8 @@ import {
 // checking
 const adminPage = [
   "/adminDashboard",
-  "/student/:path*",
-  "/teacher/:path*",
+  "/student",
+  "/teacher",
   "/class",
   "/studentRecord",
   "/teacherRecord",
