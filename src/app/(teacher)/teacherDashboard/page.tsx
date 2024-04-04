@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import CheckAttendance from "../checkAttendance/page";
 
 export default function TeacherDashboard() {
   const { data: session, status }: { data: any; status: string } = useSession();
