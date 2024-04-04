@@ -41,6 +41,7 @@ export default function Navbar() {
               alt="logo"
               width={300}
               height={300}
+              priority
               className="w-20 md:w-28 lg:w-36"
             />
           </Link>

@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useSession } from "next-auth/react";
+import CheckAttendance from "../checkAttendance/page";
 
 export default function TeacherDashboard() {
   const { data: session, status }: { data: any; status: string } = useSession();
@@ -9,6 +11,9 @@ export default function TeacherDashboard() {
     <div>
       <h1>Teacher Dashboard</h1>
       <h2>{session?.user?.fullname}</h2>
+      <div>
+        <Link href={"/checkAttendance"}>Presensi</Link>
+      </div>
     </div>
   );
 }
