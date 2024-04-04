@@ -2,17 +2,10 @@
 import { useState, useEffect } from "react";
 
 // shadcn
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // icons
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, User } from "lucide-react";
 
 interface IClassInfo {
   _id: string;
@@ -25,6 +18,14 @@ interface IStudent {
   username: string;
   fullname: string;
   class: IClassInfo;
+}
+
+interface ITeacher {
+  _id: string;
+  username: string;
+  fullname: string;
+  nip: number;
+  role: string;
 }
 
 async function getStudentsData(): Promise<IStudent[]> {
@@ -41,11 +42,28 @@ async function getStudentsData(): Promise<IStudent[]> {
   return res.json();
 }
 
+async function getTeachersData(): Promise<ITeacher[]> {
+  const res = await fetch("http://localhost:3001/user/teachers", {
+    cache: "no-store",
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  return res.json();
+}
+
 export default function StudentsCard() {
   const [students, setStudents] = useState<IStudent[]>([]);
+  const [teachers, setTeachers] = useState<ITeacher[]>([]);
 
   useEffect(() => {
     getStudentsData().then(setStudents);
+    getTeachersData().then(setTeachers);
   }, []);
 
   const totalByLevel = (level: string) =>
@@ -58,21 +76,36 @@ export default function StudentsCard() {
           <CardTitle className="text-md">Level X Students</CardTitle>
           <GraduationCap />
         </CardHeader>
-        <CardContent className="card-value">{totalByLevel("X")}</CardContent>
+        <CardContent className="text-3xl font-bold">
+          {totalByLevel("X")}
+        </CardContent>
       </Card>
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
           <CardTitle className="text-md">Level XI Students</CardTitle>
           <GraduationCap />
         </CardHeader>
-        <CardContent className="card-value">{totalByLevel("XI")}</CardContent>
+        <CardContent className="text-3xl font-bold">
+          {totalByLevel("XI")}
+        </CardContent>
       </Card>
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
           <CardTitle className="text-md">Level XII Students</CardTitle>
           <GraduationCap />
         </CardHeader>
-        <CardContent className="card-value">{totalByLevel("XII")}</CardContent>
+        <CardContent className="text-3xl font-bold">
+          {totalByLevel("XII")}
+        </CardContent>
+      </Card>
+      <Card className="w-full">
+        <CardHeader className="flex flex-row justify-between items-center gap-6">
+          <CardTitle className="text-md">All Teachers</CardTitle>
+          <User />
+        </CardHeader>
+        <CardContent className="text-3xl font-bold">
+          {teachers.length}
+        </CardContent>
       </Card>
     </div>
   );
