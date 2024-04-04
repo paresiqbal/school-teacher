@@ -32,7 +32,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function LoginPage({ searchParams }: any) {
+export default function LoginPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,8 +45,6 @@ export default function LoginPage({ searchParams }: any) {
   const [error, setError] = useState<string | null>(null);
   const { data: session }: { data: any } = useSession();
 
-  // const callbackUrl = searchParams.callbackUrl || "/";
-  // console.log(searchParams.callbackUrl);
   console.log(session);
 
   const handleLogin = async () => {
@@ -61,14 +59,12 @@ export default function LoginPage({ searchParams }: any) {
       });
 
       if (!res?.error) {
-        // Assuming you update the session upon successful login
-        // This might need to be adjusted based on how you handle session updates
         if (session?.user?.role === "teacher") {
-          push("/teacherDashboard"); // Redirect to the teacher's dashboard
+          push("/teacherDashboard");
         } else if (session?.user?.role === "admin") {
-          push("/adminDashboard"); // Redirect to the admin dashboard
+          push("/adminDashboard");
         } else {
-          push("/"); // Redirect to the homepage or another default route
+          push("/");
         }
       } else {
         if (res.status === 401) {

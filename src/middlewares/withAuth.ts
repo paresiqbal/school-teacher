@@ -9,11 +9,14 @@ import {
 // checking
 const adminPage = [
   "/adminDashboard",
+  "/student/:path*",
+  "/teacher/:path*",
   "/class",
-  "/teacher",
-  "/student",
-  "/attendance",
+  "/studentRecord",
+  "/teacherRecord",
 ];
+
+const teacherPage = ["/teacherDashboard"];
 
 export default function withAuth(
   middleware: NextMiddleware,
@@ -37,9 +40,13 @@ export default function withAuth(
         return NextResponse.redirect(url);
       }
 
-      // check role and url
+      // check admin role and url
       if (token.role !== "admin" && adminPage.includes(pathname)) {
         return NextResponse.redirect(new URL("/teacherDashboard", req.url));
+      }
+
+      if (token.role !== "teacher" && teacherPage.includes(pathname)) {
+        return NextResponse.redirect(new URL("/adminDashboard", req.url));
       }
     }
 
