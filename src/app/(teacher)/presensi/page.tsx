@@ -36,24 +36,8 @@ export default function Presensi() {
     const payload = { ...formData, teacherId: session?.user?.id };
     console.log("Payload to submit:", payload);
 
-    simulateScan();
-
     setFormData({ ...formData, subject: "", studentId: "" });
     setIsSubmitted(true);
-  };
-
-  const simulateScan = () => {
-    const simulatedStudentId = "exampleStudentId123";
-    handleScan(simulatedStudentId);
-  };
-
-  const handleScan = async (scannedStudentId: any) => {
-    const payload = {
-      ...formData,
-      teacherId: session?.user?.id,
-      studentId: scannedStudentId,
-    };
-    console.log("Scan payload:", payload);
   };
 
   return (
