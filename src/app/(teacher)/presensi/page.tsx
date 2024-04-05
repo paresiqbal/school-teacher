@@ -1,9 +1,8 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
-// Assuming these components are correctly imported
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,15 +15,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Scaner from "./Scaner";
 
 export default function Presensi() {
-  const { data: session, status }: { data: any; status: string } = useSession();
+  const { data: session }: { data: any; status: string } = useSession();
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     subject: "",
     studentId: "",
-    classId: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -39,8 +36,24 @@ export default function Presensi() {
     const payload = { ...formData, teacherId: session?.user?.id };
     console.log("Payload to submit:", payload);
 
-    setFormData({ ...formData, subject: "", studentId: "", classId: "" });
+    simulateScan();
+
+    setFormData({ ...formData, subject: "", studentId: "" });
     setIsSubmitted(true);
+  };
+
+  const simulateScan = () => {
+    const simulatedStudentId = "exampleStudentId123";
+    handleScan(simulatedStudentId);
+  };
+
+  const handleScan = async (scannedStudentId: any) => {
+    const payload = {
+      ...formData,
+      teacherId: session?.user?.id,
+      studentId: scannedStudentId,
+    };
+    console.log("Scan payload:", payload);
   };
 
   return (
@@ -85,11 +98,9 @@ export default function Presensi() {
       </div>
       <div>
         {isSubmitted && (
-          <Scaner
-            subject={formData.subject}
-            classId={formData.classId}
-            teacherId={session?.user?.id}
-          />
+          <div>
+            <p>Scanner</p>
+          </div>
         )}
       </div>
     </div>

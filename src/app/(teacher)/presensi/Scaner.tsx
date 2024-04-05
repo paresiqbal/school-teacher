@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export default function Scanner({ subject, classId, teacherId }: any) {
-  const [scanResult, setScanResult] = useState("");
   console.log("Received in Scanner:", { subject, classId, teacherId });
+  const [scanResult, setScanResult] = useState("");
 
   const handleScan = async (scannedStudentId: any) => {
     // Construct the payload based on the props and scanned studentId
