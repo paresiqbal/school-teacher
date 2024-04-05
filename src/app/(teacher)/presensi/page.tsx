@@ -18,18 +18,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Scaner from "./Scaner";
 
-interface SubjectEntry {
-  name: string;
-  teacher: {
-    fullname: string;
-  };
-  date: Date;
-}
-
 export default function Presensi() {
   const { data: session, status }: { data: any; status: string } = useSession();
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split("T")[0], // Sets the date to today
+    date: new Date().toISOString().split("T")[0],
     subject: "",
     studentId: "",
     classId: "",
@@ -91,7 +83,15 @@ export default function Presensi() {
           </DialogContent>
         </Dialog>
       </div>
-      <div>{isSubmitted && <Scaner />}</div>
+      <div>
+        {isSubmitted && (
+          <Scaner
+            subject={formData.subject}
+            classId={formData.classId}
+            teacherId={session?.user?.id}
+          />
+        )}
+      </div>
     </div>
   );
 }
