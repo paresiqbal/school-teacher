@@ -1,5 +1,6 @@
 "use client";
 
+// next
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 
@@ -19,13 +20,12 @@ import Scanner from "./Scanner";
 
 export default function Presensi() {
   const { data: session }: { data: any; status: string } = useSession();
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     subject: "",
     studentId: "",
   });
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -84,7 +84,6 @@ export default function Presensi() {
       <div>
         {isSubmitted && (
           <div>
-            <p>Scanner</p>
             <Scanner />
           </div>
         )}
