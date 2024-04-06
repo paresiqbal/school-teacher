@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Scanner from "./Scanner";
 
 export default function Presensi() {
   const { data: session }: { data: any; status: string } = useSession();
@@ -84,6 +85,7 @@ export default function Presensi() {
         {isSubmitted && (
           <div>
             <p>Scanner</p>
+            <Scanner />
           </div>
         )}
       </div>
