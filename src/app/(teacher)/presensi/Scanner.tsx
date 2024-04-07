@@ -2,16 +2,17 @@ import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
 import { QrReader } from "react-qr-reader";
 
-export default function Scanner() {
+export default function Scanner({ onScan }: any) {
   const [data, setData] = useState("No result");
   const [showModal, setShowModal] = useState(false);
   const qrRef = useRef(null || (null as any));
 
-  const handleScan = (result: any, error: any) => {
+  const handleScan = (result: any) => {
     if (result) {
       setData(result?.text);
       setShowModal(true);
       qrRef.current.stop();
+      onScan(result?.text); // Pass the scanned text to the parent component
     }
   };
 
@@ -21,7 +22,7 @@ export default function Scanner() {
   };
 
   const handleOK = () => {
-    resetState();
+    resetState(); // Resets and hides the modal
   };
 
   return (
