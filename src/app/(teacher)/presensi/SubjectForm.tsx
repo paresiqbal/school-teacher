@@ -18,7 +18,6 @@ export default function SubjectForm() {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     subject: "",
-    studentId: "",
   });
 
   const handleInputChange = (e: any) => {
@@ -31,7 +30,7 @@ export default function SubjectForm() {
     const payload = { ...formData, teacherId: session?.user?.id };
     console.log("Payload to submit:", payload);
 
-    setFormData({ ...formData, subject: "", studentId: "" });
+    setFormData({ ...formData, subject: "" });
     setIsSubmitted(true);
   };
 
