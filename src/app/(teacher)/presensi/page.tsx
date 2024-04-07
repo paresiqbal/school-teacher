@@ -12,7 +12,7 @@ export default function Presensi() {
   return (
     <div className="p-10 flex flex-col items-center justify-center">
       <div className="text-center">
-        <h1>Presensi</h1>
+        <h1 className="font-bold text-lg">Presensi</h1>
         <h2>{session?.user?.fullname}</h2>
       </div>
       <div className="py-10">

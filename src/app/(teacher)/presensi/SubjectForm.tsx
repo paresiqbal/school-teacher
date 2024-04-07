@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default function SubjectForm() {
   const { data: session }: { data: any; status: string } = useSession();
@@ -42,7 +41,7 @@ export default function SubjectForm() {
         <DialogTrigger asChild>
           <Button>Check Presensi</Button>
         </DialogTrigger>
-        <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md">
+        <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md rounded-md">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
               <DialogTitle>Mata pelajaran</DialogTitle>
