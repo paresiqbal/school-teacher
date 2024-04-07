@@ -40,27 +40,24 @@ export default function SubjectForm() {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Check Presensi</Button>
+          <Button>Check Presensi</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
-              <DialogTitle>Subject</DialogTitle>
+              <DialogTitle>Mata pelajaran</DialogTitle>
               <DialogDescription>
-                Enter the subject you are teaching right now.
+                Masukan mapel yang sedang diajar.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="subject" className="text-right">
-                  Subject
-                </Label>
                 <Input
                   id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="col-span-3"
+                  className="col-span-4"
                 />
               </div>
             </div>

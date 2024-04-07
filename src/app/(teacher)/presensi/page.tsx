@@ -1,6 +1,9 @@
+"use client";
+
 // next
 import { useSession } from "next-auth/react";
 
+// components
 import SubjectForm from "./SubjectForm";
 
 export default function Presensi() {
