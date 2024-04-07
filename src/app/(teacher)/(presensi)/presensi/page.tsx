@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
+import { usePresensi } from "@/context/PresensiProvider";
+
 export default function PresensiForm() {
   const { data: session }: { data: any; status: string } = useSession();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,7 +23,7 @@ export default function PresensiForm() {
     date: new Date().toISOString().split("T")[0],
     subject: "",
   });
-
+  const { setPresensiData } = usePresensi();
   const router = useRouter();
 
   const handleInputChange = (e: any) => {
@@ -34,6 +36,7 @@ export default function PresensiForm() {
     const payload = { ...formData, teacherId: session?.user?.id };
     console.log("Payload to submit:", payload);
 
+    setPresensiData(payload);
     setFormData({ ...formData, subject: "" });
     setIsSubmitted(true);
     router.push("/scanner");

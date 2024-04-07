@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { PresensiProvider } from "@/context/PresensiProvider";
 
 export default function TeacherLayout({
   children,
@@ -6,16 +7,11 @@ export default function TeacherLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body>
-        <div>
-          <div>
-            <Navbar />
-          </div>
-          <div className="w-full">{children}</div>
-        </div>
-      </body>
-    </html>
+    <>
+      <Navbar />
+      <div className="w-full">
+        <PresensiProvider>{children}</PresensiProvider>
+      </div>
+    </>
   );
 }
