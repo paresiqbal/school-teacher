@@ -17,12 +17,11 @@ export default function Scanner({ onScan }: any) {
   };
 
   const resetState = () => {
-    setData("No result");
     setShowModal(false);
   };
 
   const handleOK = () => {
-    resetState(); // Resets and hides the modal
+    resetState();
   };
 
   return (
