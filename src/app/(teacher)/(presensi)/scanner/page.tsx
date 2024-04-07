@@ -3,17 +3,22 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { QrReader } from "react-qr-reader";
-import { usePresensi } from "@/context/PresensiProvider"; // Ensure this import is correct
+import { usePresensi } from "@/context/PresensiProvider";
 
 export default function ScannerPresensi() {
-  const { presensiData } = usePresensi(); // Accessing data from context
+  const { setPresensiData, presensiData } = usePresensi();
 
   const [qrData, setQrData] = useState("No result");
   const [showModal, setShowModal] = useState(false);
 
   const handleScan = (result: any) => {
     if (result) {
-      setQrData(result.text);
+      const qrResult = JSON.parse(result.text);
+      setPresensiData((prev) => ({
+        ...prev,
+        studentId: qrResult.studentId,
+        classId: qrResult.classId,
+      }));
       setShowModal(true);
     }
   };

@@ -5,6 +5,8 @@ interface PresensiData {
   subject?: string;
   date?: string;
   teacherId?: string;
+  studentId?: string;
+  classId?: string;
 }
 
 interface PresensiContextType {
@@ -14,7 +16,7 @@ interface PresensiContextType {
 
 const defaultContextValue: PresensiContextType = {
   presensiData: {},
-  setPresensiData: () => {}, // Providing a no-operation function as default
+  setPresensiData: () => {},
 };
 
 const PresensiContext = createContext<PresensiContextType>(defaultContextValue);
