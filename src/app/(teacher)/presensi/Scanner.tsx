@@ -12,7 +12,7 @@ export default function Scanner({ onScan }: any) {
       setData(result?.text);
       setShowModal(true);
       qrRef.current.stop();
-      onScan(result?.text); // Pass the scanned text to the parent component
+      onScan(result?.text);
     }
   };
 

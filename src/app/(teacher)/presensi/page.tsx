@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 
 // components
 import SubjectForm from "./SubjectForm";
+import Scanner from "./Scanner";
 
 export default function Presensi() {
   const { data: session }: { data: any; status: string } = useSession();
@@ -17,6 +18,9 @@ export default function Presensi() {
       </div>
       <div className="py-10">
         <SubjectForm />
+      </div>
+      <div>
+        <Scanner />
       </div>
     </div>
   );
