@@ -33,10 +33,9 @@ export default function PresensiForm() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    e.preventDefault();
     const payload = { ...formData, teacherId: session?.user?.id };
-    console.log("Payload to submit:", payload);
-
-    setPresensiData(payload);
+    setPresensiData(payload); // Updating context with form data
     setFormData({ ...formData, subject: "" });
     setIsSubmitted(true);
     router.push("/scanner");
