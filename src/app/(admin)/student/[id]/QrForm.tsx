@@ -11,15 +11,22 @@ import html2canvas from "html2canvas";
 // shadcn
 import { Button } from "@/components/ui/button";
 
-type Student = {
+type IClass = {
+  _id: string;
+  level: string;
+  majorName: string;
+};
+
+type IStudent = {
   _id: string;
   nis: string;
   fullname: string;
   major: string;
+  class: IClass;
 };
 
 export default function QrForm({ id }: { id: string }) {
-  const [student, setStudent] = useState<Student | null>(null);
+  const [student, setStudent] = useState<IStudent | null>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -32,7 +39,7 @@ export default function QrForm({ id }: { id: string }) {
         if (!response.ok) throw new Error("Failed to fetch student data");
         const text = await response.text();
         if (!text) throw new Error("No data returned from fetch");
-        const data: Student = JSON.parse(text);
+        const data: IStudent = JSON.parse(text);
         setStudent(data);
       } catch (error) {
         console.error("Error fetching student data:", error);
@@ -45,8 +52,8 @@ export default function QrForm({ id }: { id: string }) {
 
   const handleGenerateQrCode = async () => {
     try {
-      if (!student) return;
-      const qrCodeData = `Student ID: ${student._id}, Name: ${student.fullname}, NIS: ${student.nis}`;
+      if (!student || !student.class) return; // Ensure that the student and student's class data are loaded
+      const qrCodeData = `Student ID: ${student._id}, Name: ${student.fullname}, NIS: ${student.nis}, Class ID: ${student.class._id}`;
       const qrUrl = await QRCode.toDataURL(qrCodeData);
       setQrCodeUrl(qrUrl);
     } catch (error) {
@@ -89,6 +96,10 @@ export default function QrForm({ id }: { id: string }) {
             </p>
             <p className="text-lg">
               Name: <span className="font-medium">{student.fullname}</span>
+            </p>
+            <p className="text-lg">
+              Class Major:
+              <span className="font-medium">{student?.class?.majorName}</span>
             </p>
             <div className="flex flex-col gap-2">
               <Button onClick={handleGenerateQrCode}>Generate QR Code</Button>
