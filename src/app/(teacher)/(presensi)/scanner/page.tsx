@@ -9,7 +9,12 @@ export default function ScannerPresensi() {
     <div className="p-10 flex flex-col items-center justify-center">
       <div className="text-center">
         <h2 className="text-4xl font-bold mb-4">Presensi</h2>
-        <p>Mapel: {presensiData.subject}</p>
+        <p>
+          Mapel:{" "}
+          <span className="font-semibold text-yellow-500">
+            {presensiData.subject}
+          </span>
+        </p>
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="py-6 flex flex-col justify-center items-center">
