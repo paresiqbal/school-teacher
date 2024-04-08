@@ -24,7 +24,6 @@ import { Input } from "@/components/ui/input";
 export default function PresensiForm() {
   const { data: session }: { data: any; status: string } = useSession();
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     subject: "",
@@ -45,6 +44,7 @@ export default function PresensiForm() {
       subject: formData.subject,
       teacherId: session?.user?.id,
     }));
+
     router.push("/scanner");
   };
 
