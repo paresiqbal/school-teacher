@@ -17,7 +17,6 @@ export default function TeacherDashboard() {
             {session?.user?.fullname}
           </span>
         </h2>
-
         <Button>
           <Link href={"/presensi"}>Go to Presensi</Link>
         </Button>
