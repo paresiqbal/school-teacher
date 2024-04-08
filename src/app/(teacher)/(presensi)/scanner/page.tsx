@@ -15,26 +15,15 @@ export default function ScannerPresensi() {
   const [data, setData] = useState("No result");
 
   const handleScan = (result: any, error: any) => {
-    if (!result) {
+    if (!!result) {
       setData(result?.text);
-    }
-
-    if (result) {
-      const qrData = result.split(";");
-
-      const studentId = qrData[0];
-      const name = qrData[1];
-      const classId = qrData[2];
-      const nis = qrData[3];
-
-      setData(`NIS: ${nis}, Nama: ${name}, Kelas: ${classId}`);
     }
   };
 
   return (
     <div className="p-10 flex flex-col items-center justify-center">
       <div className="text-center">
-        <h2 className="text-4xl font-bold mb-4">Presensi</h2>
+        <h2 className="text-lg font-bold mb-4">QR Scanner</h2>
         <p>
           Mapel:
           <span className="font-semibold text-yellow-500">
@@ -44,7 +33,6 @@ export default function ScannerPresensi() {
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-lg font-bold">QR Scanner</h2>
         <QrReader
           className="lg:h-[400px] lg:w-[400px] h-[400px] w-[400px]"
           onResult={handleScan}
