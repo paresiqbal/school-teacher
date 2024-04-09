@@ -1,24 +1,37 @@
 "use client";
 
 // next
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // context
 import { usePresensi } from "@/context/PresensiProvider";
 
 // library
 import { QrReader } from "react-qr-reader";
+import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
 
-  const [data, setData] = useState("No result");
+  useEffect(() => {
+    const qrCodeScanner = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      /* verbose= */ false
+    );
 
-  const handleScan = (result: any, error: any) => {
-    if (!!result) {
-      setData(result?.text);
-    }
-  };
+    qrCodeScanner.render(
+      (decodedText, decodedResult) => {
+        // handle successful scan
+        console.log("Scanned QR Code:", decodedText);
+      },
+      (errorMessage) => {
+        // handle scan failure
+        console.error("Error scanning QR code:", errorMessage);
+      }
+    );
+  }, []);
 
   return (
     <div className="p-10 flex flex-col items-center justify-center">
@@ -33,12 +46,7 @@ export default function ScannerPresensi() {
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <QrReader
-          className="lg:h-[400px] lg:w-[400px] h-[400px] w-[400px]"
-          onResult={handleScan}
-          constraints={{ facingMode: "environment" }}
-        />
-        <p>{data}</p>
+        <div id="reader"></div>
       </div>
     </div>
   );
