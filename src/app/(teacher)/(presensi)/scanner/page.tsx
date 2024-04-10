@@ -7,12 +7,11 @@ import { useEffect, useState } from "react";
 import { usePresensi } from "@/context/PresensiProvider";
 
 // library
-import { QrReader } from "react-qr-reader";
 import { Html5QrcodeScanner } from "html5-qrcode";
-import { Html5Qrcode } from "html5-qrcode";
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
+  const [scannedData, setScannedData] = useState(null); // State to store scanned QR code data
 
   useEffect(() => {
     const qrCodeScanner = new Html5QrcodeScanner(
@@ -25,12 +24,17 @@ export default function ScannerPresensi() {
       (decodedText, decodedResult) => {
         // handle successful scan
         console.log("Scanned QR Code:", decodedText);
+        setScannedData(decodedText); // Update state with scanned data
       },
       (errorMessage) => {
         // handle scan failure
         console.error("Error scanning QR code:", errorMessage);
       }
     );
+
+    return () => {
+      qrCodeScanner.clear(); // Clean up the scanner when component unmounts
+    };
   }, []);
 
   return (
@@ -47,6 +51,9 @@ export default function ScannerPresensi() {
       </div>
       <div className="flex flex-col justify-center items-center">
         <div id="reader"></div>
+        {scannedData && ( // Render scanned data if available
+          <p className="mt-4">Scanned Data: {scannedData}</p>
+        )}
       </div>
     </div>
   );
