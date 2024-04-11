@@ -11,7 +11,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
-  const [scannedData, setScannedData] = useState(null); // State to store scanned QR code data
+  const [scannedData, setScannedData] = useState<string | null>(null); // State to store scanned QR code data
 
   useEffect(() => {
     const qrCodeScanner = new Html5QrcodeScanner(
@@ -21,7 +21,7 @@ export default function ScannerPresensi() {
     );
 
     qrCodeScanner.render(
-      (decodedText, decodedResult) => {
+      (decodedText) => {
         // handle successful scan
         console.log("Scanned QR Code:", decodedText);
         setScannedData(decodedText); // Update state with scanned data
