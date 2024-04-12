@@ -42,7 +42,7 @@ export default function ScannerPresensi() {
       <div className="text-center">
         <h2 className="text-lg font-bold mb-4">QR Scanner</h2>
         <p>
-          Mapel:
+          Subject:
           <span className="font-semibold text-yellow-500">
             {presensiData.subject}
           </span>
