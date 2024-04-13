@@ -11,29 +11,27 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
-  const [scannedData, setScannedData] = useState<string | null>(null); // State to store scanned QR code data
+  const [scannedData, setScannedData] = useState<string | null>(null);
 
   useEffect(() => {
     const qrCodeScanner = new Html5QrcodeScanner(
       "reader",
       { fps: 10, qrbox: { width: 250, height: 250 } },
-      /* verbose= */ false
+      false
     );
 
     qrCodeScanner.render(
       (decodedText) => {
-        // handle successful scan
         console.log("Scanned QR Code:", decodedText);
-        setScannedData(decodedText); // Update state with scanned data
+        setScannedData(decodedText);
       },
       (errorMessage) => {
-        // handle scan failure
         console.error("Error scanning QR code:", errorMessage);
       }
     );
 
     return () => {
-      qrCodeScanner.clear(); // Clean up the scanner when component unmounts
+      qrCodeScanner.clear();
     };
   }, []);
 
