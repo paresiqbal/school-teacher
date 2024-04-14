@@ -49,9 +49,7 @@ export default function ScannerPresensi() {
       </div>
       <div className="flex flex-col justify-center items-center">
         <div id="reader"></div>
-        {scannedData && ( // Render scanned data if available
-          <p className="mt-4">Scanned Data: {scannedData}</p>
-        )}
+        {scannedData && <p className="mt-4">Scanned Data: {scannedData}</p>}
       </div>
     </div>
   );
