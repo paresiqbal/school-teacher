@@ -1,52 +1,30 @@
-import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
-import { QrReader } from "react-qr-reader";
+import React, { useEffect, useRef } from "react";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
-export default function Scanner({ onScan }: any) {
-  const [data, setData] = useState("No result");
-  const [showModal, setShowModal] = useState(false);
-  const qrRef = useRef(null || (null as any));
+const Scanner: React.FC = () => {
+  const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
-  const handleScan = (result: any) => {
-    if (result) {
-      setData(result?.text);
-      setShowModal(true);
-      qrRef.current.stop();
-      onScan(result?.text);
-    }
-  };
+  useEffect(() => {
+    const onScanSuccess = (decodedText: string, decodedResult: any) => {
+      console.log(`Code matched = ${decodedText}`, decodedResult);
+    };
 
-  const resetState = () => {
-    setShowModal(false);
-  };
+    const onScanFailure = (error: any) => {
+      console.warn(`Code scan error = ${error}`);
+    };
 
-  const handleOK = () => {
-    resetState();
-  };
+    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+    const html5QrcodeScanner = new Html5QrcodeScanner("reader", config, false);
+    scannerRef.current = html5QrcodeScanner;
 
-  return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold mb-4">QR Scanner</h1>
-      <div>
-        <QrReader
-          className="lg:h-[400px] lg:w-[400px] h-[300px] w-[300px]"
-          onResult={handleScan}
-          constraints={{ facingMode: "environment" }}
-        />
-      </div>
-      {showModal && (
-        <div className="fixed inset-0 bg-muted/20 bg-opacity-50 flex justify-center items-center">
-          <div className="rounded-md p-4">
-            <p>{data}</p>
-            <Button
-              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mx-4 mt-4 hover:bg-gray-300"
-              onClick={handleOK}
-            >
-              Ok
-            </Button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+    return () => {
+      html5QrcodeScanner.clear().then(() => console.log("Scanner stopped."));
+    };
+  }, []);
+
+  return <div id="reader" style={{ width: "500px", height: "500px" }}></div>;
+};
+
+export default Scanner;
