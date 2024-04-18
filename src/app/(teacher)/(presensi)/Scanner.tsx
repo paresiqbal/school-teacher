@@ -29,7 +29,7 @@ const Home: React.FC = () => {
     return () => {
       scanner?.clear();
     };
-  }, []);
+  });
 
   const onScanSuccess = (decodedText: string, decodedResult: any) => {
     console.log(`Code matched = ${decodedText}`, decodedResult);
