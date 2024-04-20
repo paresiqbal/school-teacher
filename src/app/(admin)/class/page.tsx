@@ -117,7 +117,7 @@ export default function ClassPage() {
       </Breadcrumb>
       <div className="pt-8">
         <h1 className="text-3xl font-bold">Create a major and classes</h1>
-        <p>create major and class.</p>
+        <p>create major and classs.</p>
       </div>
       <div className="flex py-10 gap-10">
         <Card className="p-6 w-2/5">
