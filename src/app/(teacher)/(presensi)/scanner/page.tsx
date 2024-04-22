@@ -9,6 +9,48 @@ import { usePresensi } from "@/context/PresensiProvider";
 // library
 import { Html5QrcodeScanner } from "html5-qrcode";
 
+interface IAttendanceData {
+  studentId: string;
+  classId: string;
+  teacherId: string;
+  subject: string;
+  date: string;
+}
+
+interface IApiResponse {
+  message: string;
+  attendance?: any; // You can further define this based on your backend model
+  error?: string;
+}
+
+const markAttendance = async ({
+  studentId,
+  classId,
+  teacherId,
+  subject,
+  date,
+}: IAttendanceData): Promise<void> => {
+  try {
+    const response = await fetch("/api/mark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ studentId, classId, teacherId, subject, date }),
+    });
+
+    const data: IApiResponse = await response.json();
+
+    if (response.ok) {
+      console.log("Attendance marked successfully:", data.message);
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error: any) {
+    console.error("Error marking attendance:", error.message);
+  }
+};
+
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
   const [scannedData, setScannedData] = useState<string | null>(null);
@@ -21,18 +63,21 @@ export default function ScannerPresensi() {
     );
 
     qrCodeScanner.render(
-      (decodedText) => {
+      (decodedText: string) => {
         console.log("Scanned QR Code:", decodedText);
         setScannedData(decodedText);
+
+        try {
+          const attendanceData: IAttendanceData = JSON.parse(decodedText);
+          markAttendance(attendanceData);
+        } catch (error: any) {
+          console.error("Error parsing QR code data:", error.message);
+        }
       },
-      (errorMessage) => {
-        console.error("Error scanning QR code:", errorMessage);
+      (errorMessage: string) => {
+        console.log("Error scanning QR code:", errorMessage);
       }
     );
-
-    return () => {
-      qrCodeScanner.clear();
-    };
   }, []);
 
   return (
