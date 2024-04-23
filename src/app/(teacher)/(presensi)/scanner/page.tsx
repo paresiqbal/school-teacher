@@ -18,27 +18,8 @@ interface QRData {
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
-  // const [scannedData, setScannedData] = useState<string | null>(null);
   const qrRef = useRef<HTMLDivElement>(null);
   const [qrData, setQrData] = useState<QRData | null>(null);
-
-  // useEffect(() => {
-  //   const qrCodeScanner = new Html5QrcodeScanner(
-  //     "reader",
-  //     { fps: 10, qrbox: { width: 250, height: 250 } },
-  //     false
-  //   );
-
-  //   qrCodeScanner.render(
-  //     (decodedText: string) => {
-  //       console.log("Scanned QR Code:", decodedText);
-  //       setScannedData(decodedText);
-  //     },
-  //     (errorMessage: string) => {
-  //       console.log("Error scanning QR code:", errorMessage);
-  //     }
-  //   );
-  // }, []);
 
   useEffect(() => {
     let scanner: Html5QrcodeScanner | null = null;
