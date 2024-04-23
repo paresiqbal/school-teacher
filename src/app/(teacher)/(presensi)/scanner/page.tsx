@@ -1,7 +1,7 @@
 "use client";
 
 // next
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // context
 import { usePresensi } from "@/context/PresensiProvider";
@@ -9,76 +9,72 @@ import { usePresensi } from "@/context/PresensiProvider";
 // library
 import { Html5QrcodeScanner } from "html5-qrcode";
 
-interface IAttendanceData {
-  studentId: string;
-  classId: string;
-  teacherId: string;
-  subject: string;
-  date: string;
+interface QRData {
+  studentID: string;
+  name: string;
+  nis: string;
+  classID: string;
 }
-
-interface IApiResponse {
-  message: string;
-  attendance?: any; // You can further define this based on your backend model
-  error?: string;
-}
-
-const markAttendance = async ({
-  studentId,
-  classId,
-  teacherId,
-  subject,
-  date,
-}: IAttendanceData): Promise<void> => {
-  try {
-    const response = await fetch("/api/mark", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ studentId, classId, teacherId, subject, date }),
-    });
-
-    const data: IApiResponse = await response.json();
-
-    if (response.ok) {
-      console.log("Attendance marked successfully:", data.message);
-    } else {
-      throw new Error(data.message);
-    }
-  } catch (error: any) {
-    console.error("Error marking attendance:", error.message);
-  }
-};
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
-  const [scannedData, setScannedData] = useState<string | null>(null);
+  // const [scannedData, setScannedData] = useState<string | null>(null);
+  const qrRef = useRef<HTMLDivElement>(null);
+  const [qrData, setQrData] = useState<QRData | null>(null);
+
+  // useEffect(() => {
+  //   const qrCodeScanner = new Html5QrcodeScanner(
+  //     "reader",
+  //     { fps: 10, qrbox: { width: 250, height: 250 } },
+  //     false
+  //   );
+
+  //   qrCodeScanner.render(
+  //     (decodedText: string) => {
+  //       console.log("Scanned QR Code:", decodedText);
+  //       setScannedData(decodedText);
+  //     },
+  //     (errorMessage: string) => {
+  //       console.log("Error scanning QR code:", errorMessage);
+  //     }
+  //   );
+  // }, []);
 
   useEffect(() => {
-    const qrCodeScanner = new Html5QrcodeScanner(
-      "reader",
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      false
-    );
+    let scanner: Html5QrcodeScanner | null = null;
 
-    qrCodeScanner.render(
-      (decodedText: string) => {
-        console.log("Scanned QR Code:", decodedText);
-        setScannedData(decodedText);
+    if (qrRef.current) {
+      scanner = new Html5QrcodeScanner(
+        qrRef.current.id,
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        false
+      );
+      scanner.render(onScanSuccess, onScanFailure);
+    }
 
-        try {
-          const attendanceData: IAttendanceData = JSON.parse(decodedText);
-          markAttendance(attendanceData);
-        } catch (error: any) {
-          console.error("Error parsing QR code data:", error.message);
-        }
-      },
-      (errorMessage: string) => {
-        console.log("Error scanning QR code:", errorMessage);
-      }
-    );
+    return () => {
+      scanner?.clear();
+    };
   }, []);
+
+  const onScanSuccess = (decodedText: string, decodedResult: any) => {
+    console.log(`Code matched = ${decodedText}`, decodedResult);
+    parseQRData(decodedText);
+  };
+
+  const onScanFailure = (error: string) => {
+    console.warn(`Code scan error = ${error}`);
+  };
+
+  const parseQRData = (data: string) => {
+    const regex =
+      /Student ID: (\w+), Name: ([^,]+), NIS: (\d+), Class ID: (\w+)/;
+    const matches = data.match(regex);
+    if (matches) {
+      const [_, studentID, name, nis, classID] = matches;
+      setQrData({ studentID, name, nis, classID });
+    }
+  };
 
   return (
     <div className="p-10 flex flex-col items-center justify-center">
@@ -93,8 +89,23 @@ export default function ScannerPresensi() {
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <div id="reader"></div>
-        {scannedData && <p className="mt-4">Scanned Data: {scannedData}</p>}
+        <div id="reader" ref={qrRef} style={{ width: "600px" }}></div>
+        {qrData && (
+          <div className="qr-data">
+            <p>
+              <strong>Student ID:</strong> {qrData.studentID}
+            </p>
+            <p>
+              <strong>Name:</strong> {qrData.name}
+            </p>
+            <p>
+              <strong>NIS:</strong> {qrData.nis}
+            </p>
+            <p>
+              <strong>Class ID:</strong> {qrData.classID}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
