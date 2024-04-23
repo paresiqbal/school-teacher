@@ -1,12 +1,6 @@
 "use client";
-
-// next
-import { useEffect, useState, useRef } from "react";
-
-// context
+import { useEffect, useState, useRef, useCallback } from "react";
 import { usePresensi } from "@/context/PresensiProvider";
-
-// library
 import { Html5QrcodeScanner } from "html5-qrcode";
 
 interface QRData {
@@ -16,10 +10,24 @@ interface QRData {
   classID: string;
 }
 
+interface ApiResponse {
+  message?: string;
+  error?: string;
+}
+
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
   const qrRef = useRef<HTMLDivElement>(null);
   const [qrData, setQrData] = useState<QRData | null>(null);
+  const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
+
+  const onScanSuccess = useCallback(
+    (decodedText: string, decodedResult: any) => {
+      console.log(`Code matched = ${decodedText}`, decodedResult);
+      parseQRData(decodedText);
+    },
+    []
+  );
 
   useEffect(() => {
     let scanner: Html5QrcodeScanner | null = null;
@@ -36,12 +44,7 @@ export default function ScannerPresensi() {
     return () => {
       scanner?.clear();
     };
-  }, []);
-
-  const onScanSuccess = (decodedText: string, decodedResult: any) => {
-    console.log(`Code matched = ${decodedText}`, decodedResult);
-    parseQRData(decodedText);
-  };
+  }, [onScanSuccess]);
 
   const onScanFailure = (error: string) => {
     console.warn(`Code scan error = ${error}`);
@@ -54,7 +57,40 @@ export default function ScannerPresensi() {
     if (matches) {
       const [_, studentID, name, nis, classID] = matches;
       setQrData({ studentID, name, nis, classID });
+      sendAttendanceData({ studentID, classID });
     }
+  };
+
+  const sendAttendanceData = ({
+    studentID,
+    classID,
+  }: {
+    studentID: string;
+    classID: string;
+  }) => {
+    const payload = {
+      date: presensiData.date,
+      teacherId: presensiData.teacherId,
+      subject: presensiData.subject,
+      studentId: studentID,
+      classId: classID,
+    };
+
+    fetch("http://localhost:3001/attendance/mark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setApiResponse(data);
+      })
+      .catch((error) => {
+        console.error("Error posting attendance:", error);
+        setApiResponse({ error: "Failed to post attendance" });
+      });
   };
 
   return (
@@ -77,13 +113,15 @@ export default function ScannerPresensi() {
               <strong>Student ID:</strong> {qrData.studentID}
             </p>
             <p>
-              <strong>Name:</strong> {qrData.name}
-            </p>
-            <p>
-              <strong>NIS:</strong> {qrData.nis}
-            </p>
-            <p>
               <strong>Class ID:</strong> {qrData.classID}
+            </p>
+          </div>
+        )}
+        {apiResponse && (
+          <div>
+            <p>
+              API Response:{" "}
+              {apiResponse.message || apiResponse.error || "Error"}
             </p>
           </div>
         )}
