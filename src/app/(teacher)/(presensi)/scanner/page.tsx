@@ -120,7 +120,7 @@ export default function ScannerPresensi() {
         {apiResponse && (
           <div>
             <p>
-              API Response:{" "}
+              API Response:
               {apiResponse.message || apiResponse.error || "Error"}
             </p>
           </div>
