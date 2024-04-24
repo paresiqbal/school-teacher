@@ -9,16 +9,16 @@ export default function TeacherDashboard() {
 
   return (
     <div className="p-10">
-      <h1 className="text-4xl font-bold">Teacher Dashboard</h1>
+      <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
       <div className="py-6">
         <h2>
-          Wellcome
+          Wellcome {""}
           <span className="text-yellow-500 font-bold">
             {session?.user?.fullname}
           </span>
         </h2>
         <Button>
-          <Link href={"/presensi"}>Go to Presensi</Link>
+          <Link href={"/presensi"}>Mulai Presensi</Link>
         </Button>
       </div>
     </div>
