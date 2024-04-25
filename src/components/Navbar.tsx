@@ -24,27 +24,21 @@ export default function Component() {
       <nav className="hidden items-center space-x-4 md:flex">
         <Link
           className="text-sm font-medium hover:underline hover:underline-offset-4"
-          href="#"
+          href="/teacherDashboard"
         >
           Home
         </Link>
         <Link
           className="text-sm font-medium hover:underline hover:underline-offset-4"
-          href="#"
+          href="/presensi"
         >
-          About
+          Presensi
         </Link>
         <Link
           className="text-sm font-medium hover:underline hover:underline-offset-4"
-          href="#"
+          href="/teacherStudent"
         >
-          Services
-        </Link>
-        <Link
-          className="text-sm font-medium hover:underline hover:underline-offset-4"
-          href="#"
-        >
-          Contact
+          Siswa
         </Link>
         {status === "authenticated" ? (
           <Button onClick={() => signOut()}>Logout</Button>
@@ -90,21 +84,9 @@ export default function Component() {
                 </Link>
                 <Link
                   className="flex w-full items-center py-2 text-lg font-semibold"
-                  href="/presensi"
+                  href="/teacherStudent"
                 >
-                  Presensi
-                </Link>
-                <Link
-                  className="flex w-full items-center py-2 text-lg font-semibold"
-                  href="/presensi"
-                >
-                  Presensi
-                </Link>
-                <Link
-                  className="flex w-full items-center py-2 text-lg font-semibold"
-                  href="/presensi"
-                >
-                  Presensi
+                  Siswa
                 </Link>
               </nav>
             </div>
