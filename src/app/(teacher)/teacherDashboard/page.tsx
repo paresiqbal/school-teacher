@@ -27,37 +27,37 @@ export default function TeacherDashboard() {
       </div>
       <div className="left-0 z-50 w-full shadow-lg dark:bg-gray-950 dark:text-gray-50">
         <div className="grid grid-cols-3 gap-8 p-4">
-          <div className="flex flex-col items-center justify-center">
-            <Link className="group flex flex-col items-center" href="#">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
+            <Link className="group flex flex-col items-center" href="/presensi">
               <CheckCheck className="h-6 w-6" />
               <span className="text-xs mt-1">Presensi</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <BookUser className="h-6 w-6" />
               <span className="text-xs mt-1">Siswa</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <BookCheck className="h-6 w-6" />
               <span className="text-xs mt-1">Laporan</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <NotepadText className="h-6 w-6" />
               <span className="text-xs mt-1">Nilai</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <QrCode className="h-6 w-6" />
               <span className="text-xs mt-1">QR Code</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <MoreHorizontalIcon className="h-6 w-6" />
               <span className="text-xs mt-1">More</span>
