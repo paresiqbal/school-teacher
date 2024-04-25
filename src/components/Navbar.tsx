@@ -1,97 +1,128 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { MenuIcon, MountainIcon } from "lucide-react";
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const { status }: { status: any } = useSession();
-
-  // Toggle function to open/close the navbar
-  const toggleNavbar = () => {
-    setIsOpen(!isOpen);
-  };
-
+export default function Component() {
+  const { data: session, status }: { data: any; status: string } = useSession();
   return (
-    <div className="max-w-[2000px] mx-auto bg-muted/40">
-      <nav className="mx-auto py-2 px-4 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <button className="lg:hidden" onClick={toggleNavbar}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          </button>
-          <Link href={"/teacherDashboard"}>
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={300}
-              height={300}
-              priority
-              className="w-20 md:w-28 lg:w-36"
-            />
-          </Link>
-          <div
-            className={`lg:flex lg:items-center lg:gap-4 transform top-0 left-0 w-[60%] lg:w-auto fixed lg:static h-full lg:h-auto overflow-auto ease-in-out transition-all duration-300 z-30 ${
-              isOpen
-                ? "translate-x-0 bg-muted"
-                : "-translate-x-full lg:translate-x-0"
-            }`}
-          >
-            <button onClick={toggleNavbar} className="p-4 lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-8 h-8"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
+    <header className="flex h-16 w-full items-center justify-between px-4 md:px-6">
+      <Link className="flex items-center" href="#">
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={200}
+          height={200}
+          className="w-32 h-auto"
+        />
+        <span className="sr-only">SMK Negeri 1 Rejang Lebong</span>
+      </Link>
+      <nav className="hidden items-center space-x-4 md:flex">
+        <Link
+          className="text-sm font-medium hover:underline hover:underline-offset-4"
+          href="#"
+        >
+          Home
+        </Link>
+        <Link
+          className="text-sm font-medium hover:underline hover:underline-offset-4"
+          href="#"
+        >
+          About
+        </Link>
+        <Link
+          className="text-sm font-medium hover:underline hover:underline-offset-4"
+          href="#"
+        >
+          Services
+        </Link>
+        <Link
+          className="text-sm font-medium hover:underline hover:underline-offset-4"
+          href="#"
+        >
+          Contact
+        </Link>
+        {status === "authenticated" ? (
+          <Button onClick={() => signOut()}>Logout</Button>
+        ) : (
+          "loading"
+        )}
+      </nav>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button className="md:hidden" size="icon" variant="outline">
+            <MenuIcon className="h-6 w-6" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent
+          className="bg-white dark:bg-muted/40 transition-all duration-300 ease-in-out overflow-y-auto"
+          side="left"
+        >
+          <div className="flex flex-col items-start justify-between py-4">
+            <div className="space-y-2">
+              <Link className="flex items-center" href="/teacherDashboard">
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={200}
+                  height={200}
+                  className="w-32 h-auto"
                 />
-              </svg>
-            </button>
-            <div className="p-6 lg:p-0 flex flex-col lg:flex-row gap-4 lg:items-center lg:gap-6">
-              <Link
-                href="/teacherDashboard"
-                className="lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                Dashboard
+                <span className="sr-only">SMK Negeri 1 Rejang Lebong</span>
               </Link>
-              <Link
-                href="/about"
-                className="lg:text-sm hover:text-gray-400 transition-colors"
-              >
-                About
-              </Link>
+              <nav className="space-y-2">
+                <Link
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  href="/teacherDashboard"
+                >
+                  Home
+                </Link>
+                <Link
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  href="/presensi"
+                >
+                  Presensi
+                </Link>
+                <Link
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  href="/presensi"
+                >
+                  Presensi
+                </Link>
+                <Link
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  href="/presensi"
+                >
+                  Presensi
+                </Link>
+                <Link
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  href="/presensi"
+                >
+                  Presensi
+                </Link>
+              </nav>
+            </div>
+            <div className="space-x-4 w-full">
+              {status === "authenticated" ? (
+                <Button
+                  className="flex w-full items-center py-2 text-lg"
+                  onClick={() => signOut()}
+                >
+                  Log out
+                </Button>
+              ) : (
+                "loading"
+              )}
             </div>
           </div>
-        </div>
-        <div>
-          {status === "authenticated" ? (
-            <button onClick={() => signOut()}>logout</button>
-          ) : (
-            "loading"
-          )}
-        </div>
-      </nav>
-    </div>
+        </SheetContent>
+      </Sheet>
+    </header>
   );
 }
