@@ -89,7 +89,7 @@ export default function ScannerPresensi() {
       })
       .catch((error) => {
         console.error("Error posting attendance:", error);
-        setApiResponse({ error: "Failed to post attendance" });
+        setApiResponse({ error: "Gagal cek presensi" });
       });
   };
 
