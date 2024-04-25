@@ -98,7 +98,7 @@ export default function ScannerPresensi() {
       <div className="text-center">
         <h2 className="text-lg font-bold mb-4">QR Scanner</h2>
         <p>
-          Subject:
+          Mapel:
           <span className="font-semibold text-yellow-500">
             {presensiData.subject}
           </span>
@@ -106,11 +106,11 @@ export default function ScannerPresensi() {
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <div id="reader" ref={qrRef} style={{ width: "400px" }}></div>
+        <div id="reader" ref={qrRef} style={{ width: "350px" }}></div>
         {apiResponse && (
           <div>
             <p>
-              API Response:
+              Status:
               {apiResponse.message || apiResponse.error || "Error"}
             </p>
           </div>

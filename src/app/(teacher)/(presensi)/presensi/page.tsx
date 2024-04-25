@@ -3,6 +3,7 @@
 // next
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // context
@@ -20,6 +21,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function PresensiForm() {
   const { data: session }: { data: any; status: string } = useSession();
@@ -50,7 +59,20 @@ export default function PresensiForm() {
 
   return (
     <div className="p-10">
-      <div className="pb-8 text-xl">
+      <Breadcrumb className="hidden md:flex">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/adminDashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Student</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="py-8 text-xl">
         <h1>Mulai presensi siswa sebagai</h1>
         <p className="font-extrabold">{session?.user?.fullname}</p>
       </div>
