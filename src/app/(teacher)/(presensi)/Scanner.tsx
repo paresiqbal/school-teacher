@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 
-// Define an interface for the QR data
 interface QRData {
   studentID: string;
   name: string;
@@ -53,7 +52,7 @@ const Home: React.FC = () => {
   return (
     <div className="text-center">
       <h1>Scanner</h1>
-      <div id="reader" ref={qrRef} style={{ width: "600px" }}></div>
+      <div id="reader" ref={qrRef} style={{ width: "400px" }}></div>
       {qrData && (
         <div className="qr-data">
           <p>

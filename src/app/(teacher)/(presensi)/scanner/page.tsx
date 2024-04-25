@@ -106,17 +106,7 @@ export default function ScannerPresensi() {
         <p>Tanggal: {presensiData.date}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <div id="reader" ref={qrRef} style={{ width: "600px" }}></div>
-        {qrData && (
-          <div className="qr-data">
-            <p>
-              <strong>Student ID:</strong> {qrData.studentID}
-            </p>
-            <p>
-              <strong>Class ID:</strong> {qrData.classID}
-            </p>
-          </div>
-        )}
+        <div id="reader" ref={qrRef} style={{ width: "400px" }}></div>
         {apiResponse && (
           <div>
             <p>
