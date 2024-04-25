@@ -49,10 +49,14 @@ export default function PresensiForm() {
   };
 
   return (
-    <div>
+    <div className="p-10">
+      <div className="pb-8 text-xl">
+        <h1>Mulai presensi siswa sebagai</h1>
+        <p className="font-extrabold">{session?.user?.fullname}</p>
+      </div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Check Presensi</Button>
+          <Button className="w-full text-xl font-bold">Check Presensi</Button>
         </DialogTrigger>
         <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md rounded-md">
           <form onSubmit={handleSubmit}>
@@ -74,7 +78,9 @@ export default function PresensiForm() {
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Submit</Button>
+              <Button className="font-bold" type="submit">
+                Kirim
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>
