@@ -80,7 +80,9 @@ export default function LoginPage() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Masuk kedalam akun.</h1>
+            <h1 className="text-3xl font-bold">
+              Masuk ke SMK Negeri 1 Rejang Lebong.
+            </h1>
             <p className="text-balance text-muted-foreground">
               Masukan username dan password di bawah ini.
             </p>
@@ -99,7 +101,7 @@ export default function LoginPage() {
                     <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="username"
+                        placeholder="johndoe.guru"
                         type="text"
                         id="username"
                         {...field}
@@ -117,7 +119,7 @@ export default function LoginPage() {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="password"
+                        placeholder="******"
                         type="password"
                         id="password"
                         {...field}
