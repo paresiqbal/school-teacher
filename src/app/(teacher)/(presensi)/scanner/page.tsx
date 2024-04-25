@@ -17,6 +17,7 @@ interface ApiResponse {
 
 export default function ScannerPresensi() {
   const { presensiData } = usePresensi();
+
   const qrRef = useRef<HTMLDivElement>(null);
   const [qrData, setQrData] = useState<QRData | null>(null);
   const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
