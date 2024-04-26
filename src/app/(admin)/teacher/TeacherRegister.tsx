@@ -19,16 +19,16 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   username: z.string().min(4, {
-    message: "Username must be at least 4 characters.",
+    message: "Nama pengguna minimal harus 4 karakter.",
   }),
   password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
+    message: "Kata sandi minimal harus 6 karakter.",
   }),
   fullname: z.string().min(1, {
-    message: "Full name is required.",
+    message: "Nama lengkap wajib diisi.",
   }),
   nip: z.string().min(10, {
-    message: "NIP is required.",
+    message: "NIP wajib diisi.",
   }),
 });
 
@@ -91,7 +91,7 @@ export default function TeacherRegister() {
                   <FormLabel>Full Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Full Name"
+                      placeholder="e.g Pahreza Iqbal S.Kom"
                       type="text"
                       id="fullname"
                       {...field}
@@ -127,7 +127,7 @@ export default function TeacherRegister() {
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="username"
+                      placeholder="e.g pahreza.guru"
                       type="text"
                       id="username"
                       {...field}
@@ -155,7 +155,7 @@ export default function TeacherRegister() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full font-bold">
               Register
             </Button>
           </form>
