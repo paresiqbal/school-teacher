@@ -27,7 +27,7 @@ export default function Sidebar() {
             className="flex items-center gap-2 px-3 py-2"
             href="/adminDashboard"
           >
-            <span className="text-lg font-semibold">Acme Inc</span>
+            <span className="text-lg font-semibold">SMKN 1 Rejang Lebong</span>
           </Link>
           <nav className="mt-6 space-y-2">
             <Link
@@ -69,8 +69,8 @@ export default function Sidebar() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50">
-            <p>{session?.user?.fullname}</p>
+          <div className="flex flex-col gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50">
+            <p className="text-lg font-bold">{session?.user?.fullname}</p>
             <p>{session?.user?.role}</p>
           </div>
           {status === "authenticated" ? (
