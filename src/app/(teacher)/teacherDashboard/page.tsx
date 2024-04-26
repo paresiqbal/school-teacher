@@ -24,7 +24,7 @@ export default function TeacherDashboard() {
           {session?.user?.fullname}
         </p>
       </div>
-      <div className="left-0 z-50 w-full shadow-lg dark:bg-gray-950 dark:text-gray-50">
+      <div className="left-0 z-50 w-full shadow-lg rounded-md dark:bg-muted/40 dark:text-gray-50">
         <div className="grid grid-cols-3 gap-8 p-4">
           <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="/presensi">
@@ -39,7 +39,10 @@ export default function TeacherDashboard() {
             </Link>
           </div>
           <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
-            <Link className="group flex flex-col items-center" href="#">
+            <Link
+              className="group flex flex-col items-center"
+              href="/attendanceReport"
+            >
               <BookCheck className="h-6 w-6" />
               <span className="text-xs mt-1">Laporan</span>
             </Link>
