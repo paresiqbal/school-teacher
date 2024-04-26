@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // components
-import Selector from "@/app/(admin)/(attendance)/studentRecord/Selector";
-import EditDialog from "@/app/(admin)/(attendance)/studentRecord/EditDialog";
-import { generatePDF } from "@/app/(admin)/(attendance)/studentRecord/generatePDF";
+import Selector from "@/app/(admin)/studentRecord/Selector";
+import EditDialog from "@/app/(admin)/studentRecord/EditDialog";
+import { generatePDF } from "@/app/(admin)/studentRecord/generatePDF";
 
 // icons
 import { ChevronsUpDown } from "lucide-react";

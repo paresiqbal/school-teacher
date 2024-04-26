@@ -8,10 +8,9 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 // icons
-import { Home, BookUser, User, Blocks } from "lucide-react";
+import { Home, BookUser, User, Blocks, BookCheck, LogOut } from "lucide-react";
 
 // shadcn
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
@@ -61,19 +60,21 @@ export default function Sidebar() {
             </Link>
             <Link
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
-              href="#"
+              href="/studentRecord"
             >
-              Analytics
+              <BookCheck className="h-6 w-6" />
+              <span>Presensi Siswa</span>
             </Link>
           </nav>
         </div>
         <div className="space-y-2">
           <div className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50">
-            <span>Logout</span>
-          </div>
-          <div className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50">
             <span>John Doe</span>
           </div>
+          <Button>
+            <LogOut className="h-6 w-6" />
+            <span>Logout</span>
+          </Button>
         </div>
       </div>
     </aside>
