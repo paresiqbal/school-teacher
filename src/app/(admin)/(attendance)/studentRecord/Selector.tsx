@@ -78,6 +78,7 @@ export default function Selector({
           </Select>
         </div>
       </div>
+
       <div>
         <label
           htmlFor="major-select"
@@ -110,6 +111,7 @@ export default function Selector({
           </Select>
         </div>
       </div>
+
       <div>
         <label
           htmlFor="date"
