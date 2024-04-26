@@ -60,7 +60,7 @@ export default function Component() {
           </Button>
         </SheetTrigger>
         <SheetContent
-          className="bg-white dark:bg-muted/40 transition-all duration-300 ease-in-out overflow-y-auto"
+          className="bg-white dark:bg-background transition-all duration-300 ease-in-out overflow-y-auto"
           side="left"
         >
           <div className="flex flex-col items-start justify-between py-4">
