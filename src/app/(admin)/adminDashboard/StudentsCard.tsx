@@ -73,7 +73,7 @@ export default function StudentsCard() {
     <div className="flex justify-between py-4 gap-4">
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
-          <CardTitle className="text-md">Level X Students</CardTitle>
+          <CardTitle className="text-md">Siswa Kelas X</CardTitle>
           <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
@@ -82,7 +82,7 @@ export default function StudentsCard() {
       </Card>
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
-          <CardTitle className="text-md">Level XI Students</CardTitle>
+          <CardTitle className="text-md">Siswa Kelas XI</CardTitle>
           <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
@@ -91,7 +91,7 @@ export default function StudentsCard() {
       </Card>
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
-          <CardTitle className="text-md">Level XII Students</CardTitle>
+          <CardTitle className="text-md">Siswa Kelas XII</CardTitle>
           <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
