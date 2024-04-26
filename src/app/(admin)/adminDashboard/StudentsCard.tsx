@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // icons
-import { GraduationCap, User } from "lucide-react";
+import { BookUser, User } from "lucide-react";
 
 interface IClassInfo {
   _id: string;
@@ -74,7 +74,7 @@ export default function StudentsCard() {
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
           <CardTitle className="text-md">Level X Students</CardTitle>
-          <GraduationCap />
+          <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
           {totalByLevel("X")}
@@ -83,7 +83,7 @@ export default function StudentsCard() {
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
           <CardTitle className="text-md">Level XI Students</CardTitle>
-          <GraduationCap />
+          <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
           {totalByLevel("XI")}
@@ -92,7 +92,7 @@ export default function StudentsCard() {
       <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-center gap-6">
           <CardTitle className="text-md">Level XII Students</CardTitle>
-          <GraduationCap />
+          <BookUser />
         </CardHeader>
         <CardContent className="text-3xl font-bold">
           {totalByLevel("XII")}
