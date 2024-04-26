@@ -8,17 +8,7 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 // icons
-import {
-  LayoutDashboard,
-  ChevronLeft,
-  ChevronRight,
-  GraduationCap,
-  CircleUserRound,
-  School,
-  ListChecks,
-  User,
-  UserRound,
-} from "lucide-react";
+import { Home, BookUser, User, Blocks } from "lucide-react";
 
 // shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -34,183 +24,58 @@ export default function Sidebar() {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <aside className="h-screen">
-      <nav className="h-full flex flex-col border-r shadow-md">
-        <div className="p-4 pb-2 flex justify-between items-center">
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={200}
-            height={200}
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-            }`}
-          />
-          <Button onClick={() => setExpanded((current) => !current)}>
-            {expanded ? <ChevronRight /> : <ChevronLeft />}
-          </Button>
-        </div>
-
-        <ul className="flex-1 px-3">
-          <li
-            className={`relative flex flex-col gap-2 items-center my-1 font-medium text-lg`}
-          >
+    <aside className="fixed top-0 left-0 z-50 h-full w-64 shrink-0 border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-900 lg:static">
+      <div className="flex h-full flex-col justify-between py-6 px-4">
+        <div>
+          <Link className="flex items-center gap-2 px-3 py-2" href="#">
+            <span className="text-lg font-semibold">Acme Inc</span>
+          </Link>
+          <nav className="mt-6 space-y-2">
             <Link
-              href={"/adminDashboard"}
-              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/dashboard"
-                  ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-yellow-500"
-              }`}
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+              href="/adminDashboard"
             >
-              <LayoutDashboard />
-              <span
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                }`}
-              >
-                Dashboard
-              </span>
+              <Home className="h-6 w-6" />
+              <span>Dashboard</span>
             </Link>
             <Link
+              className="flex items-center gap-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700"
               href="/student"
-              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/student"
-                  ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-yellow-500"
-              }`}
             >
-              <GraduationCap />
-              <span
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                }`}
-              >
-                Student
-              </span>
+              <BookUser className="h-6 w-6" />
+              <span>Siswa</span>
             </Link>
             <Link
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
               href="/teacher"
-              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/teacher"
-                  ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-yellow-500"
-              }`}
             >
-              <CircleUserRound />
-              <span
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                }`}
-              >
-                Teacher
-              </span>
+              <User className="h-6 w-6" />
+              <span>Guru</span>
             </Link>
             <Link
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
               href="/class"
-              className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                pathname === "/class"
-                  ? "bg-yellow-400 text-zinc-900"
-                  : "hover:bg-yellow-500"
-              }`}
             >
-              <School />
-              <span
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                }`}
-              >
-                Class
-              </span>
+              <Blocks className="h-6 w-6" />
+              <span>Kelas</span>
             </Link>
-            <div>
-              <div
-                onClick={toggleDropdown}
-                className={`text-white flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                  pathname.startsWith("/attendance")
-                    ? "bg-yellow-400 text-zinc-900"
-                    : "hover:bg-yellow-500"
-                }`}
-              >
-                <ListChecks />
-                <span
-                  className={`overflow-hidden transition-all ${
-                    expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                  }`}
-                >
-                  Attendance
-                </span>
-              </div>
-              {isDropdownOpen && (
-                <div className="mt-1 rounded-md shadow-lg">
-                  <Link
-                    href="/studentRecord"
-                    className={`text-white  flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                      pathname === "/studentRecord"
-                        ? "bg-yellow-400 text-zinc-900"
-                        : "hover:bg-yellow-500"
-                    }`}
-                  >
-                    <User />
-                    <span
-                      className={`overflow-hidden transition-all ${
-                        expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                      }`}
-                    >
-                      Student Record
-                    </span>
-                  </Link>
-                  <Link
-                    href="/teacherRecord"
-                    className={`text-white text-base flex items-center justify-center gap-2 rounded-md py-2 px-3 cursor-pointer transition-colors ${
-                      pathname === "/teacherRecord"
-                        ? "bg-yellow-400 text-zinc-900"
-                        : "hover:bg-yellow-500"
-                    }`}
-                  >
-                    <UserRound />
-                    <span
-                      className={`overflow-hidden transition-all ${
-                        expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-                      }`}
-                    >
-                      Teacher Record
-                    </span>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </li>
-        </ul>
-
-        <div className="border-t flex p-3">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>ST</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <div
-              className={`overflow-hidden transition-all ${
-                expanded ? "w-0" : "w-20 md:w-32 lg:w-40"
-              }`}
+            <Link
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+              href="#"
             >
-              <p>{session?.user?.fullname}</p>
-              <p>{session?.user?.role}</p>
-            </div>
-            <div
-              className={`flex flex-col justify-center w-full ${
-                expanded ? "hidden" : "block"
-              }`}
-            >
-              {status === "authenticated" ? (
-                <Button onClick={() => signOut()}>logout</Button>
-              ) : (
-                "loading"
-              )}
-            </div>
+              Analytics
+            </Link>
+          </nav>
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50">
+            <span>Logout</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50">
+            <span>John Doe</span>
           </div>
         </div>
-      </nav>
+      </div>
     </aside>
   );
 }
