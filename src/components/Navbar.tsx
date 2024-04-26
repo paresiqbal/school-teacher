@@ -1,14 +1,20 @@
 "use client";
 
+// next
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { MenuIcon, MountainIcon } from "lucide-react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 
+// shadcn
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+
+// icons
+import { MenuIcon } from "lucide-react";
+
 export default function Component() {
   const { data: session, status }: { data: any; status: string } = useSession();
+
   return (
     <header className="flex h-16 w-full items-center justify-between px-4 md:px-6">
       <Link className="flex items-center" href="#">
@@ -96,7 +102,7 @@ export default function Component() {
                   className="flex w-full items-center py-2 text-lg"
                   onClick={() => signOut()}
                 >
-                  Log out
+                  Logout
                 </Button>
               ) : (
                 "loading"
