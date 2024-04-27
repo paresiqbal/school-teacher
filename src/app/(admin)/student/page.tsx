@@ -28,15 +28,17 @@ export default function StudentPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Student</BreadcrumbPage>
+            <BreadcrumbPage>Siswa</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="pt-8">
-        <h1 className="text-3xl font-bold">Student management</h1>
-        <p>create and manage student data</p>
+        <h1 className="text-3xl font-bold">Manajemen Siswa.</h1>
+        <p>create and manage student data.</p>
       </div>
-      <Card className="my-5">{/* <StudentRegister /> */}</Card>
+      <Card className="my-5">
+        <StudentRegister />
+      </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
         {/* <StudentList /> */}
       </Card>
