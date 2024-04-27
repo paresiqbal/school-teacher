@@ -13,6 +13,7 @@ export default function AdminDashboard() {
     <div className="p-10 h-screen bg-background">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold">Dashboard</h1>
+        <p>test coba coba</p>
         <h2 className="text-xl">
           Selamat Datang{" "}
           <span className="text-yellow-500 font-extrabold">
