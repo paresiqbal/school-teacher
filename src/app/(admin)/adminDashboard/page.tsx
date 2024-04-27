@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import StudentsCard from "./StudentsCard";
-
-// shadcn
 
 export default function AdminDashboard() {
   const { data: session }: { data: any } = useSession();
