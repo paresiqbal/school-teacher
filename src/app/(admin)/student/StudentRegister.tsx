@@ -236,7 +236,7 @@ export default function StudentRegister() {
                   </FormLabel>
                   <FormControl>
                     <Select
-                      {...field}
+                      // {...field}
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                     >
