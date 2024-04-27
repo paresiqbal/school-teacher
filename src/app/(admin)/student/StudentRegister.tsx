@@ -38,19 +38,19 @@ interface IClass {
 
 const formSchema = z.object({
   fullname: z.string().min(3, {
-    message: "Full name is required.",
+    message: "Nama lengkap wajib diisi.",
   }),
   username: z.string().min(4, {
-    message: "Username must be at least 4 characters.",
+    message: "Nama pengguna minimal harus 4 karakter.",
   }),
   password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
+    message: "Kata sandi minimal harus 6 karakter.",
   }),
   nis: z.coerce.number().int().min(6, {
-    message: "NIS must be at least 6 digits.",
+    message: "NIS minimal harus 6 digit.",
   }),
   yearEntry: z.coerce.number().int().min(4, {
-    message: "Year of entry must be at least 4 digits.",
+    message: "Tahun masuk minimal harus 4 digit.",
   }),
   classId: z.string(),
 });
@@ -83,7 +83,7 @@ export default function StudentRegister() {
       });
 
       if (!response.ok) {
-        throw new Error("Uh oh! Failed to register student.");
+        throw new Error("Uh oh! Gagal mendaftarkan siswa.");
       }
 
       form.reset({
@@ -96,9 +96,9 @@ export default function StudentRegister() {
       });
 
       response.json();
-      toast.success("Student registered successfully.");
+      toast.success("Siswa berhasil terdaftar.");
     } catch (error) {
-      toast.error("Student failed to register.");
+      toast.error("Siswa gagal terdaftar.");
     }
   };
 
@@ -121,10 +121,10 @@ export default function StudentRegister() {
       <div className="w-full flex flex-col p-4">
         <div className="pb-6">
           <h2 className="text-xl font-semibold tracking-tight">
-            Register an student account
+            Daftarkan akun pelajar.
           </h2>
           <p className="text-sm text-muted-foreground">
-            Enter student details to register an account.
+            Masukkan detail siswa untuk mendaftarkan akun.
           </p>
         </div>
         <Toaster richColors />
@@ -138,10 +138,10 @@ export default function StudentRegister() {
               name="fullname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel htmlFor="fullname">Nama Lengkap</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Full Name"
+                      placeholder="e.g john doe"
                       type="text"
                       id="fullname"
                       {...field}
@@ -156,17 +156,18 @@ export default function StudentRegister() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel htmlFor="username">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="username"
+                      placeholder="e.g johndoe.siswa"
+                      autoComplete="username"
                       type="text"
                       id="username"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="text-xs">
-                    Username must be lowercase and unique.
+                    Nama pengguna harus huruf kecil dan unik.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -177,7 +178,7 @@ export default function StudentRegister() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel htmlFor="password">Password</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="password"
@@ -195,7 +196,7 @@ export default function StudentRegister() {
               name="nis"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>NIS</FormLabel>
+                  <FormLabel htmlFor="nis">NIS</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="NIS"
@@ -213,7 +214,7 @@ export default function StudentRegister() {
               name="yearEntry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Year of Entry</FormLabel>
+                  <FormLabel htmlFor="yearEntry">Year of Entry</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Year of Entry"
@@ -231,7 +232,10 @@ export default function StudentRegister() {
               name="classId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <FormLabel
+                    htmlFor="classId"
+                    className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
                     Class
                   </FormLabel>
                   <FormControl>
@@ -239,8 +243,10 @@ export default function StudentRegister() {
                       // {...field}
                       defaultValue={field.value}
                       onValueChange={field.onChange}
+                      htmlFor="classId"
+                      name="classId"
                     >
-                      <SelectTrigger id="status" aria-label="Select a class">
+                      <SelectTrigger id="status" htmlFor="classId">
                         <SelectValue placeholder="Select a class" />
                       </SelectTrigger>
                       <SelectContent id="classId">
