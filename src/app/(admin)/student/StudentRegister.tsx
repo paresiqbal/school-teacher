@@ -247,7 +247,7 @@ export default function StudentRegister() {
                       name="classId"
                     >
                       <SelectTrigger id="classId" htmlFor="classId">
-                        <SelectValue placeholder="Select a class" />
+                        <SelectValue placeholder="Pilih Kelas" />
                       </SelectTrigger>
                       <SelectContent id="classId">
                         {classes.map((kelas) => (
@@ -262,8 +262,8 @@ export default function StudentRegister() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
-              Register Student
+            <Button type="submit" className="w-full font-bold">
+              Daftarkan Siswa
             </Button>
           </form>
         </Form>
