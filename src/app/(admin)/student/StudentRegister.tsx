@@ -236,17 +236,17 @@ export default function StudentRegister() {
                     htmlFor="classId"
                     className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Class
+                    Kelas
                   </FormLabel>
                   <FormControl>
                     <Select
                       // {...field}
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      htmlFor="classId"
+                      id="classId"
                       name="classId"
                     >
-                      <SelectTrigger id="status" htmlFor="classId">
+                      <SelectTrigger id="classId" htmlFor="classId">
                         <SelectValue placeholder="Select a class" />
                       </SelectTrigger>
                       <SelectContent id="classId">
