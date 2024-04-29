@@ -41,7 +41,7 @@ export default function DeleteForm({ id }: { id: string }) {
         <p>Hati-hati dalam menghapus siswa</p>
       </div>
       <Button variant="destructive" onClick={deleteStudent}>
-        Delete Student
+        Hapus Siswa
       </Button>
     </Card>
   );

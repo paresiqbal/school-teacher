@@ -79,31 +79,29 @@ export default function QrForm({ id }: { id: string }) {
   return (
     <div className="p-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">QR Code</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Kode QR</h1>
         <p className="text-sm text-muted-foreground">
-          Generate QR Code to be use for checking attendance.
+          Buar Kode QR untuk digunakan memeriksa kehadiran.
         </p>
       </div>
       <div className="flex flex-col md:flex-row items-center md:items-start gap-52">
         {error && <p className="text-red-500">Error: {error}</p>}
         {student && (
-          <div>
-            <p className="text-lg">
-              ID: <span className="font-medium">{student._id}</span>
-            </p>
+          <div className="mt-4 space-y-1">
             <p className="text-lg">
               NIS: <span className="font-medium">{student.nis}</span>
             </p>
             <p className="text-lg">
-              Name: <span className="font-medium">{student.fullname}</span>
+              Nama Lengkap:{" "}
+              <span className="font-medium">{student.fullname}</span>
             </p>
             <p className="text-lg">
-              Class Major:
-              <span className="font-medium">{student?.class?.majorName}</span>
+              Kelas:{" "}
+              <span className="font-medium">{student?.class.majorName}</span>
             </p>
             <div className="flex flex-col gap-2">
-              <Button onClick={handleGenerateQrCode}>Generate QR Code</Button>
-              <Button onClick={handleDownloadImage}>Download QR</Button>
+              <Button onClick={handleGenerateQrCode}>Buat Kode QR</Button>
+              <Button onClick={handleDownloadImage}>Download Kode QR</Button>
             </div>
           </div>
         )}
