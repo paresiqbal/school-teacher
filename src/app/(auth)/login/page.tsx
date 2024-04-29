@@ -3,6 +3,8 @@
 // next
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ReactEventHandler, useState } from "react";
 
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,8 +22,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { ReactEventHandler, useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -98,12 +98,13 @@ export default function LoginPage() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel htmlFor="username">Username</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="johndoe.guru"
+                        placeholder="contoh.guru"
                         type="text"
                         id="username"
+                        autoComplete="username"
                         {...field}
                       />
                     </FormControl>
@@ -116,7 +117,7 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel htmlFor="password">Password</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="******"
