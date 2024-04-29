@@ -118,6 +118,9 @@ export default function TeacherRegister() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs">
+                    Nip harus 10 digit.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
