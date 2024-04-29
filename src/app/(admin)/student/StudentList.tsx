@@ -48,7 +48,7 @@ interface IMajor {
 async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
     next: {
-      revalidate: 0,
+      revalidate: 20,
     },
   });
 
@@ -137,11 +137,9 @@ export default function StudentList() {
     <div>
       <div className="flex justify-between py-4">
         <div>
-          <h3 className="font-semibold leading-none tracking-tight">
-            Students
-          </h3>
+          <h3 className="font-semibold leading-none tracking-tight">Siswa</h3>
           <p className="text-sm text-muted-foreground">
-            Manage student and view their details.
+            Kelola data dan detail siswa.
           </p>
         </div>
         <div className="flex gap-10 items-center">
@@ -149,11 +147,11 @@ export default function StudentList() {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
                 <ListFilter className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only">Level</span>
+                <span className="sr-only sm:not-sr-only">Tingkat</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by Level</DropdownMenuLabel>
+              <DropdownMenuLabel>Saring Tingkat</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuCheckboxItem
                 checked={selectedLevel === "X"}
@@ -179,17 +177,17 @@ export default function StudentList() {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
                 <ListFilter className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only">Majors</span>
+                <span className="sr-only sm:not-sr-only">Jurusan</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by Major</DropdownMenuLabel>
+              <DropdownMenuLabel>Saring Jurusan</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuCheckboxItem
                 checked={selectedMajor === ""}
                 onCheckedChange={() => handleSelectMajor("")}
               >
-                All Majors
+                Semua Jurusan
               </DropdownMenuCheckboxItem>
               {majors.map((major) => (
                 <DropdownMenuCheckboxItem
@@ -215,25 +213,18 @@ export default function StudentList() {
         </div>
       </div>
       <Table>
-        <TableCaption>A list of students.</TableCaption>
+        <TableCaption>Daftar Siswa.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Photo</TableHead>
-            <TableHead>Full Name</TableHead>
-            <TableHead>Level</TableHead>
-            <TableHead>Class</TableHead>
+            <TableHead>Nama Lengkap</TableHead>
+            <TableHead>Tingkat</TableHead>
+            <TableHead>Kelas</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {filteredStudents.map((student) => (
             <TableRow key={student._id}>
-              <TableCell className="font-medium">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>ST</AvatarFallback>
-                </Avatar>
-              </TableCell>
               <TableCell>{student.fullname}</TableCell>
               <TableCell>{student.class.level}</TableCell>
               <TableCell>{`${student.class.level} - ${student.class.majorName}`}</TableCell>
@@ -245,7 +236,7 @@ export default function StudentList() {
                   variant="destructive"
                   onClick={() => handleDelete(student._id)}
                 >
-                  Delete
+                  Hapus Siswa
                 </Button>
               </TableCell>
             </TableRow>

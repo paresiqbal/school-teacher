@@ -40,7 +40,7 @@ export default function StudentPage() {
         <StudentRegister />
       </Card>
       <Card className="rounded-xl border p-5 mx-auto my-5 bg-card text-card-foreground shadow col-span-3">
-        {/* <StudentList /> */}
+        <StudentList />
       </Card>
     </div>
   );
