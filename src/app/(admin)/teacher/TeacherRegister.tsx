@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -44,7 +45,6 @@ export default function TeacherRegister() {
   });
 
   const handleRegistration = async (values: z.infer<typeof formSchema>) => {
-    // Adding the role "teacher" to the registration values
     const registrationValues = { ...values, role: "teacher" };
 
     try {
@@ -57,25 +57,25 @@ export default function TeacherRegister() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to register");
+        throw new Error("Gagal Mendaftar");
       }
 
       const data = await response.json();
-      console.log("Registration successful:", data);
+      console.log("Berhasil Mendaftar:", data);
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error("Gagal Mendaftar:", error);
     }
   };
 
   return (
-    <div className="flex flex-col p-4 justify-center items-center">
-      <div className="w-full flex-col justify-center p-4">
+    <div className="flex flex-col p-8 justify-center items-center">
+      <div className="w-full flex-col justify-center">
         <div className="pb-6">
           <h2 className="text-xl font-semibold tracking-tight">
-            Register an teacher account
+            Daftarkan akun guru.
           </h2>
           <p className="text-sm text-muted-foreground">
-            Enter teacher details to register an account.
+            Masukkan detail guru untuk mendaftarkan akun.
           </p>
         </div>
         <Form {...form}>
@@ -88,7 +88,7 @@ export default function TeacherRegister() {
               name="fullname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>Nama Lengkap</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g Pahreza Iqbal S.Kom"
@@ -127,12 +127,15 @@ export default function TeacherRegister() {
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g pahreza.guru"
+                      placeholder="e.g pahreza.guru.id"
                       type="text"
                       id="username"
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs">
+                    Nama pengguna harus huruf kecil dan unik.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -156,7 +159,7 @@ export default function TeacherRegister() {
               )}
             />
             <Button type="submit" className="w-full font-bold">
-              Register
+              Daftarkan Guru
             </Button>
           </form>
         </Form>
