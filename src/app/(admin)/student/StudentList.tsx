@@ -6,7 +6,6 @@ import Link from "next/link";
 
 // shadcn
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
@@ -24,8 +23,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ListFilter, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
+
+// icons
+import { ListFilter, Search } from "lucide-react";
 
 interface IClassInfo {
   _id: string;
@@ -47,9 +50,8 @@ interface IMajor {
 
 async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
-    cache: "no-cache",
     next: {
-      revalidate: 10,
+      revalidate: 0,
     },
   });
 
@@ -61,6 +63,8 @@ async function deleteStudent(id: number): Promise<void> {
     const res = await fetch(`http://localhost:3001/student/delete/${id}`, {
       method: "DELETE",
     });
+
+    toast.error("Siswa berhasil dihapus.");
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
@@ -136,6 +140,7 @@ export default function StudentList() {
 
   return (
     <div className="p-8">
+      <Toaster richColors />
       <div className="flex justify-between">
         <div>
           <h3 className="font-semibold leading-none tracking-tight">Siswa</h3>

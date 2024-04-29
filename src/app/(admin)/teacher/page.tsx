@@ -28,13 +28,13 @@ export default async function TeacherPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Teacher</BreadcrumbPage>
+            <BreadcrumbPage>Guru</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="pt-8">
-        <h1 className="text-3xl font-bold">Teacher management</h1>
-        <p>create and manage teacher data</p>
+        <h1 className="text-3xl font-bold">Manajemen Guru.</h1>
+        <p>membuat akun dan kelola data guru.</p>
       </div>
       <Card className="my-5 bg-card">
         <TeacherRegister />

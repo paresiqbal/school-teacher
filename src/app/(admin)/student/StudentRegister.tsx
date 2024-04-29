@@ -159,7 +159,7 @@ export default function StudentRegister() {
                   <FormLabel htmlFor="username">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g pahreza.siswa"
+                      placeholder="e.g pahreza.siswa.id"
                       autoComplete="username"
                       type="text"
                       id="username"
@@ -205,6 +205,9 @@ export default function StudentRegister() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs">
+                    Nis harus 6 digit.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
