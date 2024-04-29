@@ -6,8 +6,6 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 // ui
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { Toaster } from "sonner";
 
 interface ProfileFormProps {
   id: string;
@@ -33,7 +31,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           `http://localhost:3001/student/student/${id}`
         );
         if (!response.ok) {
-          throw new Error("Student not found or server error");
+          throw new Error("Siswa tidak ditemukan atau server error");
         }
         const data = await response.json();
         setStudent((prev) => ({ ...prev, ...data }));
@@ -75,11 +73,10 @@ export default function ProfileForm({ id }: ProfileFormProps) {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update student");
+        throw new Error("Gagal perbarui data siswa");
       }
       const updatedStudent = await response.json();
       setStudent(updatedStudent);
-      toast.success("Data updated successfully.");
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -95,15 +92,14 @@ export default function ProfileForm({ id }: ProfileFormProps) {
   return (
     <div>
       <div className="py-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Profil siswa</h1>
         <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
+          Data detail siswa dan preferensi siswa.
         </p>
       </div>
-      <Toaster richColors />
       <form onSubmit={handleSubmit} className="space-y-2 flex flex-col gap-3">
         <label className="text-sm font-medium">
-          Full Name
+          Nama Lengkap
           <Input
             type="text"
             name="fullname"
@@ -125,7 +121,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           <Input
             type="password"
             name="password"
-            placeholder="New Password"
+            placeholder="password baru"
             onChange={handleChange}
           />
         </label>
@@ -139,7 +135,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
           />
         </label>
         <label className="text-sm font-medium flex flex-col gap-2">
-          Year of Entry
+          Tahun Masuk
           <Input
             type="text"
             name="yearEntry"
@@ -147,7 +143,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
             onChange={handleChange}
           />
         </label>
-        <Button type="submit">Update Profile</Button>
+        <Button type="submit">Perbarui Profil</Button>
       </form>
     </div>
   );
