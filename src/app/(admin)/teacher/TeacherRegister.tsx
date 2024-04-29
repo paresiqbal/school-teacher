@@ -17,6 +17,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -60,15 +62,16 @@ export default function TeacherRegister() {
         throw new Error("Gagal Mendaftar");
       }
 
-      const data = await response.json();
-      console.log("Berhasil Mendaftar:", data);
+      const responseData = await response.json();
+      toast.success("Guru berhasil terdaftar.");
     } catch (error) {
-      console.error("Gagal Mendaftar:", error);
+      toast.error("Guru gagal terdaftar.");
     }
   };
 
   return (
     <div className="flex flex-col p-8 justify-center items-center">
+      <Toaster richColors />
       <div className="w-full flex-col justify-center">
         <div className="pb-6">
           <h2 className="text-xl font-semibold tracking-tight">

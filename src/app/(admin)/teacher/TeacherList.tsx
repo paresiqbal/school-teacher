@@ -6,7 +6,6 @@ import Link from "next/link";
 
 // shadcn
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -81,11 +80,9 @@ export default function TeacherList() {
     <div>
       <div className="flex justify-between py-4">
         <div>
-          <h3 className="font-semibold leading-none tracking-tight">
-            Students
-          </h3>
+          <h3 className="font-semibold leading-none tracking-tight">Guru</h3>
           <p className="text-sm text-muted-foreground">
-            Manage student and view their details.
+            Kelola data dan detail guru.
           </p>
         </div>
         <div className="relative ml-auto flex-1 md:grow-0">
@@ -100,25 +97,18 @@ export default function TeacherList() {
         </div>
       </div>
       <Table>
-        <TableCaption>A list of teachers.</TableCaption>
+        <TableCaption>Daftar Guru.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Photo</TableHead>
-            <TableHead>Full Name</TableHead>
+            <TableHead>Nama Lengkap</TableHead>
             <TableHead className="w-[400px]">NIP</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead className="text-right">Action</TableHead>
+            <TableHead>Tugas</TableHead>
+            <TableHead className="text-right">Aksi</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {teachers.map((teacher) => (
             <TableRow key={teacher._id}>
-              <TableCell className="font-medium">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>ST</AvatarFallback>
-                </Avatar>
-              </TableCell>
               <TableCell>{teacher.fullname}</TableCell>
               <TableCell className="w-[400px]">{teacher.nip}</TableCell>
               <TableCell>
@@ -132,7 +122,7 @@ export default function TeacherList() {
                   variant="destructive"
                   onClick={() => handleDelete(teacher._id)}
                 >
-                  Delete
+                  Hapus
                 </Button>
               </TableCell>
             </TableRow>
