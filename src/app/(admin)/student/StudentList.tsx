@@ -47,8 +47,9 @@ interface IMajor {
 
 async function getStudentsData(): Promise<IStudent[]> {
   const res = await fetch("http://localhost:3001/student/students", {
+    cache: "no-cache",
     next: {
-      revalidate: 20,
+      revalidate: 10,
     },
   });
 
@@ -127,7 +128,7 @@ export default function StudentList() {
       setStudents(data);
       filterStudents();
     });
-  }, [filterStudents]);
+  }, []);
 
   useEffect(() => {
     filterStudents();
