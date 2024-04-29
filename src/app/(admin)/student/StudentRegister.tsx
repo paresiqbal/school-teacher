@@ -117,8 +117,8 @@ export default function StudentRegister() {
   }, []);
 
   return (
-    <div className="flex flex-col p-4 justify-center items-center">
-      <div className="w-full flex flex-col p-4">
+    <div className="flex flex-col p-8 justify-center items-center">
+      <div className="w-full flex flex-col">
         <div className="pb-6">
           <h2 className="text-xl font-semibold tracking-tight">
             Daftarkan akun pelajar.
@@ -238,10 +238,9 @@ export default function StudentRegister() {
                       // {...field}
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      id="classId"
                       name="classId"
                     >
-                      <SelectTrigger id="classId" htmlFor="classId">
+                      <SelectTrigger id="classId">
                         <SelectValue placeholder="Pilih Kelas" />
                       </SelectTrigger>
                       <SelectContent id="classId">

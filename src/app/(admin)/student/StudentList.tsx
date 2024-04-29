@@ -135,8 +135,8 @@ export default function StudentList() {
   }, [searchQuery, filterStudents]);
 
   return (
-    <div>
-      <div className="flex justify-between py-4">
+    <div className="p-8">
+      <div className="flex justify-between">
         <div>
           <h3 className="font-semibold leading-none tracking-tight">Siswa</h3>
           <p className="text-sm text-muted-foreground">

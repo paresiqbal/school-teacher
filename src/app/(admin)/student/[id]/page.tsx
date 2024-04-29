@@ -11,6 +11,7 @@ import QrForm from "./QrForm";
 // shadcn
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -62,7 +63,9 @@ export default function StudentDetails({ params }: { params: Iid }) {
           <TabsTrigger value="delete">Hapus</TabsTrigger>
         </TabsList>
         <TabsContent value="Profile">
-          <ProfileForm id={params.id} />
+          <Card>
+            <ProfileForm id={params.id} />
+          </Card>
         </TabsContent>
         <TabsContent value="qrcode">
           <QrForm id={params.id} />
