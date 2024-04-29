@@ -88,7 +88,7 @@ export default function TeacherRegister() {
               name="fullname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Lengkap</FormLabel>
+                  <FormLabel htmlFor="fullname">Nama Lengkap</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g Pahreza Iqbal S.Kom"
@@ -106,7 +106,7 @@ export default function TeacherRegister() {
               name="nip"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>NIP</FormLabel>
+                  <FormLabel htmlFor="nip">NIP</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Nomor Induk Pegawai"
@@ -124,7 +124,7 @@ export default function TeacherRegister() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel htmlFor="username">Username</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g pahreza.guru.id"
@@ -145,10 +145,10 @@ export default function TeacherRegister() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel htmlFor="password">Password</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="password"
+                      placeholder="******"
                       type="password"
                       id="password"
                       {...field}
