@@ -68,13 +68,11 @@ export default function StudentDetails({ params }: { params: Iid }) {
           </Card>
         </TabsContent>
         <TabsContent value="qrcode">
-          <QrForm id={params.id} />
+          <Card>
+            <QrForm id={params.id} />
+          </Card>
         </TabsContent>
         <TabsContent value="delete">
-          <div className="py-4">
-            <h3 className="text-red-500">Zona berbahaya</h3>
-            <p>Hati-hati dalam menghapus siswa</p>
-          </div>
           <DeleteForm id={params.id} />
         </TabsContent>
       </Tabs>

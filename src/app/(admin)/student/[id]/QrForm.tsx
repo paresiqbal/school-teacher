@@ -77,8 +77,8 @@ export default function QrForm({ id }: { id: string }) {
   };
 
   return (
-    <div>
-      <div className="py-4">
+    <div className="p-8">
+      <div>
         <h1 className="text-2xl font-semibold tracking-tight">QR Code</h1>
         <p className="text-sm text-muted-foreground">
           Generate QR Code to be use for checking attendance.

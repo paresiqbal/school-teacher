@@ -36,6 +36,10 @@ export default function DeleteForm({ id }: { id: string }) {
   return (
     <Card className="p-5">
       <Toaster />
+      <div className="py-4">
+        <h3 className="text-red-500">Zona berbahaya</h3>
+        <p>Hati-hati dalam menghapus siswa</p>
+      </div>
       <Button variant="destructive" onClick={deleteStudent}>
         Delete Student
       </Button>

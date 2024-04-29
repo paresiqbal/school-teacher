@@ -90,7 +90,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className="p-8">
       <div className="py-4">
         <h1 className="text-2xl font-semibold tracking-tight">Profil siswa</h1>
         <p className="text-sm text-muted-foreground">
