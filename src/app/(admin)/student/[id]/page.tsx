@@ -39,27 +39,27 @@ export default function StudentDetails({ params }: { params: Iid }) {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/student">Student</Link>
+              <Link href="/student">Siswa</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Details</BreadcrumbPage>
+            <BreadcrumbPage>Detail</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="pt-8">
-        <h1 className="text-2xl font-bold tracking-tight">Setting</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Pengaturan</h1>
         <p className="text-muted-foreground">
-          Manage your account settings and set user preferences.
+          Kelola data akun siswaa dan atur preferensi siswa.
         </p>
         <Separator className="my-4" />
       </div>
       <Tabs defaultValue="Profile" className="flex flex-col">
         <TabsList className="grid w-full grid-cols-3 col-span-3">
-          <TabsTrigger value="Profile">Profile</TabsTrigger>
+          <TabsTrigger value="Profile">Profil</TabsTrigger>
           <TabsTrigger value="qrcode">QR Code</TabsTrigger>
-          <TabsTrigger value="delete">Delete</TabsTrigger>
+          <TabsTrigger value="delete">Hapus</TabsTrigger>
         </TabsList>
         <TabsContent value="Profile">
           <ProfileForm id={params.id} />
@@ -69,8 +69,8 @@ export default function StudentDetails({ params }: { params: Iid }) {
         </TabsContent>
         <TabsContent value="delete">
           <div className="py-4">
-            <h3>Danger zone</h3>
-            <p>Be careful about deleting students</p>
+            <h3 className="text-red-500">Zona berbahaya</h3>
+            <p>Hati-hati dalam menghapus siswa</p>
           </div>
           <DeleteForm id={params.id} />
         </TabsContent>

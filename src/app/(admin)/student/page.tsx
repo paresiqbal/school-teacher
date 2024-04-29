@@ -18,7 +18,7 @@ import {
 
 export default function StudentPage() {
   return (
-    <div className="p-10 bg-muted/40">
+    <div className="p-10">
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -34,7 +34,7 @@ export default function StudentPage() {
       </Breadcrumb>
       <div className="pt-8">
         <h1 className="text-3xl font-bold">Manajemen Siswa.</h1>
-        <p>create and manage student data.</p>
+        <p>membuat akun dan kelola data siswa.</p>
       </div>
       <Card className="my-5">
         <StudentRegister />
