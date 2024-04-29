@@ -141,7 +141,7 @@ export default function StudentRegister() {
                   <FormLabel htmlFor="fullname">Nama Lengkap</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g john doe"
+                      placeholder="e.g Pahreza Iqbal"
                       type="text"
                       id="fullname"
                       {...field}
@@ -159,7 +159,7 @@ export default function StudentRegister() {
                   <FormLabel htmlFor="username">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g johndoe.siswa"
+                      placeholder="e.g pahreza.siswa"
                       autoComplete="username"
                       type="text"
                       id="username"
@@ -214,14 +214,9 @@ export default function StudentRegister() {
               name="yearEntry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="yearEntry">Year of Entry</FormLabel>
+                  <FormLabel htmlFor="yearEntry">Tahun Masuk</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Year of Entry"
-                      type="number"
-                      id="yearEntry"
-                      {...field}
-                    />
+                    <Input type="number" id="yearEntry" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

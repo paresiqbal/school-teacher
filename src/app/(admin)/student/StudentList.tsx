@@ -220,7 +220,7 @@ export default function StudentList() {
             <TableHead>Nama Lengkap</TableHead>
             <TableHead>Tingkat</TableHead>
             <TableHead>Kelas</TableHead>
-            <TableHead className="text-right">Action</TableHead>
+            <TableHead className="text-right">Aksi</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
