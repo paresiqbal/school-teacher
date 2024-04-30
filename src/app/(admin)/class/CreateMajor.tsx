@@ -82,7 +82,7 @@ export default function CreateMajor() {
             name="majorName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Major</FormLabel>
+                <FormLabel htmlFor="majorName">Major</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="TKJ 1, TBSM 2, etc."

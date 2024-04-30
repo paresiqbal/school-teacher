@@ -111,12 +111,15 @@ export default function CreateClass() {
             name="level"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <FormLabel
+                  className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="classLevel"
+                >
                   Kelas:
                 </FormLabel>
                 <FormControl>
                   <Select
-                    {...field}
+                    // {...field}
                     defaultValue={field.value}
                     onValueChange={field.onChange}
                   >
@@ -150,7 +153,7 @@ export default function CreateClass() {
                 </FormLabel>
                 <FormControl>
                   <Select
-                    {...field}
+                    // {...field}
                     defaultValue={field.value}
                     onValueChange={field.onChange}
                   >
