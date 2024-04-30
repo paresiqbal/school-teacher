@@ -78,30 +78,30 @@ export default function EditDialog({
       <Toaster richColors />
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-yellow-400">Edit Presence</Button>
+          <Button className="bg-yellow-400">Edit Presensi</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit Presence Status</DialogTitle>
+            <DialogTitle>Edit status presensi</DialogTitle>
             <DialogDescription>
-              Update the student presence status.
+              Perbarui status kehadiran siswa.
             </DialogDescription>
           </DialogHeader>
           <div className="flex gap-20">
-            <Label htmlFor="presence">Presence Status</Label>
+            <Label htmlFor="presence">Status kehadiran</Label>
             <select
               id="presence"
               value={isPresent}
               onChange={(e) => setIsPresent(e.target.value)}
               className="col-span-3 py-1.5 px-6 rounded-md bg-zinc-900"
             >
-              <option value="present">Present</option>
-              <option value="absent">Absent</option>
-              <option value="excuse">Excused</option>
+              <option value="present">Hadirs</option>
+              <option value="absent">Absen</option>
+              <option value="excuse">Izin</option>
             </select>
           </div>
           <DialogFooter>
-            <Button onClick={submitUpdate}>Save changes</Button>
+            <Button onClick={submitUpdate}>Simpan</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

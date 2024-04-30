@@ -53,7 +53,7 @@ export default function Selector({
           htmlFor="level-select"
           className="mb-2 text-sm font-medium text-gray-400"
         >
-          Level:
+          Tingkat
         </label>
         <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-52 pt-2">
           <Select
@@ -64,7 +64,7 @@ export default function Selector({
             }}
           >
             <SelectTrigger id="level-select" aria-label="Select Level">
-              <SelectValue placeholder="Select Level" />
+              <SelectValue placeholder="Pilih tingkatan" />
             </SelectTrigger>
             <SelectContent>
               {Array.from(new Set(classes.map((cls) => cls.level))).map(
@@ -84,7 +84,7 @@ export default function Selector({
           htmlFor="major-select"
           className="mb-2 text-sm font-medium text-gray-400"
         >
-          Major:
+          Kelas
         </label>
         <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-52 pt-2">
           <Select
@@ -97,7 +97,7 @@ export default function Selector({
             disabled={!selectedLevel}
           >
             <SelectTrigger aria-label="Select Major">
-              <SelectValue placeholder="Select Class" />
+              <SelectValue placeholder="Pilih kelas" />
             </SelectTrigger>
             <SelectContent>
               {classes
@@ -117,7 +117,7 @@ export default function Selector({
           htmlFor="date"
           className="block mb-2 text-sm font-medium text-gray-400"
         >
-          Date
+          Tanggal
         </label>
         <Popover>
           <PopoverTrigger asChild>
@@ -129,7 +129,7 @@ export default function Selector({
               disabled={!selectedClass}
             >
               <MdOutlineDateRange className="mr-2" />
-              {date ? format(date, "PPP") : "Pick a date"}
+              {date ? format(date, "PPP") : "Pilih tanggal"}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -152,13 +152,13 @@ export default function Selector({
           htmlFor="search"
           className="block mb-2 text-sm font-medium text-gray-400"
         >
-          Search
+          Cari
         </label>
         <Button
           onClick={handleFetchAttendance}
           disabled={!selectedClass || !selectedDate}
         >
-          Search
+          Cari
         </Button>
       </div>
     </div>
