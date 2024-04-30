@@ -100,7 +100,7 @@ export default function TeacherList() {
         <TableCaption>Daftar Guru.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Nama Lengkap</TableHead>
+            <TableHead className="min-w-[200px]">Nama Lengkap</TableHead>
             <TableHead className="w-[400px]">NIP</TableHead>
             <TableHead>Tugas</TableHead>
             <TableHead className="text-right">Aksi</TableHead>
@@ -110,7 +110,7 @@ export default function TeacherList() {
           {teachers.map((teacher) => (
             <TableRow key={teacher._id}>
               <TableCell>{teacher.fullname}</TableCell>
-              <TableCell className="w-[400px]">{teacher.nip}</TableCell>
+              <TableCell>{teacher.nip}</TableCell>
               <TableCell>
                 <Badge>{teacher.role}</Badge>
               </TableCell>
