@@ -102,7 +102,7 @@ export default function CreateClass() {
   return (
     <div className="flex flex-col">
       <div className="text-center pb-4">
-        <h2 className="underline">Create a Class</h2>
+        <h2 className="underline">Buat Kelas</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createClass)} className="space-y-2">
@@ -112,7 +112,7 @@ export default function CreateClass() {
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Class Level:
+                  Kelas:
                 </FormLabel>
                 <FormControl>
                   <Select
@@ -124,7 +124,7 @@ export default function CreateClass() {
                       id="classLevel"
                       aria-label="Select a class level"
                     >
-                      <SelectValue placeholder="Select Level" />
+                      <SelectValue placeholder="Pilih Tingkatan" />
                     </SelectTrigger>
                     <SelectContent id="level">
                       <SelectItem value="X">X</SelectItem>
@@ -146,7 +146,7 @@ export default function CreateClass() {
                   htmlFor="majorId"
                   className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Major:
+                  Jurusan
                 </FormLabel>
                 <FormControl>
                   <Select
@@ -155,7 +155,7 @@ export default function CreateClass() {
                     onValueChange={field.onChange}
                   >
                     <SelectTrigger id="majorId" aria-label="Select a major">
-                      <SelectValue placeholder="Select Major" />
+                      <SelectValue placeholder="Pilih Jurusan" />
                     </SelectTrigger>
                     <SelectContent>
                       {majors.map((major) => (
@@ -171,7 +171,7 @@ export default function CreateClass() {
             )}
           />
           <Button type="submit" className="w-full">
-            {isSubmitting ? "Creating..." : "Create Class"}
+            {isSubmitting ? "Membuat..." : "Buat Kelas"}
           </Button>
         </form>
       </Form>

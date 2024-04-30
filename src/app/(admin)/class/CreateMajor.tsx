@@ -73,7 +73,7 @@ export default function CreateMajor() {
   return (
     <div className="flex flex-col">
       <div className="text-center pb-4">
-        <h2 className="underline">Create an Major</h2>
+        <h2 className="underline">Buat Jurusan</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(createMajor)} className="space-y-2">
@@ -91,15 +91,13 @@ export default function CreateMajor() {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  Major name should be abbreviated.
-                </FormDescription>
+                <FormDescription>Nama Jurusan Harus Singkatan</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" className="w-full">
-            Create major
+            Buat Jurusan
           </Button>
         </form>
       </Form>

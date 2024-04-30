@@ -101,7 +101,7 @@ export default function ClassPage() {
   }, []);
 
   return (
-    <div className="p-10 bg-muted/40 h-full">
+    <div className="p-10 bg-background h-full">
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>

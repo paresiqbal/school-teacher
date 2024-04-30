@@ -18,7 +18,7 @@ import {
 
 export default async function TeacherPage() {
   return (
-    <div className="p-10 bg-muted/40">
+    <div className="p-10 bg-background">
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>
