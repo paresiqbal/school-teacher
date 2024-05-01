@@ -9,7 +9,7 @@ import {
 // checking
 const adminPage = [
   "/adminDashboard",
-  "/student",
+  // "/student",
   "/teacher",
   "/class",
   "/studentRecord",

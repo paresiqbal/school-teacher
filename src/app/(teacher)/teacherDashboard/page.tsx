@@ -33,7 +33,7 @@ export default function TeacherDashboard() {
             </Link>
           </div>
           <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
-            <Link className="group flex flex-col items-center" href="#">
+            <Link className="group flex flex-col items-center" href="/student">
               <BookUser className="h-6 w-6" />
               <span className="text-xs mt-1">Siswa</span>
             </Link>
