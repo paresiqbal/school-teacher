@@ -1,11 +1,9 @@
 "use client";
 
 // next
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 // icons
 import { Home, BookUser, User, Blocks, BookCheck, LogOut } from "lucide-react";
@@ -15,9 +13,6 @@ import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
   const { data: session, status }: { data: any; status: string } = useSession();
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
     <aside className="fixed top-0 left-0 z-50 h-full w-64 shrink-0 border-r bg-background dark:border-primary-foreground dark:bg-background lg:static">
@@ -74,9 +69,8 @@ export default function Sidebar() {
             <p>{session?.user?.role}</p>
           </div>
           {status === "authenticated" ? (
-            <Button>
-              <LogOut className="h-6 w-6" onClick={() => signOut()} />
-              <span>Logout</span>
+            <Button onClick={() => signOut()}>
+              <span>Sign out</span>
             </Button>
           ) : (
             "loading"
