@@ -68,7 +68,7 @@ export default function PresensiForm() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Student</BreadcrumbPage>
+            <BreadcrumbPage>Presensi</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -78,7 +78,7 @@ export default function PresensiForm() {
       </div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="w-full text-xl font-bold">Check Presensi</Button>
+          <Button className="w-full text-xl font-bold">Cek Presensi</Button>
         </DialogTrigger>
         <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md rounded-md">
           <form onSubmit={handleSubmit}>

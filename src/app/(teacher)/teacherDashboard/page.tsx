@@ -17,9 +17,9 @@ export default function TeacherDashboard() {
 
   return (
     <div className="p-10">
-      <h1 className="text-xl font-semibold">Teacher Dashboard</h1>
+      <h1 className="text-xl font-semibold">Dashboard</h1>
       <div className="py-6">
-        <h2 className="text-2xl font-semibold">Wellcome</h2>
+        <h2 className="text-2xl font-semibold">Selamat Datang</h2>
         <p className="text-3xl font-extrabold text-yellow-500">
           {session?.user?.fullname}
         </p>
@@ -62,7 +62,7 @@ export default function TeacherDashboard() {
           <div className="flex flex-col p-2 items-center justify-center active:bg-yellow-400 rounded-md">
             <Link className="group flex flex-col items-center" href="#">
               <MoreHorizontalIcon className="h-6 w-6" />
-              <span className="text-xs mt-1">More</span>
+              <span className="text-xs mt-1">Lainya</span>
             </Link>
           </div>
         </div>

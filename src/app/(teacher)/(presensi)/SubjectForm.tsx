@@ -38,7 +38,7 @@ export default function SubjectForm() {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Check Presensi</Button>
+          <Button>Cek Presensi</Button>
         </DialogTrigger>
         <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md rounded-md">
           <form onSubmit={handleSubmit}>
@@ -60,7 +60,7 @@ export default function SubjectForm() {
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Kirim</Button>
             </DialogFooter>
           </form>
         </DialogContent>
