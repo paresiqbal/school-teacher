@@ -145,7 +145,7 @@ export default function StudentList() {
         <div>
           <h3 className="font-semibold leading-none tracking-tight">Siswa</h3>
           <p className="text-sm text-muted-foreground">
-            Kelola data dan detail siswa.
+            Kelola data dan detail siswa smk rl.
           </p>
         </div>
         <div className="flex gap-10 items-center">
