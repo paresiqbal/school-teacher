@@ -78,7 +78,7 @@ export default function EditDialog({
       <Toaster richColors />
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-yellow-400">Edit Presensi</Button>
+          <Button className="bg-yellow-400 text-xs">Edit</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

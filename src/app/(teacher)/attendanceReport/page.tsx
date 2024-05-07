@@ -214,7 +214,7 @@ export default function AttendanceReport() {
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm text-left">
-                        <TableCaption className="p-2 text-lg font-medium">
+                        <TableCaption className="p-1 text-lg font-medium">
                           Daftar Presensi
                         </TableCaption>
                         <TableHeader>
