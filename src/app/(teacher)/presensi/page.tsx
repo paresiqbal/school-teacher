@@ -54,7 +54,7 @@ export default function PresensiForm() {
       teacherId: session?.user?.id,
     }));
 
-    router.push("/scanner");
+    router.push("/presensi/scanner");
   };
 
   return (
