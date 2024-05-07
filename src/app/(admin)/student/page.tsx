@@ -3,7 +3,7 @@ import Link from "next/link";
 
 // components
 import StudentRegister from "./StudentRegister";
-import StudentList from "./StudentList";
+import StudentList from "@/components/common/StudentList";
 
 // shadcn
 import { Card } from "@/components/ui/card";
