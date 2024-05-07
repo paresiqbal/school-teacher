@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // components
-import Selector from "./Selector";
-import EditDialog from "./EditDialog";
-import { generatePDF } from "./generatePDF";
+import Selector from "../../../components/common/Selector";
+import EditDialog from "../../../components/common/EditDialog";
+import { generatePDF } from "../../../components/common/generatePDF";
 
 // icons
 import { ChevronsUpDown } from "lucide-react";
