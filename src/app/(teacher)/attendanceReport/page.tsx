@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // components
-import Selector from "@/components/common/Selector";
-import EditDialog from "@/components/common/EditDialog";
-import { generatePDF } from "@/components/common/generatePDF";
+import Selector from "../../../components/common/Selector";
+import EditDialog from "../../../components/common/EditDialog";
+import { generatePDF } from "../../../components/common/generatePDF";
 
 // icons
 import { ChevronsUpDown } from "lucide-react";
@@ -62,7 +62,7 @@ interface IAttendanceRecord {
   students: IStudentAttendance[];
 }
 
-export default function StudentRecord() {
+export default function AttendanceReport() {
   const [classes, setClasses] = useState<IClass[]>([]);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedClass, setSelectedClass] = useState<IClass | null>(null);
@@ -149,13 +149,13 @@ export default function StudentRecord() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Student Attendance</BreadcrumbPage>
+            <BreadcrumbPage>Presensi Siswa</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="py-8">
-        <h1 className="text-3xl font-bold">Attendance report of students</h1>
-        <p>See and create report daily or weekly students attendance.</p>
+        <h1 className="text-3xl font-bold">Laporan kehadiran siswa.</h1>
+        <p>Membuat dan mengedit laporan kehadiran siswa harian.</p>
       </div>
       <Card className="p-6">
         <Selector
@@ -198,31 +198,31 @@ export default function StudentRecord() {
                   <div className="p-4">
                     <div className="space-y-2">
                       <p>
-                        <strong>Date:</strong>
+                        <strong>Tanggal</strong>
                         {new Date(record.date).toLocaleDateString()}
                       </p>
                       <p>
-                        <strong>Class:</strong> {selectedLevel} -
+                        <strong>Kelas</strong> {selectedLevel} -
                         {selectedClass?.majorName}
                       </p>
                       <p>
-                        <strong>Teacher:</strong> {teacherNames[index]}
+                        <strong>Guru</strong> {teacherNames[index]}
                       </p>
                       <p>
-                        <strong>Subject:</strong> {record.subject}
+                        <strong>Mapel</strong> {record.subject}
                       </p>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm text-left">
                         <TableCaption className="p-2 text-lg font-medium">
-                          Attendance List
+                          Daftar Presensi
                         </TableCaption>
                         <TableHeader>
                           <TableRow className="bg-zinc-950">
                             <TableHead className="p-2">No.</TableHead>
-                            <TableHead>Student Name</TableHead>
-                            <TableHead>Presence</TableHead>
-                            <TableHead className="text-right">Action</TableHead>
+                            <TableHead>Nama Siswa</TableHead>
+                            <TableHead>Kehadiran</TableHead>
+                            <TableHead className="text-right">Aksi</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -267,7 +267,7 @@ export default function StudentRecord() {
                 )
               }
             >
-              Generate PDF
+              Buat PDF
             </Button>
           </div>
         )}
