@@ -26,35 +26,35 @@ export default function Sidebar() {
           </Link>
           <nav className="mt-6 space-y-2">
             <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
               href="/adminDashboard"
             >
               <Home className="h-6 w-6" />
               <span>Dashboard</span>
             </Link>
             <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
               href="/student"
             >
               <BookUser className="h-6 w-6" />
               <span>Siswa</span>
             </Link>
             <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
               href="/teacher"
             >
               <User className="h-6 w-6" />
               <span>Guru</span>
             </Link>
             <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
               href="/class"
             >
               <Blocks className="h-6 w-6" />
               <span>Kelas</span>
             </Link>
             <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50"
               href="/studentRecord"
             >
               <BookCheck className="h-6 w-6" />
@@ -64,12 +64,13 @@ export default function Sidebar() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex flex-col gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50">
+          <div className="flex flex-col gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted hover:text-gray-900 dark:text-gray-400 dark:hover:bg-muted dark:hover:text-gray-50">
             <p className="text-lg font-bold">{session?.user?.fullname}</p>
             <p>{session?.user?.role}</p>
           </div>
           {status === "authenticated" ? (
-            <Button onClick={() => signOut()}>
+            <Button onClick={() => signOut()} className="space-x-1">
+              <LogOut className="h-6 w-6" />
               <span>Sign out</span>
             </Button>
           ) : (
