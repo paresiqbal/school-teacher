@@ -139,12 +139,12 @@ export default function AttendanceReport() {
   };
 
   return (
-    <div className="p-10 bg-muted/40 h-full">
+    <div className="p-10 h-full">
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/adminDashboard">Dashboard</Link>
+              <Link href="/teacherDashboard">Dashboard</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -157,7 +157,7 @@ export default function AttendanceReport() {
         <h1 className="text-3xl font-bold">Laporan kehadiran siswa.</h1>
         <p>Membuat dan mengedit laporan kehadiran siswa harian.</p>
       </div>
-      <Card className="p-6">
+      <div>
         <Selector
           classes={classes}
           selectedLevel={selectedLevel}
@@ -271,7 +271,7 @@ export default function AttendanceReport() {
             </Button>
           </div>
         )}
-      </Card>
+      </div>
     </div>
   );
 }

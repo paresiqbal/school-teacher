@@ -47,7 +47,7 @@ export default function Selector({
   handleFetchAttendance,
 }: SelectorProps) {
   return (
-    <div className="flex gap-10 items-center py-2">
+    <div className="bg-background rounded-lg shadow-lg space-y-6 w-full">
       <div>
         <label
           htmlFor="level-select"
@@ -55,7 +55,7 @@ export default function Selector({
         >
           Tingkat
         </label>
-        <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-52 pt-2">
+        <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block pt-2 w-full">
           <Select
             value={selectedLevel}
             onValueChange={(level) => {
@@ -86,7 +86,7 @@ export default function Selector({
         >
           Kelas
         </label>
-        <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-52 pt-2">
+        <div className="text-white text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full pt-2">
           <Select
             value={selectedClass?._id || ""}
             onValueChange={(value) => {
@@ -123,7 +123,7 @@ export default function Selector({
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className={`w-[240px] justify-start text-left font-normal ${
+              className={`w-full justify-start text-left font-normal ${
                 !date ? "text-gray-400" : "text-white"
               }`}
               disabled={!selectedClass}
@@ -157,6 +157,7 @@ export default function Selector({
         <Button
           onClick={handleFetchAttendance}
           disabled={!selectedClass || !selectedDate}
+          className="w-full"
         >
           Cari
         </Button>
