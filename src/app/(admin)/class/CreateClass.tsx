@@ -115,7 +115,7 @@ export default function CreateClass() {
                   className="text-sm pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="classLevel"
                 >
-                  Kelas:
+                  Kelas
                 </FormLabel>
                 <FormControl>
                   <Select
