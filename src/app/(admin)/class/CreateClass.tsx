@@ -74,11 +74,9 @@ export default function CreateClass() {
       const data = await response.json();
       if (!response.ok) {
         if (data.error && data.error.includes("already exists")) {
-          alert("Class already exists. Please try again.");
+          alert("Kelas Sudah Ada.");
         } else {
-          throw new Error(
-            data.error || "Failed to create class. Please try again."
-          );
+          throw new Error(data.error || "Gagal Buat Kelas.");
         }
       } else {
         form.reset({
