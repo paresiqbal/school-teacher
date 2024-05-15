@@ -16,14 +16,7 @@ export default function AdminDashboard() {
             {session?.user?.fullname}
           </span>
         </h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-          deserunt dolorem, minus inventore dolores voluptate adipisci eum
-          consectetur ducimus deleniti.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, sit.
-        </p>
+
         <p className="text-3xl">Lorem ipsum dolor sit amet consectetur.</p>
       </div>
       <div>
