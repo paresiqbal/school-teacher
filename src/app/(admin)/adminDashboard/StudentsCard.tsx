@@ -29,7 +29,7 @@ interface ITeacher {
 }
 
 async function getStudentsData(): Promise<IStudent[]> {
-  const res = await fetch(`${process.env.API_STUDENTS}`, {
+  const res = await fetch("https://express.smkn1rl.sch.id/student/students", {
     next: {
       revalidate: 0,
     },
@@ -43,7 +43,7 @@ async function getStudentsData(): Promise<IStudent[]> {
 }
 
 async function getTeachersData(): Promise<ITeacher[]> {
-  const res = await fetch(`${process.env.API_TEACHERS}`, {
+  const res = await fetch("https://express.smkn1rl.sch.id/user/teachers", {
     cache: "no-store",
     next: {
       revalidate: 0,
