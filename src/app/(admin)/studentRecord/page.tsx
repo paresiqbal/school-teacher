@@ -75,7 +75,7 @@ export default function StudentRecord() {
 
   useEffect(() => {
     const fetchClasses = async () => {
-      const response = await fetch("http://localhost:3001/class/classes");
+      const response = await fetch(`${process.env.API_CLASSES}`);
       const data = await response.json();
       setClasses(data);
     };
