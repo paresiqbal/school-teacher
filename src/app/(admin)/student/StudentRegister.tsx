@@ -74,13 +74,16 @@ export default function StudentRegister() {
     const registrationValues = { ...values, role: "student" };
 
     try {
-      const response = await fetch("http://localhost:3001/student/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registrationValues),
-      });
+      const response = await fetch(
+        "https://express.smkn1rl.sch.id/student/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registrationValues),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Uh oh! Gagal mendaftarkan siswa.");

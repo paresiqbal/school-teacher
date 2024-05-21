@@ -29,7 +29,7 @@ interface ITeacher {
 }
 
 async function getStudentsData(): Promise<IStudent[]> {
-  const res = await fetch("http://localhost:3001/student/students", {
+  const res = await fetch(`${process.env.API_STUDENTS}`, {
     next: {
       revalidate: 0,
     },
@@ -43,7 +43,7 @@ async function getStudentsData(): Promise<IStudent[]> {
 }
 
 async function getTeachersData(): Promise<ITeacher[]> {
-  const res = await fetch("http://localhost:3001/user/teachers", {
+  const res = await fetch(`${process.env.API_TEACHERS}`, {
     cache: "no-store",
     next: {
       revalidate: 0,
