@@ -49,7 +49,9 @@ export default function CreateClass() {
 
   const fetchMajors = async () => {
     try {
-      const response = await fetch(`${process.env.API_MAJORS}`);
+      const response = await fetch(
+        "https://express.smkn1rl.sch.id/class/majors"
+      );
       if (!response.ok) throw new Error("Failed to fetch majors.");
 
       const data: Major[] = await response.json();
@@ -63,13 +65,16 @@ export default function CreateClass() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${process.env.API_ADD_CLASS}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await fetch(
+        "https://express.smkn1rl.sch.id/class/addClass",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
       const data = await response.json();
       if (!response.ok) {
