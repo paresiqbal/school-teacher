@@ -32,14 +32,11 @@ async function updateAttendance(
   isPresent: string
 ): Promise<boolean> {
   try {
-    const res = await fetch(
-      "http://localhost:3001/attendance/edit-attendance-record",
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ attendanceId, studentId, isPresent }),
-      }
-    );
+    const res = await fetch(`${process.env.API_ATTENDANCE_EDIT}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ attendanceId, studentId, isPresent }),
+    });
 
     const data = await res.json();
     if (res.ok) {
