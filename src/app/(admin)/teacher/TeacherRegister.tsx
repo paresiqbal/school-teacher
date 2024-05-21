@@ -50,7 +50,7 @@ export default function TeacherRegister() {
     const registrationValues = { ...values, role: "teacher" };
 
     try {
-      const response = await fetch("http://localhost:3001/user/register", {
+      const response = await fetch(`${process.env.API_TEACHER_REGISTER}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

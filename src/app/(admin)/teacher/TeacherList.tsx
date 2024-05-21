@@ -30,7 +30,7 @@ interface ITeacher {
 }
 
 async function getTeachersData(): Promise<ITeacher[]> {
-  const res = await fetch("http://localhost:3001/user/teachers", {
+  const res = await fetch(`${process.env.API_TEACHERS}`, {
     cache: "no-store",
     next: {
       revalidate: 0,
@@ -42,7 +42,7 @@ async function getTeachersData(): Promise<ITeacher[]> {
 
 async function deleteTeacher(id: string): Promise<void> {
   try {
-    const res = await fetch(`http://localhost:3001/user/delete/${id}`, {
+    const res = await fetch(`${process.env.API_BASE_URL}/user/delete/${id}`, {
       method: "DELETE",
     });
 
