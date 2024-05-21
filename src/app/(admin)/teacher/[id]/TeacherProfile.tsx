@@ -29,7 +29,7 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3001/user/teacher/${id}`
+          `${process.env.API_BASE_URL}/user/teacher/${id}`
         );
         if (!response.ok) {
           throw new Error("Teacher not found or server error");
@@ -63,7 +63,7 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3001/user/update-teacher/${id}`,
+        `${process.env.API_BASE_URL}/user/update-teacher/${id}`,
         {
           method: "PATCH",
           headers: {
