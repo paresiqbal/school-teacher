@@ -4,7 +4,7 @@
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 
 // zod
 import { zodResolver } from "@hookform/resolvers/zod";

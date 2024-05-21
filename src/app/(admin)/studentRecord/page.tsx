@@ -75,7 +75,9 @@ export default function StudentRecord() {
 
   useEffect(() => {
     const fetchClasses = async () => {
-      const response = await fetch(`${process.env.API_CLASSES}`);
+      const response = await fetch(
+        "https://express.smkn1rl.sch.id/class/classes"
+      );
       const data = await response.json();
       setClasses(data);
     };
@@ -85,7 +87,7 @@ export default function StudentRecord() {
   useEffect(() => {
     const fetchTeacherDetails = async (teacherId: string) => {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/user/teacher/${teacherId}`
+        `https://express.smkn1rl.sch.id/user/teacher/${teacherId}`
       );
       if (!response.ok) return null;
       const teacher = await response.json();
@@ -110,7 +112,7 @@ export default function StudentRecord() {
       return;
     }
     const response = await fetch(
-      `${process.env.API_BASE_URL}/attendance/attendance-record?date=${selectedDate}&classId=${selectedClass._id}`
+      `https://express.smkn1rl.sch.id/attendance/attendance-record?date=${selectedDate}&classId=${selectedClass._id}`
     );
     if (!response.ok) return;
     const data = await response.json();

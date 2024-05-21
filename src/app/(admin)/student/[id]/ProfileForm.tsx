@@ -28,7 +28,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
       setLoading(true);
       try {
         const response = await fetch(
-          `${process.env.API_BASE_URL}/student/student/${id}`
+          `https://express.smkn1rl.sch.id/student/student/${id}`
         );
         if (!response.ok) {
           throw new Error("Siswa tidak ditemukan atau server error");
@@ -62,7 +62,7 @@ export default function ProfileForm({ id }: ProfileFormProps) {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/student/update/${id}`,
+        `https://express.smkn1rl.sch.id/student/update/${id}`,
         {
           method: "PATCH",
           headers: {

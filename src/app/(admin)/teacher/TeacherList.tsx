@@ -30,7 +30,7 @@ interface ITeacher {
 }
 
 async function getTeachersData(): Promise<ITeacher[]> {
-  const res = await fetch(`${process.env.API_TEACHERS}`, {
+  const res = await fetch("https://express.smkn1rl.sch.id/user/teachers", {
     cache: "no-store",
     next: {
       revalidate: 0,
@@ -42,9 +42,12 @@ async function getTeachersData(): Promise<ITeacher[]> {
 
 async function deleteTeacher(id: string): Promise<void> {
   try {
-    const res = await fetch(`${process.env.API_BASE_URL}/user/delete/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `https://express.smkn1rl.sch.id/user/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);

@@ -63,7 +63,7 @@ export default function TeacherProfile({ id }: ProfileFormProps) {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/user/update-teacher/${id}`,
+        `https://express.smkn1rl.sch.id/user/update-teacher/${id}`,
         {
           method: "PATCH",
           headers: {

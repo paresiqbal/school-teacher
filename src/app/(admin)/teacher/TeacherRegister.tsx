@@ -50,13 +50,16 @@ export default function TeacherRegister() {
     const registrationValues = { ...values, role: "teacher" };
 
     try {
-      const response = await fetch(`${process.env.API_TEACHER_REGISTER}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registrationValues),
-      });
+      const response = await fetch(
+        "https://express.smkn1rl.sch.id/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registrationValues),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Gagal Mendaftar");

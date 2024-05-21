@@ -9,7 +9,7 @@ export default function DeleteForm({ id }: { id: string }) {
   const deleteStudent = async () => {
     try {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/student/delete/${id}`,
+        `https://express.smkn1rl.sch.id/student/delete/${id}`,
         {
           method: "DELETE",
         }

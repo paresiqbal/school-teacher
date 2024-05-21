@@ -34,7 +34,7 @@ export default function QrForm({ id }: { id: string }) {
     const fetchStudentDetails = async () => {
       try {
         const response = await fetch(
-          `${process.env.API_BASE_URL}/student/student/${id}`
+          `https://express.smkn1rl.sch.id/student/student/${id}`
         );
         if (!response.ok) throw new Error("Failed to fetch student data");
         const text = await response.text();

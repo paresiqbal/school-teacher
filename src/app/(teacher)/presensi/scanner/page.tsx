@@ -77,7 +77,7 @@ export default function ScannerPresensi() {
       classId: classID,
     };
 
-    fetch(`${process.env.API_ATTENDANCE}`, {
+    fetch("https://express.smkn1rl.sch.id/attendance/mark", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
