@@ -74,16 +74,13 @@ export default function StudentRegister() {
     const registrationValues = { ...values, role: "student" };
 
     try {
-      const response = await fetch(
-        "https://express.smkn1rl.sch.id/student/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(registrationValues),
-        }
-      );
+      const response = await fetch(`${process.env.API_STUDENT_REGISTER}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationValues),
+      });
 
       if (!response.ok) {
         throw new Error("Uh oh! Gagal mendaftarkan siswa.");
@@ -107,7 +104,7 @@ export default function StudentRegister() {
 
   useEffect(() => {
     async function fetchClasses() {
-      const response = await fetch("http://localhost:3001/class/classes");
+      const response = await fetch(`${process.env.API_CLASSES}`);
       if (!response.ok) throw new Error("Failed to fetch classes");
 
       const data = await response.json();
