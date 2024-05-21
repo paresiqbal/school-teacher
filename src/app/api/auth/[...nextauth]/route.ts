@@ -16,7 +16,11 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch("http://localhost:3001/user/login", {
+        if (!process.env.API_LOGIN) {
+          throw new Error("API_LOGIN environment variable is not defined");
+        }
+
+        const res = await fetch(process.env.API_LOGIN, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
@@ -51,7 +55,6 @@ const authOptions: NextAuthOptions = {
       return token;
     },
 
-    // generate session
     async session({ session, token, user }: any) {
       session.accessToken = token.accessToken;
       session.user.id = token.id;
