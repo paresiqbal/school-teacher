@@ -49,7 +49,7 @@ interface IMajor {
 }
 
 async function getStudentsData(): Promise<IStudent[]> {
-  const res = await fetch("http://localhost:3001/student/students", {
+  const res = await fetch(`${process.env.API_STUDENTS}`, {
     next: {
       revalidate: 0,
     },
@@ -60,9 +60,12 @@ async function getStudentsData(): Promise<IStudent[]> {
 
 async function deleteStudent(id: number): Promise<void> {
   try {
-    const res = await fetch(`http://localhost:3001/student/delete/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.API_BASE_URL}/student/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     toast.error("Siswa berhasil dihapus.");
 
@@ -76,7 +79,7 @@ async function deleteStudent(id: number): Promise<void> {
 }
 
 async function getMajorsData(): Promise<IMajor[]> {
-  const res = await fetch("http://localhost:3001/class/majors", {
+  const res = await fetch(`${process.env.API_MAJORS}`, {
     next: {
       revalidate: 0,
     },
