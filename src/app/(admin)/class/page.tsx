@@ -34,7 +34,7 @@ interface IClass {
 
 // get all majors
 async function getMajors(): Promise<IMajor[]> {
-  const response = await fetch("http://localhost:3001/class/majors", {
+  const response = await fetch(`${process.env.API_MAJORS}`, {
     next: {
       revalidate: 3,
     },
@@ -45,7 +45,7 @@ async function getMajors(): Promise<IMajor[]> {
 
 // get all classes
 async function getClasses() {
-  const response = await fetch("http://localhost:3001/class/classes", {
+  const response = await fetch(`${process.env.API_CLASSES}`, {
     next: {
       revalidate: 3,
     },
@@ -62,7 +62,7 @@ export default function ClassPage() {
   const deleteMajor = async (majorId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/class/delete-major/${majorId}`,
+        `${process.env.API_BASE_URL}/class/delete-major/${majorId}`,
         {
           method: "DELETE",
         }
@@ -80,7 +80,7 @@ export default function ClassPage() {
   const deleteClass = async (classId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/class/delete-class/${classId}`,
+        `${process.env.API_BASE_URL}/class/delete-class/${classId}`,
         {
           method: "DELETE",
         }
