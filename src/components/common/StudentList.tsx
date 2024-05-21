@@ -49,7 +49,7 @@ interface IMajor {
 }
 
 async function getStudentsData(): Promise<IStudent[]> {
-  const res = await fetch(`${process.env.API_STUDENTS}`, {
+  const res = await fetch("https://express.smkn1rl.sch.id/student/students", {
     next: {
       revalidate: 0,
     },
@@ -61,7 +61,7 @@ async function getStudentsData(): Promise<IStudent[]> {
 async function deleteStudent(id: number): Promise<void> {
   try {
     const res = await fetch(
-      `${process.env.API_BASE_URL}/student/delete/${id}`,
+      `https://express.smkn1rl.sch.id/student/delete/${id}`,
       {
         method: "DELETE",
       }
@@ -79,7 +79,7 @@ async function deleteStudent(id: number): Promise<void> {
 }
 
 async function getMajorsData(): Promise<IMajor[]> {
-  const res = await fetch(`${process.env.API_MAJORS}`, {
+  const res = await fetch("https://express.smkn1rl.sch.id/class/majors", {
     next: {
       revalidate: 0,
     },

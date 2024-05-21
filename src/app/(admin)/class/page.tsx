@@ -34,7 +34,7 @@ interface IClass {
 
 // get all majors
 async function getMajors(): Promise<IMajor[]> {
-  const response = await fetch(`${process.env.API_MAJORS}`, {
+  const response = await fetch("https://express.smkn1rl.sch.id/class/majors", {
     next: {
       revalidate: 3,
     },
@@ -45,7 +45,7 @@ async function getMajors(): Promise<IMajor[]> {
 
 // get all classes
 async function getClasses() {
-  const response = await fetch(`${process.env.API_CLASSES}`, {
+  const response = await fetch("https://express.smkn1rl.sch.id/class/classes", {
     next: {
       revalidate: 3,
     },
@@ -62,7 +62,7 @@ export default function ClassPage() {
   const deleteMajor = async (majorId: string) => {
     try {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/class/delete-major/${majorId}`,
+        `https://express.smkn1rl.sch.id/class/delete-major/${majorId}`,
         {
           method: "DELETE",
         }
@@ -80,7 +80,7 @@ export default function ClassPage() {
   const deleteClass = async (classId: string) => {
     try {
       const response = await fetch(
-        `${process.env.API_BASE_URL}/class/delete-class/${classId}`,
+        `https://express.smkn1rl.sch.id/class/delete-class/${classId}`,
         {
           method: "DELETE",
         }
