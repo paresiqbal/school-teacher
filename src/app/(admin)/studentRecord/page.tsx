@@ -85,7 +85,7 @@ export default function StudentRecord() {
   useEffect(() => {
     const fetchTeacherDetails = async (teacherId: string) => {
       const response = await fetch(
-        `http://localhost:3001/user/teacher/${teacherId}`
+        `${process.env.API_BASE_URL}/user/teacher/${teacherId}`
       );
       if (!response.ok) return null;
       const teacher = await response.json();
@@ -110,7 +110,7 @@ export default function StudentRecord() {
       return;
     }
     const response = await fetch(
-      `http://localhost:3001/attendance/attendance-record?date=${selectedDate}&classId=${selectedClass._id}`
+      `${process.env.API_BASE_URL}/attendance/attendance-record?date=${selectedDate}&classId=${selectedClass._id}`
     );
     if (!response.ok) return;
     const data = await response.json();
