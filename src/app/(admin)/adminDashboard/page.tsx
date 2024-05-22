@@ -16,8 +16,6 @@ export default function AdminDashboard() {
             {session?.user?.fullname}
           </span>
         </h2>
-
-        <p className="text-3xl">Lorem ipsum dolor sit amet consectetur.</p>
       </div>
       <div>
         <StudentsCard />
