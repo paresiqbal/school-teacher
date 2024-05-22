@@ -39,7 +39,7 @@ export default function CreateMajor() {
     const majorValues = { ...values };
 
     try {
-      const response = await fetch("http://localhost:3001/class/addMajor", {
+      const response = await fetch("https://express.smkn1rl.sch.id/class/addMajor", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
