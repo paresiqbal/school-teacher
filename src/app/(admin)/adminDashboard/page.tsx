@@ -15,8 +15,6 @@ export default function AdminDashboard() {
           <span className="text-yellow-500 font-extrabold">
             {session?.user?.fullname}
           </span>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa est
-          nemo nulla facilis aliquam ad.
         </h2>
       </div>
       <div>
